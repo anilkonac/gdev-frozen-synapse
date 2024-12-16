@@ -65,26 +65,18 @@
   "resources": {
     "resources": [
       {
-        "file": "rifleman.png",
-        "kind": "image",
-        "metadata": "",
-        "name": "rifleman.png",
-        "smoothed": true,
-        "userAdded": false
-      },
-      {
-        "file": "assets/rifleman.png",
-        "kind": "image",
-        "metadata": "{\"extension\":\".png\"}",
-        "name": "rifleman",
-        "smoothed": true,
-        "userAdded": false
-      },
-      {
         "file": "assets/rifleman2.png",
         "kind": "image",
         "metadata": "{\"extension\":\".png\"}",
         "name": "rifleman2",
+        "smoothed": true,
+        "userAdded": false
+      },
+      {
+        "file": "assets/aseprite_arrows3.png",
+        "kind": "image",
+        "metadata": "{\"extension\":\".png\"}",
+        "name": "aseprite\\arrows3",
         "smoothed": true,
         "userAdded": false
       }
@@ -103,7 +95,7 @@
       "disableInputWhenNotFocused": true,
       "mangledName": "Untitled_32scene",
       "name": "Untitled scene",
-      "r": 187,
+      "r": 156,
       "standardSortMethod": true,
       "stopSoundsOnStartup": true,
       "title": "",
@@ -118,7 +110,7 @@
         "gridColor": 10401023,
         "gridAlpha": 0.8,
         "snap": false,
-        "zoomFactor": 0.5610952083582067,
+        "zoomFactor": 0.8635277700823947,
         "windowMask": false
       },
       "objectsGroups": [],
@@ -136,6 +128,38 @@
           "x": 505,
           "y": 313,
           "zOrder": 1,
+          "numberProperties": [],
+          "stringProperties": [],
+          "initialVariables": []
+        },
+        {
+          "angle": 0,
+          "customSize": false,
+          "height": 0,
+          "keepRatio": true,
+          "layer": "",
+          "name": "Rifleman",
+          "persistentUuid": "08e12aa9-5be7-4db5-8327-42d8be3918d8",
+          "width": 0,
+          "x": 841,
+          "y": 312,
+          "zOrder": 2,
+          "numberProperties": [],
+          "stringProperties": [],
+          "initialVariables": []
+        },
+        {
+          "angle": 0,
+          "customSize": false,
+          "height": 0,
+          "keepRatio": true,
+          "layer": "",
+          "name": "Rifleman",
+          "persistentUuid": "f3a38e7a-b6b4-4562-a4f8-ab1639dde0de",
+          "width": 0,
+          "x": 678,
+          "y": 535,
+          "zOrder": 3,
           "numberProperties": [],
           "stringProperties": [],
           "initialVariables": []
@@ -234,6 +258,67 @@
               ]
             }
           ]
+        },
+        {
+          "adaptCollisionMaskAutomatically": true,
+          "assetStoreId": "",
+          "name": "NavArrows",
+          "type": "Sprite",
+          "updateIfNotVisible": false,
+          "variables": [],
+          "effects": [],
+          "behaviors": [],
+          "animations": [
+            {
+              "name": "aseprite\\arrows",
+              "useMultipleDirections": false,
+              "directions": [
+                {
+                  "looping": false,
+                  "metadata": "{\"pskl\":{}}",
+                  "timeBetweenFrames": 0.08,
+                  "sprites": [
+                    {
+                      "hasCustomCollisionMask": true,
+                      "image": "aseprite\\arrows3",
+                      "points": [],
+                      "originPoint": {
+                        "name": "origine",
+                        "x": 0,
+                        "y": 0
+                      },
+                      "centerPoint": {
+                        "automatic": true,
+                        "name": "centre",
+                        "x": 0,
+                        "y": 0
+                      },
+                      "customCollisionMask": [
+                        [
+                          {
+                            "x": 0,
+                            "y": 0
+                          },
+                          {
+                            "x": 95,
+                            "y": 0
+                          },
+                          {
+                            "x": 95,
+                            "y": 95
+                          },
+                          {
+                            "x": 0,
+                            "y": 95
+                          }
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ],
       "objectsFolderStructure": {
@@ -241,6 +326,9 @@
         "children": [
           {
             "objectName": "Rifleman"
+          },
+          {
+            "objectName": "NavArrows"
           }
         ]
       },
@@ -269,62 +357,147 @@
                 "no"
               ]
             }
+          ],
+          "events": [
+            {
+              "colorB": 228,
+              "colorG": 176,
+              "colorR": 74,
+              "creationTime": 0,
+              "name": "Initialize Rifleman",
+              "source": "",
+              "type": "BuiltinCommonInstructions::Group",
+              "events": [
+                {
+                  "type": "BuiltinCommonInstructions::Comment",
+                  "color": {
+                    "b": 109,
+                    "g": 230,
+                    "r": 255,
+                    "textB": 0,
+                    "textG": 0,
+                    "textR": 0
+                  },
+                  "comment": "Initialize appearance of the Rifleman\n"
+                },
+                {
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "ChangeColor"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "\"0;255;0\""
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "EffectCapability::EffectBehavior::SetEffectStringParameter"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "Effect",
+                        "\"Glow\"",
+                        "\"color\"",
+                        "\"0;255;0\""
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "BuiltinCommonInstructions::Comment",
+                  "color": {
+                    "b": 109,
+                    "g": 230,
+                    "r": 255,
+                    "textB": 0,
+                    "textG": 0,
+                    "textR": 0
+                  },
+                  "comment": "Create NavArrows for the rifleman\n"
+                },
+                {
+                  "type": "BuiltinCommonInstructions::ForEach",
+                  "object": "Rifleman",
+                  "conditions": [],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "Create"
+                      },
+                      "parameters": [
+                        "",
+                        "NavArrows",
+                        "Rifleman.X()",
+                        "Rifleman.Y()",
+                        ""
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetCenter"
+                      },
+                      "parameters": [
+                        "NavArrows",
+                        "=",
+                        "Rifleman.CenterX()",
+                        "=",
+                        "Rifleman.CenterY()"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "LinkedObjects::LinkObjects"
+                      },
+                      "parameters": [
+                        "",
+                        "Rifleman",
+                        "NavArrows"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "Cache"
+                      },
+                      "parameters": [
+                        "NavArrows"
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "parameters": []
+            }
           ]
         },
         {
-          "type": "BuiltinCommonInstructions::Standard",
-          "conditions": [
-            {
-              "type": {
-                "value": "SourisSurObjet"
-              },
-              "parameters": [
-                "Rifleman",
-                "",
-                "",
-                ""
-              ]
-            }
-          ],
-          "actions": [
-            {
-              "type": {
-                "value": "EffectCapability::EffectBehavior::EnableEffect"
-              },
-              "parameters": [
-                "Rifleman",
-                "Effect",
-                "\"Glow\"",
-                "yes"
-              ]
-            }
-          ],
+          "colorB": 228,
+          "colorG": 176,
+          "colorR": 74,
+          "creationTime": 0,
+          "name": "Rifleman selection",
+          "source": "",
+          "type": "BuiltinCommonInstructions::Group",
           "events": [
             {
               "type": "BuiltinCommonInstructions::Standard",
               "conditions": [
                 {
                   "type": {
-                    "value": "MouseButtonPressed"
+                    "value": "SourisSurObjet"
                   },
                   "parameters": [
+                    "Rifleman",
                     "",
-                    "Left"
+                    "",
+                    ""
                   ]
                 }
               ],
               "actions": [
-                {
-                  "type": {
-                    "value": "SetBooleanObjectVariable"
-                  },
-                  "parameters": [
-                    "Rifleman",
-                    "selected",
-                    "True",
-                    ""
-                  ]
-                },
                 {
                   "type": {
                     "value": "EffectCapability::EffectBehavior::EnableEffect"
@@ -332,13 +505,134 @@
                   "parameters": [
                     "Rifleman",
                     "Effect",
-                    "\"Outline\"",
+                    "\"Glow\"",
                     "yes"
+                  ]
+                }
+              ],
+              "events": [
+                {
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [
+                    {
+                      "type": {
+                        "value": "MouseButtonPressed"
+                      },
+                      "parameters": [
+                        "",
+                        "Left"
+                      ]
+                    }
+                  ],
+                  "actions": [],
+                  "events": [
+                    {
+                      "type": "BuiltinCommonInstructions::Standard",
+                      "conditions": [],
+                      "actions": [
+                        {
+                          "type": {
+                            "value": "Cache"
+                          },
+                          "parameters": [
+                            "NavArrows"
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "BuiltinCommonInstructions::Standard",
+                      "conditions": [
+                        {
+                          "type": {
+                            "value": "AjoutObjConcern"
+                          },
+                          "parameters": [
+                            "",
+                            "Rifleman"
+                          ]
+                        }
+                      ],
+                      "actions": [
+                        {
+                          "type": {
+                            "value": "SetBooleanObjectVariable"
+                          },
+                          "parameters": [
+                            "Rifleman",
+                            "selected",
+                            "False",
+                            ""
+                          ]
+                        },
+                        {
+                          "type": {
+                            "value": "EffectCapability::EffectBehavior::EnableEffect"
+                          },
+                          "parameters": [
+                            "Rifleman",
+                            "Effect",
+                            "\"Outline\"",
+                            "no"
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "BuiltinCommonInstructions::Standard",
+                      "conditions": [
+                        {
+                          "type": {
+                            "value": "LinkedObjects::PickObjectsLinkedTo"
+                          },
+                          "parameters": [
+                            "",
+                            "NavArrows",
+                            "Rifleman",
+                            ""
+                          ]
+                        }
+                      ],
+                      "actions": [
+                        {
+                          "type": {
+                            "value": "SetBooleanObjectVariable"
+                          },
+                          "parameters": [
+                            "Rifleman",
+                            "selected",
+                            "True",
+                            ""
+                          ]
+                        },
+                        {
+                          "type": {
+                            "value": "EffectCapability::EffectBehavior::EnableEffect"
+                          },
+                          "parameters": [
+                            "Rifleman",
+                            "Effect",
+                            "\"Outline\"",
+                            "yes"
+                          ]
+                        },
+                        {
+                          "type": {
+                            "value": "Montre"
+                          },
+                          "parameters": [
+                            "NavArrows",
+                            ""
+                          ]
+                        }
+                      ]
+                    }
                   ]
                 }
               ]
             }
-          ]
+          ],
+          "parameters": []
         },
         {
           "type": "BuiltinCommonInstructions::Standard",
@@ -366,6 +660,52 @@
                 "Effect",
                 "\"Glow\"",
                 "no"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "BuiltinCommonInstructions::Standard",
+          "conditions": [
+            {
+              "type": {
+                "value": "KeyPressed"
+              },
+              "parameters": [
+                "",
+                "Escape"
+              ]
+            }
+          ],
+          "actions": [
+            {
+              "type": {
+                "value": "SetBooleanObjectVariable"
+              },
+              "parameters": [
+                "Rifleman",
+                "selected",
+                "False",
+                ""
+              ]
+            },
+            {
+              "type": {
+                "value": "Cache"
+              },
+              "parameters": [
+                "NavArrows"
+              ]
+            },
+            {
+              "type": {
+                "value": "EffectCapability::EffectBehavior::EnableEffect"
+              },
+              "parameters": [
+                "Rifleman",
+                "Effect",
+                "\"Outline\"",
+                ""
               ]
             }
           ]
