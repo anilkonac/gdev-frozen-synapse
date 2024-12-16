@@ -73,10 +73,26 @@
         "userAdded": false
       },
       {
-        "file": "assets/aseprite_arrows3.png",
+        "file": "assets/aseprite_arrows1.png",
         "kind": "image",
         "metadata": "{\"extension\":\".png\"}",
-        "name": "aseprite\\arrows3",
+        "name": "aseprite\\arrows1",
+        "smoothed": true,
+        "userAdded": false
+      },
+      {
+        "file": "assets/aseprite_arrows6.png",
+        "kind": "image",
+        "metadata": "{\"extension\":\".png\"}",
+        "name": "aseprite\\arrows6",
+        "smoothed": true,
+        "userAdded": false
+      },
+      {
+        "file": "assets/aseprite_arrows7.png",
+        "kind": "image",
+        "metadata": "{\"extension\":\".png\"}",
+        "name": "aseprite\\arrows7",
         "smoothed": true,
         "userAdded": false
       }
@@ -270,17 +286,17 @@
           "behaviors": [],
           "animations": [
             {
-              "name": "aseprite\\arrows",
+              "name": "aseprite\\arrows1",
               "useMultipleDirections": false,
               "directions": [
                 {
-                  "looping": false,
+                  "looping": true,
                   "metadata": "{\"pskl\":{}}",
-                  "timeBetweenFrames": 0.08,
+                  "timeBetweenFrames": 0.2,
                   "sprites": [
                     {
                       "hasCustomCollisionMask": true,
-                      "image": "aseprite\\arrows3",
+                      "image": "aseprite\\arrows1",
                       "points": [],
                       "originPoint": {
                         "name": "origine",
@@ -296,20 +312,92 @@
                       "customCollisionMask": [
                         [
                           {
-                            "x": 0,
-                            "y": 0
+                            "x": 6,
+                            "y": 6
                           },
                           {
-                            "x": 95,
-                            "y": 0
+                            "x": 89,
+                            "y": 6
                           },
                           {
-                            "x": 95,
-                            "y": 95
+                            "x": 89,
+                            "y": 89
                           },
                           {
-                            "x": 0,
-                            "y": 95
+                            "x": 6,
+                            "y": 89
+                          }
+                        ]
+                      ]
+                    },
+                    {
+                      "hasCustomCollisionMask": true,
+                      "image": "aseprite\\arrows6",
+                      "points": [],
+                      "originPoint": {
+                        "name": "origine",
+                        "x": 0,
+                        "y": 0
+                      },
+                      "centerPoint": {
+                        "automatic": true,
+                        "name": "centre",
+                        "x": 0,
+                        "y": 0
+                      },
+                      "customCollisionMask": [
+                        [
+                          {
+                            "x": 6,
+                            "y": 6
+                          },
+                          {
+                            "x": 89,
+                            "y": 6
+                          },
+                          {
+                            "x": 89,
+                            "y": 89
+                          },
+                          {
+                            "x": 6,
+                            "y": 89
+                          }
+                        ]
+                      ]
+                    },
+                    {
+                      "hasCustomCollisionMask": true,
+                      "image": "aseprite\\arrows7",
+                      "points": [],
+                      "originPoint": {
+                        "name": "origine",
+                        "x": 0,
+                        "y": 0
+                      },
+                      "centerPoint": {
+                        "automatic": true,
+                        "name": "centre",
+                        "x": 0,
+                        "y": 0
+                      },
+                      "customCollisionMask": [
+                        [
+                          {
+                            "x": 6,
+                            "y": 6
+                          },
+                          {
+                            "x": 89,
+                            "y": 6
+                          },
+                          {
+                            "x": 89,
+                            "y": 89
+                          },
+                          {
+                            "x": 6,
+                            "y": 89
                           }
                         ]
                       ]
