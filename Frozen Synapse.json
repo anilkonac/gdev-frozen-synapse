@@ -304,6 +304,11 @@
               "name": "selected",
               "type": "boolean",
               "value": false
+            },
+            {
+              "name": "PathPoints",
+              "type": "array",
+              "children": []
             }
           ],
           "effects": [
@@ -342,6 +347,8 @@
               "CorrectionY": 2.0247e-320
             },
             {
+              "name": "Pathfinding",
+              "type": "PathfindingBehavior::PathfindingBehavior",
               "acceleration": 400,
               "allowDiagonals": true,
               "angleOffset": 0,
@@ -352,10 +359,8 @@
               "gridOffsetX": 0,
               "gridOffsetY": 0,
               "maxSpeed": 200,
-              "name": "Pathfinding",
               "rotateObject": false,
-              "smoothingMaxCellGap": 1,
-              "type": "PathfindingBehavior::PathfindingBehavior"
+              "smoothingMaxCellGap": 1
             }
           ],
           "animations": [
@@ -553,10 +558,10 @@
           "effects": [],
           "behaviors": [
             {
-              "cost": 2,
-              "impassable": true,
               "name": "PathfindingObstacle",
-              "type": "PathfindingBehavior::PathfindingObstacleBehavior"
+              "type": "PathfindingBehavior::PathfindingObstacleBehavior",
+              "cost": 2,
+              "impassable": true
             }
           ],
           "animations": [
@@ -1215,7 +1220,17 @@
                       ]
                     }
                   ],
-                  "actions": [],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "ObjectVariableClearChildren"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "PathPoints"
+                      ]
+                    }
+                  ],
                   "events": [
                     {
                       "type": "BuiltinCommonInstructions::Repeat",
@@ -1232,7 +1247,7 @@
                                 "value": "SetNumberVariable"
                               },
                               "parameters": [
-                                "NodeX",
+                                "NodePosition.X",
                                 "=",
                                 "Rifleman.Pathfinding::GetNodeX(LoopIndex)"
                               ]
@@ -1242,9 +1257,19 @@
                                 "value": "SetNumberVariable"
                               },
                               "parameters": [
-                                "NodeY",
+                                "NodePosition.Y",
                                 "=",
                                 "Rifleman.Pathfinding::GetNodeY(LoopIndex)"
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "ObjectVariablePush2"
+                              },
+                              "parameters": [
+                                "Rifleman",
+                                "PathPoints",
+                                "NodePosition"
                               ]
                             },
                             {
@@ -1256,28 +1281,24 @@
                                 "+",
                                 "1"
                               ]
-                            },
-                            {
-                              "type": {
-                                "value": "DebuggerTools::ConsoleLog"
-                              },
-                              "parameters": [
-                                "\"Node \" + ToString(LoopIndex) + \" location: (\" + ToString(NodeX) + \", \" + ToString(NodeY) + \")\"",
-                                "\"info\"",
-                                ""
-                              ]
                             }
                           ],
                           "variables": [
                             {
-                              "name": "NodeX",
-                              "type": "number",
-                              "value": 0
-                            },
-                            {
-                              "name": "NodeY",
-                              "type": "number",
-                              "value": 0
+                              "name": "NodePosition",
+                              "type": "structure",
+                              "children": [
+                                {
+                                  "name": "X",
+                                  "type": "number",
+                                  "value": 0
+                                },
+                                {
+                                  "name": "Y",
+                                  "type": "number",
+                                  "value": 0
+                                }
+                              ]
                             }
                           ]
                         }
@@ -1370,6 +1391,17 @@
                 "Rifleman",
                 "Pathfinding",
                 "yes"
+              ]
+            },
+            {
+              "type": {
+                "value": "EffectCapability::EffectBehavior::EnableEffect"
+              },
+              "parameters": [
+                "Rifleman",
+                "Effect",
+                "\"Outline\"",
+                "no"
               ]
             }
           ]
