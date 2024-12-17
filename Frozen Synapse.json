@@ -67,7 +67,7 @@
       {
         "file": "assets/rifleman2.png",
         "kind": "image",
-        "metadata": "{\"extension\":\".png\"}",
+        "metadata": "{\"extension\":\".png\",\"localFilePath\":\"assets/rifleman2.png\"}",
         "name": "rifleman2",
         "smoothed": true,
         "userAdded": false
@@ -93,6 +93,14 @@
         "kind": "image",
         "metadata": "{\"extension\":\".png\"}",
         "name": "aseprite\\arrows7",
+        "smoothed": true,
+        "userAdded": false
+      },
+      {
+        "file": "assets/NewSprite.png",
+        "kind": "image",
+        "metadata": "{\"extension\":\".png\"}",
+        "name": "NewSprite",
         "smoothed": true,
         "userAdded": false
       }
@@ -126,7 +134,7 @@
         "gridColor": 10401023,
         "gridAlpha": 0.8,
         "snap": false,
-        "zoomFactor": 0.8635277700823947,
+        "zoomFactor": 0.6622955665506388,
         "windowMask": false
       },
       "objectsGroups": [],
@@ -179,6 +187,40 @@
           "numberProperties": [],
           "stringProperties": [],
           "initialVariables": []
+        },
+        {
+          "angle": 0,
+          "customSize": true,
+          "depth": 1,
+          "height": 28,
+          "keepRatio": true,
+          "layer": "",
+          "name": "Wall",
+          "persistentUuid": "c37ac437-ce35-4e4d-ab92-bb348bd1aba3",
+          "width": 252,
+          "x": 854,
+          "y": 493,
+          "zOrder": 4,
+          "numberProperties": [],
+          "stringProperties": [],
+          "initialVariables": []
+        },
+        {
+          "angle": 0,
+          "customSize": true,
+          "depth": 1,
+          "height": 242,
+          "keepRatio": true,
+          "layer": "",
+          "name": "Wall",
+          "persistentUuid": "7bb50725-e42d-4a3d-b5a3-bae138f2ed50",
+          "width": 25,
+          "x": 1081,
+          "y": 250,
+          "zOrder": 4,
+          "numberProperties": [],
+          "stringProperties": [],
+          "initialVariables": []
         }
       ],
       "objects": [
@@ -222,7 +264,31 @@
               "booleanParameters": {}
             }
           ],
-          "behaviors": [],
+          "behaviors": [
+            {
+              "name": "DrawPathfinding",
+              "type": "DrawPathfinding::DrawPathfinding",
+              "LoopIndex": 0,
+              "CorrectionX": 2.0247e-320,
+              "CorrectionY": 2.0247e-320
+            },
+            {
+              "acceleration": 400,
+              "allowDiagonals": true,
+              "angleOffset": 0,
+              "angularMaxSpeed": 180,
+              "cellHeight": 20,
+              "cellWidth": 20,
+              "extraBorder": 0,
+              "gridOffsetX": 0,
+              "gridOffsetY": 0,
+              "maxSpeed": 200,
+              "name": "Pathfinding",
+              "rotateObject": false,
+              "smoothingMaxCellGap": 1,
+              "type": "PathfindingBehavior::PathfindingBehavior"
+            }
+          ],
           "animations": [
             {
               "name": "rifleman",
@@ -239,32 +305,32 @@
                       "points": [],
                       "originPoint": {
                         "name": "origine",
-                        "x": 0,
-                        "y": 0
+                        "x": 32,
+                        "y": 32
                       },
                       "centerPoint": {
-                        "automatic": true,
+                        "automatic": false,
                         "name": "centre",
-                        "x": 0,
-                        "y": 0
+                        "x": 32,
+                        "y": 32
                       },
                       "customCollisionMask": [
                         [
                           {
-                            "x": 16,
-                            "y": 8
+                            "x": 8,
+                            "y": 17
                           },
                           {
-                            "x": 47,
-                            "y": 8
+                            "x": 58,
+                            "y": 17
                           },
                           {
-                            "x": 47,
-                            "y": 58
+                            "x": 58,
+                            "y": 48
                           },
                           {
-                            "x": 16,
-                            "y": 58
+                            "x": 8,
+                            "y": 48
                           }
                         ]
                       ]
@@ -407,6 +473,98 @@
               ]
             }
           ]
+        },
+        {
+          "adaptCollisionMaskAutomatically": true,
+          "assetStoreId": "",
+          "name": "Wall",
+          "type": "Sprite",
+          "updateIfNotVisible": false,
+          "variables": [],
+          "effects": [],
+          "behaviors": [
+            {
+              "cost": 2,
+              "impassable": true,
+              "name": "PathfindingObstacle",
+              "type": "PathfindingBehavior::PathfindingObstacleBehavior"
+            }
+          ],
+          "animations": [
+            {
+              "name": "NewSprite",
+              "useMultipleDirections": false,
+              "directions": [
+                {
+                  "looping": false,
+                  "metadata": "{\"pskl\":{}}",
+                  "timeBetweenFrames": 0.08,
+                  "sprites": [
+                    {
+                      "hasCustomCollisionMask": true,
+                      "image": "NewSprite",
+                      "points": [],
+                      "originPoint": {
+                        "name": "origine",
+                        "x": 0,
+                        "y": 0
+                      },
+                      "centerPoint": {
+                        "automatic": true,
+                        "name": "centre",
+                        "x": 0,
+                        "y": 0
+                      },
+                      "customCollisionMask": [
+                        [
+                          {
+                            "x": 0,
+                            "y": 0
+                          },
+                          {
+                            "x": 64,
+                            "y": 0
+                          },
+                          {
+                            "x": 64,
+                            "y": 64
+                          },
+                          {
+                            "x": 0,
+                            "y": 64
+                          }
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "assetStoreId": "",
+          "name": "PathfindingPainter",
+          "type": "PrimitiveDrawing::Drawer",
+          "variables": [],
+          "effects": [],
+          "behaviors": [],
+          "fillOpacity": 255,
+          "outlineSize": 1,
+          "outlineOpacity": 255,
+          "absoluteCoordinates": false,
+          "clearBetweenFrames": true,
+          "antialiasing": "none",
+          "fillColor": {
+            "r": 0,
+            "g": 255,
+            "b": 0
+          },
+          "outlineColor": {
+            "r": 255,
+            "g": 255,
+            "b": 255
+          }
         }
       ],
       "objectsFolderStructure": {
@@ -416,7 +574,13 @@
             "objectName": "Rifleman"
           },
           {
+            "objectName": "PathfindingPainter"
+          },
+          {
             "objectName": "NavArrows"
+          },
+          {
+            "objectName": "Wall"
           }
         ]
       },
@@ -581,7 +745,7 @@
                   "conditions": [
                     {
                       "type": {
-                        "value": "MouseButtonPressed"
+                        "value": "MouseButtonReleased"
                       },
                       "parameters": [
                         "",
@@ -770,6 +934,199 @@
             }
           ],
           "parameters": []
+        },
+        {
+          "colorB": 228,
+          "colorG": 176,
+          "colorR": 74,
+          "creationTime": 0,
+          "name": "Movement",
+          "source": "",
+          "type": "BuiltinCommonInstructions::Group",
+          "events": [
+            {
+              "type": "BuiltinCommonInstructions::Standard",
+              "conditions": [
+                {
+                  "type": {
+                    "value": "MouseButtonReleased"
+                  },
+                  "parameters": [
+                    "",
+                    "Left"
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "BooleanObjectVariable"
+                  },
+                  "parameters": [
+                    "Rifleman",
+                    "selected",
+                    "True",
+                    ""
+                  ]
+                },
+                {
+                  "type": {
+                    "inverted": true,
+                    "value": "SourisSurObjet"
+                  },
+                  "parameters": [
+                    "Rifleman",
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              ],
+              "actions": [
+                {
+                  "type": {
+                    "value": "Cache"
+                  },
+                  "parameters": [
+                    "NavArrows"
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "PathfindingBehavior::SetDestination"
+                  },
+                  "parameters": [
+                    "Rifleman",
+                    "Pathfinding",
+                    "",
+                    "CursorX()",
+                    "CursorY()"
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "PathfindingBehavior::MaxSpeed"
+                  },
+                  "parameters": [
+                    "Rifleman",
+                    "Pathfinding",
+                    "=",
+                    "0"
+                  ]
+                }
+              ],
+              "events": [
+                {
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [
+                    {
+                      "type": {
+                        "value": "PathfindingBehavior::PathFound"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "Pathfinding"
+                      ]
+                    }
+                  ],
+                  "actions": [],
+                  "events": [
+                    {
+                      "type": "BuiltinCommonInstructions::Repeat",
+                      "repeatExpression": "Rifleman.Pathfinding::NodeCount()",
+                      "conditions": [],
+                      "actions": [],
+                      "events": [
+                        {
+                          "type": "BuiltinCommonInstructions::Standard",
+                          "conditions": [],
+                          "actions": [
+                            {
+                              "type": {
+                                "value": "SetNumberVariable"
+                              },
+                              "parameters": [
+                                "NodeX",
+                                "=",
+                                "Rifleman.Pathfinding::GetNodeX(LoopIndex)"
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "SetNumberVariable"
+                              },
+                              "parameters": [
+                                "NodeY",
+                                "=",
+                                "Rifleman.Pathfinding::GetNodeY(LoopIndex)"
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "SetNumberVariable"
+                              },
+                              "parameters": [
+                                "LoopIndex",
+                                "+",
+                                "1"
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "DebuggerTools::ConsoleLog"
+                              },
+                              "parameters": [
+                                "\"Node \" + ToString(LoopIndex) + \" location: (\" + ToString(NodeX) + \", \" + ToString(NodeY) + \")\"",
+                                "\"info\"",
+                                ""
+                              ]
+                            }
+                          ],
+                          "variables": [
+                            {
+                              "name": "NodeX",
+                              "type": "number",
+                              "value": 0
+                            },
+                            {
+                              "name": "NodeY",
+                              "type": "number",
+                              "value": 0
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "variables": [
+                    {
+                      "name": "LoopIndex",
+                      "type": "number",
+                      "value": 0
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "parameters": []
+        },
+        {
+          "type": "BuiltinCommonInstructions::ForEach",
+          "object": "Rifleman",
+          "conditions": [],
+          "actions": [
+            {
+              "type": {
+                "value": "DrawPathfinding::DrawPathfinding::DrawPathfinding"
+              },
+              "parameters": [
+                "Rifleman",
+                "DrawPathfinding",
+                "Pathfinding",
+                "PathfindingPainter",
+                ""
+              ]
+            }
+          ]
         }
       ],
       "layers": [
@@ -824,6 +1181,10 @@
           "type": "AnimatableCapability::AnimatableBehavior"
         },
         {
+          "name": "DrawPathfinding",
+          "type": "DrawPathfinding::DrawPathfinding"
+        },
+        {
           "name": "Effect",
           "type": "EffectCapability::EffectBehavior"
         },
@@ -834,6 +1195,14 @@
         {
           "name": "Opacity",
           "type": "OpacityCapability::OpacityBehavior"
+        },
+        {
+          "name": "Pathfinding",
+          "type": "PathfindingBehavior::PathfindingBehavior"
+        },
+        {
+          "name": "PathfindingObstacle",
+          "type": "PathfindingBehavior::PathfindingObstacleBehavior"
         },
         {
           "name": "Resizable",
@@ -847,7 +1216,354 @@
     }
   ],
   "externalEvents": [],
-  "eventsFunctionsExtensions": [],
+  "eventsFunctionsExtensions": [
+    {
+      "author": "Entropy",
+      "category": "Advanced",
+      "extensionNamespace": "",
+      "fullName": "Pathfinding painter",
+      "helpPath": "",
+      "iconUrl": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0ibWRpLXJlc2lzdG9yLW5vZGVzIiB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTIsMTFIMy42N0M0LjA4LDkuODMgNS4xOSw5IDYuNSw5QTMsMyAwIDAsMSA5LjUsMTJDOS41LDEyLjY1IDkuMjksMTMuMjUgOC45NCwxMy43NEwxMC4wNywxNS4zNUwxMy4xMSw0TDE0LjYxLDYuMTNMMTYuNyw5LjExTDE3LjUsOUMxOC44MSw5IDE5LjkyLDkuODMgMjAuMzMsMTFIMjJWMTNIMjAuMzNDMTkuOTIsMTQuMTcgMTguODEsMTUgMTcuNSwxNUEzLDMgMCAwLDEgMTQuNSwxMkMxNC41LDExLjM1IDE0LjcxLDEwLjc1IDE1LjA2LDEwLjI2TDEzLjkzLDguNjVMMTAuODksMjBMNy4zLDE0Ljg5QzcuMDUsMTQuOTYgNi43OCwxNSA2LjUsMTVDNS4xOSwxNSA0LjA4LDE0LjE3IDMuNjcsMTNIMlYxMU0xNy41LDEwLjVBMS41LDEuNSAwIDAsMCAxNiwxMkExLjUsMS41IDAgMCwwIDE3LjUsMTMuNUExLjUsMS41IDAgMCwwIDE5LDEyQTEuNSwxLjUgMCAwLDAgMTcuNSwxMC41TTYuNSwxMC41QTEuNSwxLjUgMCAwLDAgNSwxMkExLjUsMS41IDAgMCwwIDYuNSwxMy41QTEuNSwxLjUgMCAwLDAgOCwxMkExLjUsMS41IDAgMCwwIDYuNSwxMC41WiIgLz48L3N2Zz4=",
+      "name": "DrawPathfinding",
+      "previewIconUrl": "https://resources.gdevelop-app.com/assets/Icons/resistor-nodes.svg",
+      "shortDescription": "Draw the pathfinding of an object using a shape painter.",
+      "version": "0.1.4",
+      "description": "Draw the path followed by an object using a shape painter.",
+      "origin": {
+        "identifier": "DrawPathfinding",
+        "name": "gdevelop-extension-store"
+      },
+      "tags": [
+        "pathfinding",
+        "debug",
+        "shape painter",
+        "draw"
+      ],
+      "authorIds": [
+        "q8ubdigLvIRXLxsJDDTaokO41mc2"
+      ],
+      "dependencies": [],
+      "globalVariables": [],
+      "sceneVariables": [],
+      "eventsFunctions": [],
+      "eventsBasedBehaviors": [
+        {
+          "description": "Draw the path followed by the object using a shape painter.",
+          "fullName": "Pathfinding painter",
+          "name": "DrawPathfinding",
+          "objectType": "",
+          "eventsFunctions": [
+            {
+              "description": "Draw the path followed by the object using a shape painter. It automatically creates an instance of the shape painter object if there is none.",
+              "fullName": "Draw pathfinding",
+              "functionType": "Action",
+              "name": "DrawPathfinding",
+              "sentence": "Draw the path followed by _PARAM0_ using _PARAM3_",
+              "events": [
+                {
+                  "type": "BuiltinCommonInstructions::Comment",
+                  "color": {
+                    "b": 109,
+                    "g": 230,
+                    "r": 255,
+                    "textB": 0,
+                    "textG": 0,
+                    "textR": 0
+                  },
+                  "comment": "Create the shape painter if one doesn't exist"
+                },
+                {
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [
+                    {
+                      "type": {
+                        "value": "NbObjet"
+                      },
+                      "parameters": [
+                        "ShapePainterObject",
+                        "=",
+                        "0"
+                      ]
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "Create"
+                      },
+                      "parameters": [
+                        "",
+                        "ShapePainterObject",
+                        "0",
+                        "0",
+                        "Object.Layer()"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "ChangePlan"
+                      },
+                      "parameters": [
+                        "ShapePainterObject",
+                        "=",
+                        "Object.ZOrder()-1"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "BuiltinCommonInstructions::Comment",
+                  "color": {
+                    "b": 109,
+                    "g": 230,
+                    "r": 255,
+                    "textB": 0,
+                    "textG": 0,
+                    "textR": 0
+                  },
+                  "comment": "Enforce absolute coordinates"
+                },
+                {
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [
+                    {
+                      "type": {
+                        "value": "PrimitiveDrawing::AreCoordinatesRelative"
+                      },
+                      "parameters": [
+                        "ShapePainterObject"
+                      ]
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "PrimitiveDrawing::UseRelativeCoordinates"
+                      },
+                      "parameters": [
+                        "ShapePainterObject",
+                        "no"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "BuiltinCommonInstructions::Comment",
+                  "color": {
+                    "b": 109,
+                    "g": 230,
+                    "r": 255,
+                    "textB": 0,
+                    "textG": 0,
+                    "textR": 0
+                  },
+                  "comment": "Reset counter"
+                },
+                {
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "DrawPathfinding::DrawPathfinding::SetPropertyLoopIndex"
+                      },
+                      "parameters": [
+                        "Object",
+                        "Behavior",
+                        "=",
+                        "0"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "BuiltinCommonInstructions::Comment",
+                  "color": {
+                    "b": 109,
+                    "g": 230,
+                    "r": 255,
+                    "textB": 0,
+                    "textG": 0,
+                    "textR": 0
+                  },
+                  "comment": "Draw path"
+                },
+                {
+                  "type": "BuiltinCommonInstructions::Repeat",
+                  "repeatExpression": "Object.PathfindingBehavior::NodeCount()",
+                  "conditions": [],
+                  "actions": [],
+                  "events": [
+                    {
+                      "type": "BuiltinCommonInstructions::Comment",
+                      "color": {
+                        "b": 109,
+                        "g": 230,
+                        "r": 255,
+                        "textB": 0,
+                        "textG": 0,
+                        "textR": 0
+                      },
+                      "comment": "Draw circles on each node"
+                    },
+                    {
+                      "type": "BuiltinCommonInstructions::Standard",
+                      "conditions": [
+                        {
+                          "type": {
+                            "value": "DrawPathfinding::DrawPathfinding::PropertyLoopIndex"
+                          },
+                          "parameters": [
+                            "Object",
+                            "Behavior",
+                            "<=",
+                            "Object.PathfindingBehavior::NodeCount()-1"
+                          ]
+                        }
+                      ],
+                      "actions": [
+                        {
+                          "type": {
+                            "value": "PrimitiveDrawing::Circle"
+                          },
+                          "parameters": [
+                            "ShapePainterObject",
+                            "Object.PathfindingBehavior::GetNodeX(LoopIndex)",
+                            "Object.PathfindingBehavior::GetNodeY(LoopIndex)",
+                            "3"
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "BuiltinCommonInstructions::Comment",
+                      "color": {
+                        "b": 109,
+                        "g": 230,
+                        "r": 255,
+                        "textB": 0,
+                        "textG": 0,
+                        "textR": 0
+                      },
+                      "comment": "Draw lines between nodes"
+                    },
+                    {
+                      "type": "BuiltinCommonInstructions::Standard",
+                      "conditions": [
+                        {
+                          "type": {
+                            "value": "DrawPathfinding::DrawPathfinding::PropertyLoopIndex"
+                          },
+                          "parameters": [
+                            "Object",
+                            "Behavior",
+                            "<",
+                            "Object.PathfindingBehavior::NodeCount()-1"
+                          ]
+                        }
+                      ],
+                      "actions": [
+                        {
+                          "type": {
+                            "value": "PrimitiveDrawing::LineV2"
+                          },
+                          "parameters": [
+                            "ShapePainterObject",
+                            "Object.PathfindingBehavior::GetNodeX(LoopIndex)",
+                            "Object.PathfindingBehavior::GetNodeY(LoopIndex)",
+                            "Object.PathfindingBehavior::GetNodeX(LoopIndex +1)",
+                            "Object.PathfindingBehavior::GetNodeY(LoopIndex+1)",
+                            "3"
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "BuiltinCommonInstructions::Standard",
+                      "conditions": [],
+                      "actions": [
+                        {
+                          "type": {
+                            "value": "DrawPathfinding::DrawPathfinding::SetPropertyLoopIndex"
+                          },
+                          "parameters": [
+                            "Object",
+                            "Behavior",
+                            "+",
+                            "1"
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "parameters": [
+                {
+                  "description": "Object",
+                  "name": "Object",
+                  "type": "object"
+                },
+                {
+                  "description": "Behavior",
+                  "name": "Behavior",
+                  "supplementaryInformation": "DrawPathfinding::DrawPathfinding",
+                  "type": "behavior"
+                },
+                {
+                  "description": "Pathfinding behavior",
+                  "name": "PathfindingBehavior",
+                  "supplementaryInformation": "PathfindingBehavior::PathfindingBehavior",
+                  "type": "behavior"
+                },
+                {
+                  "description": "Shape painter used to draw the path",
+                  "name": "ShapePainterObject",
+                  "supplementaryInformation": "PrimitiveDrawing::Drawer",
+                  "type": "objectList"
+                }
+              ],
+              "objectGroups": []
+            }
+          ],
+          "propertyDescriptors": [
+            {
+              "value": "0",
+              "type": "Number",
+              "label": "LoopIndex",
+              "description": "",
+              "group": "",
+              "extraInformation": [],
+              "hidden": true,
+              "name": "LoopIndex"
+            },
+            {
+              "value": "",
+              "type": "Number",
+              "label": "",
+              "description": "",
+              "group": "",
+              "extraInformation": [],
+              "hidden": true,
+              "name": "CorrectionX"
+            },
+            {
+              "value": "",
+              "type": "Number",
+              "label": "",
+              "description": "",
+              "group": "",
+              "extraInformation": [],
+              "hidden": true,
+              "name": "CorrectionY"
+            }
+          ],
+          "sharedPropertyDescriptors": []
+        }
+      ],
+      "eventsBasedObjects": []
+    }
+  ],
   "externalLayouts": [],
   "externalSourceFiles": []
 }
