@@ -309,6 +309,11 @@
               "name": "PathPoints",
               "type": "array",
               "children": []
+            },
+            {
+              "name": "PathPointsCount",
+              "type": "number",
+              "value": 0
             }
           ],
           "effects": [
@@ -723,6 +728,90 @@
               "width": 192
             }
           }
+        },
+        {
+          "assetStoreId": "5faf2b0415c271fa6e747283ed36297a95f04d2b6c477a7b011775fa6fb444ee",
+          "name": "RightClickMenu",
+          "type": "PanelSpriteButton::PanelSpriteButton",
+          "variables": [],
+          "effects": [],
+          "behaviors": [],
+          "content": {
+            "LeftPadding": 16,
+            "RightPadding": 16,
+            "PressedLabelOffsetY": 3,
+            "BottomPadding": 32,
+            "TopPadding": 32,
+            "HoveredFadeOutDuration": 0.25
+          },
+          "childrenContent": {
+            "Hovered": {
+              "bottomMargin": 16,
+              "height": 48,
+              "leftMargin": 16,
+              "rightMargin": 16,
+              "texture": "Red Button With Shadow_Hovered.png",
+              "tiled": true,
+              "topMargin": 16,
+              "width": 128
+            },
+            "Idle": {
+              "bottomMargin": 16,
+              "height": 48,
+              "leftMargin": 16,
+              "rightMargin": 16,
+              "texture": "Red Button With Shadow_Idle.png",
+              "tiled": true,
+              "topMargin": 16,
+              "width": 128
+            },
+            "Label": {
+              "bold": false,
+              "italic": false,
+              "smoothed": true,
+              "underlined": false,
+              "string": "Add Waypoint",
+              "font": "CantoraOne-Regular.ttf",
+              "textAlignment": "center",
+              "characterSize": 16,
+              "color": {
+                "b": 255,
+                "g": 255,
+                "r": 255
+              },
+              "content": {
+                "bold": false,
+                "isOutlineEnabled": false,
+                "isShadowEnabled": false,
+                "italic": false,
+                "outlineColor": "255;255;255",
+                "outlineThickness": 2,
+                "shadowAngle": 90,
+                "shadowBlurRadius": 2,
+                "shadowColor": "0;0;0",
+                "shadowDistance": 4,
+                "shadowOpacity": 127,
+                "smoothed": true,
+                "underlined": false,
+                "text": "Add Waypoint",
+                "font": "CantoraOne-Regular.ttf",
+                "textAlignment": "center",
+                "verticalTextAlignment": "top",
+                "characterSize": 16,
+                "color": "255;255;255"
+              }
+            },
+            "Pressed": {
+              "bottomMargin": 16,
+              "height": 48,
+              "leftMargin": 16,
+              "rightMargin": 16,
+              "texture": "Red Button With Shadow_Pressed.png",
+              "tiled": true,
+              "topMargin": 16,
+              "width": 128
+            }
+          }
         }
       ],
       "objectsFolderStructure": {
@@ -742,6 +831,9 @@
           },
           {
             "objectName": "PrimeButton"
+          },
+          {
+            "objectName": "RightClickMenu"
           }
         ]
       },
@@ -830,7 +922,7 @@
                     "textG": 0,
                     "textR": 0
                   },
-                  "comment": "Create NavArrows for the rifleman\n"
+                  "comment": "Create UI elements \n\n"
                 },
                 {
                   "type": "BuiltinCommonInstructions::Standard",
@@ -854,6 +946,26 @@
                       },
                       "parameters": [
                         "NavArrows"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "Create"
+                      },
+                      "parameters": [
+                        "",
+                        "RightClickMenu",
+                        "0",
+                        "0",
+                        ""
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "Cache"
+                      },
+                      "parameters": [
+                        "RightClickMenu"
                       ]
                     }
                   ]
@@ -1120,11 +1232,12 @@
               "conditions": [
                 {
                   "type": {
-                    "value": "MouseButtonReleased"
+                    "value": "DoubleClick::HasDoubleClicked"
                   },
                   "parameters": [
                     "",
-                    "Left"
+                    "Left",
+                    ""
                   ]
                 },
                 {
@@ -1164,14 +1277,6 @@
                 }
               ],
               "actions": [
-                {
-                  "type": {
-                    "value": "Cache"
-                  },
-                  "parameters": [
-                    "NavArrows"
-                  ]
-                },
                 {
                   "type": {
                     "value": "PathfindingBehavior::SetDestination"
@@ -1229,12 +1334,23 @@
                         "Rifleman",
                         "PathPoints"
                       ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberObjectVariable"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "PathPointsCount",
+                        "=",
+                        "Rifleman.Pathfinding::NodeCount()"
+                      ]
                     }
                   ],
                   "events": [
                     {
                       "type": "BuiltinCommonInstructions::Repeat",
-                      "repeatExpression": "Rifleman.Pathfinding::NodeCount()",
+                      "repeatExpression": "Rifleman.PathPointsCount",
                       "conditions": [],
                       "actions": [],
                       "events": [
@@ -1298,6 +1414,73 @@
                                   "type": "number",
                                   "value": 0
                                 }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "BuiltinCommonInstructions::Standard",
+                      "conditions": [],
+                      "actions": [
+                        {
+                          "type": {
+                            "value": "SetCenter"
+                          },
+                          "parameters": [
+                            "NavArrows",
+                            "=",
+                            "Rifleman.PathPoints[Rifleman.PathPointsCount-1].X",
+                            "=",
+                            "Rifleman.PathPoints[Rifleman.PathPointsCount-1].Y"
+                          ]
+                        }
+                      ],
+                      "events": [
+                        {
+                          "disabled": true,
+                          "type": "BuiltinCommonInstructions::Standard",
+                          "conditions": [],
+                          "actions": [
+                            {
+                              "type": {
+                                "value": "DebuggerTools::ConsoleLog"
+                              },
+                              "parameters": [
+                                "\"PathPoints: \" + ToString(Rifleman.PathPoints[NumPathNodes-1].X) + \", \" + ToString(Rifleman.PathPoints[NumPathNodes-1].Y)",
+                                "\"info\"",
+                                ""
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "DebuggerTools::ConsoleLog"
+                              },
+                              "parameters": [
+                                "\"GetNode: \" + ToString(Rifleman.Pathfinding::GetNodeX(NumPathNodes)) + \", \" + ToString(Rifleman.Pathfinding::GetNodeY(NumPathNodes))",
+                                "\"info\"",
+                                ""
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "DebuggerTools::ConsoleLog"
+                              },
+                              "parameters": [
+                                "\"NumPathNodes: \" + NumPathNodes",
+                                "\"info\"",
+                                ""
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "DebuggerTools::ConsoleLog"
+                              },
+                              "parameters": [
+                                "\"NodeCount\" + ToString(Rifleman.Pathfinding::NodeCount())",
+                                "\"info\"",
+                                ""
                               ]
                             }
                           ]
@@ -1405,6 +1588,55 @@
               ]
             }
           ]
+        },
+        {
+          "colorB": 228,
+          "colorG": 176,
+          "colorR": 74,
+          "creationTime": 0,
+          "name": "Right Click Menu",
+          "source": "",
+          "type": "BuiltinCommonInstructions::Group",
+          "events": [
+            {
+              "type": "BuiltinCommonInstructions::Standard",
+              "conditions": [
+                {
+                  "type": {
+                    "value": "MouseButtonReleased"
+                  },
+                  "parameters": [
+                    "",
+                    "Right"
+                  ]
+                }
+              ],
+              "actions": [
+                {
+                  "type": {
+                    "value": "MettreXY"
+                  },
+                  "parameters": [
+                    "RightClickMenu",
+                    "=",
+                    "CursorX()",
+                    "=",
+                    "CursorY()"
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "Montre"
+                  },
+                  "parameters": [
+                    "RightClickMenu",
+                    ""
+                  ]
+                }
+              ]
+            }
+          ],
+          "parameters": []
         }
       ],
       "layers": [
@@ -1528,6 +1760,299 @@
   ],
   "externalEvents": [],
   "eventsFunctionsExtensions": [
+    {
+      "author": "Silver-Streak",
+      "category": "Input",
+      "extensionNamespace": "",
+      "fullName": "Double-click",
+      "helpPath": "",
+      "iconUrl": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMy4wLjMsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iSWNvbnMiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgMzIgMzIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMyIDMyOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQo8c3R5bGUgdHlwZT0idGV4dC9jc3MiPg0KCS5zdDB7ZmlsbDpub25lO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoyO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2UtbWl0ZXJsaW1pdDoxMDt9DQoJLnN0MXtmaWxsOm5vbmU7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjI7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZS1taXRlcmxpbWl0OjEwO30NCjwvc3R5bGU+DQo8bGluZSBjbGFzcz0ic3QwIiB4MT0iMTYiIHkxPSIzIiB4Mj0iMTYiIHkyPSI2Ii8+DQo8bGluZSBjbGFzcz0ic3QwIiB4MT0iMTYiIHkxPSIxMCIgeDI9IjE2IiB5Mj0iMTMiLz4NCjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0xNiwxMEwxNiwxMGMtMS4xLDAtMi0wLjktMi0ydjBjMC0xLjEsMC45LTIsMi0yaDBjMS4xLDAsMiwwLjksMiwydjBDMTgsOS4xLDE3LjEsMTAsMTYsMTB6Ii8+DQo8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNywxNC4xYzIuMy0wLjcsNS41LTEuMSw5LTEuMWMzLjUsMCw2LjcsMC40LDksMS4xIi8+DQo8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMTYsMjlMMTYsMjljLTUsMC05LTQtOS05di01LjlWOWMwLTMuMywyLjctNiw2LTZoNmMzLjMsMCw2LDIuNyw2LDZ2MTFDMjUsMjUsMjEsMjksMTYsMjl6Ii8+DQo8L3N2Zz4NCg==",
+      "name": "DoubleClick",
+      "previewIconUrl": "https://resources.gdevelop-app.com/assets/Icons/Line Hero Pack/Master/SVG/Computers and Hardware/Computers and Hardware_mouse_wireless_pc.svg",
+      "shortDescription": "Check for a double-click with a mouse, or a double-tap on a touchscreen.",
+      "version": "1.1.0",
+      "description": [
+        "Check for a double-click with a mouse, or a double-tap on a touchscreen.",
+        "",
+        "Please note: Touch devices do not have alternatives for middle/right clicks. Taps on a touch device will get counted for _any_ use of these conditions, so you should either design your controls accordingly, or build out separate events if the device has a touch screen."
+      ],
+      "origin": {
+        "identifier": "DoubleClick",
+        "name": "gdevelop-extension-store"
+      },
+      "tags": [
+        "mouse",
+        "cursor",
+        "pointer",
+        "double-click",
+        "double-tap"
+      ],
+      "authorIds": [
+        "8Ih1aa8f5gWUp4UB2BdhQ2iXWxJ3"
+      ],
+      "dependencies": [],
+      "globalVariables": [
+        {
+          "name": "MaxDelay",
+          "type": "number",
+          "value": 0.5
+        }
+      ],
+      "sceneVariables": [
+        {
+          "name": "LastPressTime",
+          "type": "structure",
+          "children": [
+            {
+              "name": "Left",
+              "type": "number",
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "IsReleased",
+          "type": "structure",
+          "children": [
+            {
+              "name": "Left",
+              "type": "boolean",
+              "value": false
+            }
+          ]
+        }
+      ],
+      "eventsFunctions": [
+        {
+          "description": "Check if the specified mouse button is clicked twice in a short amount of time.",
+          "fullName": "Double-clicked (or double-tapped)",
+          "functionType": "Condition",
+          "name": "HasDoubleClicked",
+          "sentence": "_PARAM1_ mouse button is double-clicked",
+          "events": [
+            {
+              "type": "BuiltinCommonInstructions::Comment",
+              "color": {
+                "b": 109,
+                "g": 230,
+                "r": 255,
+                "textB": 0,
+                "textG": 0,
+                "textR": 0
+              },
+              "comment": "Trigger once must never be used in functions as every call would share the same one."
+            },
+            {
+              "type": "BuiltinCommonInstructions::Standard",
+              "conditions": [
+                {
+                  "type": {
+                    "inverted": true,
+                    "value": "MouseButtonFromTextPressed"
+                  },
+                  "parameters": [
+                    "",
+                    "MouseButton"
+                  ]
+                }
+              ],
+              "actions": [
+                {
+                  "type": {
+                    "value": "SetBooleanVariable"
+                  },
+                  "parameters": [
+                    "IsReleased[MouseButton]",
+                    "True",
+                    "1"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "BuiltinCommonInstructions::Standard",
+              "conditions": [
+                {
+                  "type": {
+                    "value": "MouseButtonFromTextPressed"
+                  },
+                  "parameters": [
+                    "",
+                    "MouseButton"
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "BooleanVariable"
+                  },
+                  "parameters": [
+                    "IsReleased[MouseButton]",
+                    "True",
+                    "1"
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "BuiltinCommonInstructions::CompareNumbers"
+                  },
+                  "parameters": [
+                    "TimeFromStart()",
+                    ">=",
+                    "MaxDelay"
+                  ]
+                }
+              ],
+              "actions": [
+                {
+                  "type": {
+                    "value": "SetBooleanVariable"
+                  },
+                  "parameters": [
+                    "IsReleased[MouseButton]",
+                    "False",
+                    "1"
+                  ]
+                }
+              ],
+              "events": [
+                {
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "Delay",
+                        "=",
+                        "TimeFromStart() - LastPressTime[MouseButton]"
+                      ]
+                    }
+                  ],
+                  "events": [
+                    {
+                      "type": "BuiltinCommonInstructions::Standard",
+                      "conditions": [
+                        {
+                          "type": {
+                            "value": "NumberVariable"
+                          },
+                          "parameters": [
+                            "Delay",
+                            "<=",
+                            "MaxDelay"
+                          ]
+                        }
+                      ],
+                      "actions": [
+                        {
+                          "type": {
+                            "value": "SetNumberVariable"
+                          },
+                          "parameters": [
+                            "LastPressTime[MouseButton]",
+                            "=",
+                            "0"
+                          ]
+                        },
+                        {
+                          "type": {
+                            "value": "SetReturnBoolean"
+                          },
+                          "parameters": [
+                            "True"
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "BuiltinCommonInstructions::Standard",
+                      "conditions": [
+                        {
+                          "type": {
+                            "value": "NumberVariable"
+                          },
+                          "parameters": [
+                            "Delay",
+                            ">",
+                            "MaxDelay"
+                          ]
+                        }
+                      ],
+                      "actions": [
+                        {
+                          "type": {
+                            "value": "SetNumberVariable"
+                          },
+                          "parameters": [
+                            "LastPressTime[MouseButton]",
+                            "=",
+                            "TimeFromStart()"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "variables": [
+                    {
+                      "name": "Delay",
+                      "type": "number",
+                      "value": 0
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "parameters": [
+            {
+              "description": "Mouse button to track",
+              "longDescription": "As touch devices do not have middle/right tap equivalents, you will need to account for this within your events if you're not using the left mouse button and building for touch devices.",
+              "name": "MouseButton",
+              "type": "mouse"
+            }
+          ],
+          "objectGroups": []
+        },
+        {
+          "description": "Set the maximum delay between two clicks (or two taps) to be considered as a double click.",
+          "fullName": "Set the double click delay",
+          "functionType": "Action",
+          "name": "SetMaxDelay",
+          "sentence": "Set the double-click maximum delay between two clicks (or two taps) to _PARAM1_s",
+          "events": [
+            {
+              "type": "BuiltinCommonInstructions::Standard",
+              "conditions": [],
+              "actions": [
+                {
+                  "type": {
+                    "value": "SetNumberVariable"
+                  },
+                  "parameters": [
+                    "MaxDelay",
+                    "=",
+                    "Value"
+                  ]
+                }
+              ]
+            }
+          ],
+          "parameters": [
+            {
+              "description": "Maximum delay (in seconds)",
+              "longDescription": "By default, this value is 0.5 seconds.",
+              "name": "Value",
+              "type": "expression"
+            }
+          ],
+          "objectGroups": []
+        }
+      ],
+      "eventsBasedBehaviors": [],
+      "eventsBasedObjects": []
+    },
     {
       "author": "",
       "category": "User interface",
