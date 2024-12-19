@@ -169,6 +169,11 @@
       "name": "WaypointSquareRadius",
       "type": "number",
       "value": 6
+    },
+    {
+      "name": "isTurnExecuting",
+      "type": "boolean",
+      "value": false
     }
   ],
   "layouts": [
@@ -343,12 +348,12 @@
               "value": false
             },
             {
-              "name": "PathPoints",
+              "name": "PathNodes",
               "type": "array",
               "children": []
             },
             {
-              "name": "PathPointsCount",
+              "name": "PathNodesCount",
               "type": "number",
               "value": 0
             },
@@ -356,6 +361,11 @@
               "name": "drawPaths",
               "type": "boolean",
               "value": false
+            },
+            {
+              "name": "nextNodeIndex",
+              "type": "number",
+              "value": 0
             }
           ],
           "effects": [
@@ -382,19 +392,19 @@
               "CorrectionY": 2.0247e-320
             },
             {
+              "acceleration": 10000,
+              "angularMaxSpeed": 540,
+              "maxSpeed": 200,
               "name": "Pathfinding",
+              "rotateObject": false,
               "type": "PathfindingBehavior::PathfindingBehavior",
-              "acceleration": 400,
               "allowDiagonals": true,
               "angleOffset": 0,
-              "angularMaxSpeed": 180,
               "cellHeight": 20,
               "cellWidth": 20,
               "extraBorder": 0,
               "gridOffsetX": 0,
               "gridOffsetY": 0,
-              "maxSpeed": 200,
-              "rotateObject": false,
               "smoothingMaxCellGap": 1
             }
           ],
@@ -1192,7 +1202,7 @@
                           },
                           "parameters": [
                             "Rifleman",
-                            "PathPointsCount",
+                            "PathNodesCount",
                             ">",
                             "0"
                           ]
@@ -1217,9 +1227,9 @@
                           "parameters": [
                             "NavArrows",
                             "=",
-                            "Rifleman.PathPoints[Rifleman.PathPointsCount-1].X",
+                            "Rifleman.PathNodes[Rifleman.PathNodesCount - 1].X",
                             "=",
-                            "Rifleman.PathPoints[Rifleman.PathPointsCount-1].Y"
+                            "Rifleman.PathNodes[Rifleman.PathNodesCount - 1].Y"
                           ]
                         }
                       ]
@@ -1233,7 +1243,7 @@
                           },
                           "parameters": [
                             "Rifleman",
-                            "PathPointsCount",
+                            "PathNodesCount",
                             "=",
                             "0"
                           ]
@@ -1363,7 +1373,7 @@
           "colorG": 176,
           "colorR": 74,
           "creationTime": 0,
-          "name": "Movement",
+          "name": "Planning",
           "source": "",
           "type": "BuiltinCommonInstructions::Group",
           "events": [
@@ -1483,7 +1493,7 @@
                       },
                       "parameters": [
                         "Rifleman",
-                        "PathPoints"
+                        "PathNodes"
                       ]
                     },
                     {
@@ -1492,7 +1502,7 @@
                       },
                       "parameters": [
                         "Rifleman",
-                        "PathPointsCount",
+                        "PathNodesCount",
                         "=",
                         "Rifleman.Pathfinding::NodeCount()"
                       ]
@@ -1501,7 +1511,7 @@
                   "events": [
                     {
                       "type": "BuiltinCommonInstructions::Repeat",
-                      "repeatExpression": "Rifleman.PathPointsCount",
+                      "repeatExpression": "Rifleman.PathNodesCount",
                       "conditions": [],
                       "actions": [],
                       "events": [
@@ -1535,7 +1545,7 @@
                               },
                               "parameters": [
                                 "Rifleman",
-                                "PathPoints",
+                                "PathNodes",
                                 "NodePosition"
                               ]
                             },
@@ -1582,9 +1592,9 @@
                           "parameters": [
                             "NavArrows",
                             "=",
-                            "Rifleman.PathPoints[Rifleman.PathPointsCount-1].X",
+                            "Rifleman.PathNodes[Rifleman.PathNodesCount - 1].X",
                             "=",
-                            "Rifleman.PathPoints[Rifleman.PathPointsCount-1].Y"
+                            "Rifleman.PathNodes[Rifleman.PathNodesCount - 1].Y"
                           ]
                         },
                         {
@@ -1608,7 +1618,7 @@
                                 "value": "DebuggerTools::ConsoleLog"
                               },
                               "parameters": [
-                                "\"PathPoints: \" + ToString(Rifleman.PathPoints[NumPathNodes-1].X) + \", \" + ToString(Rifleman.PathPoints[NumPathNodes-1].Y)",
+                                "\"PathPoints: \" + ToString(Rifleman.PathNodes[NumPathNodes - 1].X) + \", \" + ToString(Rifleman.PathNodes[NumPathNodes - 1].Y)",
                                 "\"info\"",
                                 ""
                               ]
@@ -1657,120 +1667,6 @@
                   ]
                 }
               ]
-            }
-          ],
-          "parameters": []
-        },
-        {
-          "type": "BuiltinCommonInstructions::Standard",
-          "conditions": [
-            {
-              "type": {
-                "value": "BooleanObjectVariable"
-              },
-              "parameters": [
-                "Rifleman",
-                "drawPaths",
-                "True",
-                ""
-              ]
-            }
-          ],
-          "actions": [],
-          "events": [
-            {
-              "infiniteLoopWarning": true,
-              "type": "BuiltinCommonInstructions::While",
-              "whileConditions": [
-                {
-                  "type": {
-                    "value": "NumberVariable"
-                  },
-                  "parameters": [
-                    "nodeIndex",
-                    "<",
-                    "Rifleman.PathPointsCount"
-                  ]
-                }
-              ],
-              "conditions": [],
-              "actions": [
-                {
-                  "type": {
-                    "value": "SetNumberVariable"
-                  },
-                  "parameters": [
-                    "PrevNode.X",
-                    "=",
-                    "Rifleman.PathPoints[nodeIndex-1].X"
-                  ]
-                },
-                {
-                  "type": {
-                    "value": "SetNumberVariable"
-                  },
-                  "parameters": [
-                    "PrevNode.Y",
-                    "=",
-                    "Rifleman.PathPoints[nodeIndex-1].Y"
-                  ]
-                },
-                {
-                  "type": {
-                    "value": "SetNumberVariable"
-                  },
-                  "parameters": [
-                    "CurNode.X",
-                    "=",
-                    "Rifleman.PathPoints[nodeIndex].X"
-                  ]
-                },
-                {
-                  "type": {
-                    "value": "SetNumberVariable"
-                  },
-                  "parameters": [
-                    "CurNode.Y",
-                    "=",
-                    "Rifleman.PathPoints[nodeIndex].Y"
-                  ]
-                },
-                {
-                  "type": {
-                    "value": "PrimitiveDrawing::LineV2"
-                  },
-                  "parameters": [
-                    "PathPainter",
-                    "PrevNode.X",
-                    "PrevNode.Y",
-                    "CurNode.X",
-                    "CurNode.Y",
-                    "4"
-                  ]
-                },
-                {
-                  "type": {
-                    "value": "PrimitiveDrawing::Rectangle"
-                  },
-                  "parameters": [
-                    "WaypointsPainter",
-                    "CurNode.X-WaypointSquareRadius",
-                    "CurNode.Y-WaypointSquareRadius",
-                    "CurNode.X+WaypointSquareRadius",
-                    "CurNode.Y+WaypointSquareRadius"
-                  ]
-                },
-                {
-                  "type": {
-                    "value": "SetNumberVariable"
-                  },
-                  "parameters": [
-                    "nodeIndex",
-                    "+",
-                    "1"
-                  ]
-                }
-              ]
             },
             {
               "disabled": true,
@@ -1778,92 +1674,458 @@
               "conditions": [
                 {
                   "type": {
-                    "value": "NumberObjectVariable"
+                    "value": "SourisSurObjet"
                   },
                   "parameters": [
-                    "Rifleman",
-                    "PathPointsCount",
-                    ">",
-                    "0"
+                    "NavArrows",
+                    "",
+                    "",
+                    ""
                   ]
                 }
               ],
-              "actions": [
+              "actions": [],
+              "events": [
+                {
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [
+                    {
+                      "type": {
+                        "value": "MouseButtonPressed"
+                      },
+                      "parameters": [
+                        "",
+                        "Left"
+                      ]
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "SetCenter"
+                      },
+                      "parameters": [
+                        "NavArrows",
+                        "=",
+                        "CursorX()",
+                        "=",
+                        "CursorY()"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "BuiltinCommonInstructions::Standard",
+              "conditions": [
                 {
                   "type": {
-                    "value": "DebuggerTools::ConsoleLog"
+                    "value": "BooleanObjectVariable"
                   },
                   "parameters": [
-                    "\"NodeIndex: \" + ToString(nodeIndex) + \" Draw line from: (\" + Rifleman.PathPoints[nodeIndex-1].X + \", \" + Rifleman.PathPoints[nodeIndex-1].Y + \") to (\" + Rifleman.PathPoints[nodeIndex].X + \", \" + Rifleman.PathPoints[nodeIndex].Y + \")\"",
-                    "\"info\"",
+                    "Rifleman",
+                    "selected",
+                    "True",
                     ""
                   ]
-                },
+                }
+              ],
+              "actions": [],
+              "events": [
                 {
-                  "type": {
-                    "value": "PrimitiveDrawing::LineV2"
-                  },
-                  "parameters": [
-                    "PathPainter",
-                    "Rifleman.PathPoints[0].X",
-                    "Rifleman.PathPoints[0].Y",
-                    "Rifleman.PathPoints[1].X",
-                    "Rifleman.PathPoints[1].Y",
-                    "4"
+                  "type": "BuiltinCommonInstructions::Repeat",
+                  "repeatExpression": "Rifleman.PathNodesCount",
+                  "conditions": [],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "CurNode.X",
+                        "=",
+                        "Rifleman.PathNodes[nodeIndex].X"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "CurNode.Y",
+                        "=",
+                        "Rifleman.PathNodes[nodeIndex].Y"
+                      ]
+                    }
+                  ],
+                  "events": [
+                    {
+                      "type": "BuiltinCommonInstructions::Standard",
+                      "conditions": [
+                        {
+                          "type": {
+                            "value": "CursorX"
+                          },
+                          "parameters": [
+                            "",
+                            ">=",
+                            "CurNode.X-WaypointSquareRadius",
+                            "",
+                            ""
+                          ]
+                        },
+                        {
+                          "type": {
+                            "value": "CursorX"
+                          },
+                          "parameters": [
+                            "",
+                            "<=",
+                            "CurNode.X+WaypointSquareRadius",
+                            "",
+                            ""
+                          ]
+                        },
+                        {
+                          "type": {
+                            "value": "CursorY"
+                          },
+                          "parameters": [
+                            "",
+                            ">=",
+                            "CurNode.Y-WaypointSquareRadius",
+                            "",
+                            ""
+                          ]
+                        },
+                        {
+                          "type": {
+                            "value": "CursorY"
+                          },
+                          "parameters": [
+                            "",
+                            "<=",
+                            "CurNode.Y+WaypointSquareRadius",
+                            "",
+                            ""
+                          ]
+                        },
+                        {
+                          "type": {
+                            "value": "MouseButtonPressed"
+                          },
+                          "parameters": [
+                            "",
+                            "Left"
+                          ]
+                        }
+                      ],
+                      "actions": [
+                        {
+                          "type": {
+                            "value": "SetNumberObjectVariable"
+                          },
+                          "parameters": [
+                            "Rifleman",
+                            "PathNodes[nodeIndex].X",
+                            "=",
+                            "CursorX()"
+                          ]
+                        },
+                        {
+                          "type": {
+                            "value": "SetNumberObjectVariable"
+                          },
+                          "parameters": [
+                            "Rifleman",
+                            "PathNodes[nodeIndex].Y",
+                            "=",
+                            "CursorY()"
+                          ]
+                        },
+                        {
+                          "type": {
+                            "value": "SetCenter"
+                          },
+                          "parameters": [
+                            "NavArrows",
+                            "=",
+                            "CurNode.X",
+                            "=",
+                            "CurNode.Y"
+                          ]
+                        }
+                      ],
+                      "events": [
+                        {
+                          "type": "BuiltinCommonInstructions::Standard",
+                          "conditions": [],
+                          "actions": []
+                        }
+                      ]
+                    },
+                    {
+                      "type": "BuiltinCommonInstructions::Standard",
+                      "conditions": [],
+                      "actions": [
+                        {
+                          "type": {
+                            "value": "SetNumberVariable"
+                          },
+                          "parameters": [
+                            "nodeIndex",
+                            "+",
+                            "1"
+                          ]
+                        }
+                      ]
+                    }
                   ]
+                }
+              ],
+              "variables": [
+                {
+                  "name": "nodeIndex",
+                  "type": "number",
+                  "value": 0
                 },
                 {
-                  "type": {
-                    "value": "DebuggerTools::ConsoleLog"
-                  },
-                  "parameters": [
-                    "\"Draw!!\"",
-                    "\"info\"",
-                    ""
+                  "name": "CurNode",
+                  "type": "structure",
+                  "children": [
+                    {
+                      "name": "X",
+                      "type": "number",
+                      "value": 0
+                    },
+                    {
+                      "name": "Y",
+                      "type": "number",
+                      "value": 0
+                    }
                   ]
                 }
               ]
             }
           ],
-          "variables": [
+          "parameters": []
+        },
+        {
+          "colorB": 228,
+          "colorG": 176,
+          "colorR": 74,
+          "creationTime": 0,
+          "name": "Path and waypoint drawing",
+          "source": "",
+          "type": "BuiltinCommonInstructions::Group",
+          "events": [
             {
-              "name": "nodeIndex",
-              "type": "number",
-              "value": 1
-            },
-            {
-              "name": "PrevNode",
-              "type": "structure",
-              "children": [
+              "type": "BuiltinCommonInstructions::Standard",
+              "conditions": [
                 {
-                  "name": "X",
-                  "type": "number",
-                  "value": 0
-                },
-                {
-                  "name": "Y",
-                  "type": "number",
-                  "value": 0
+                  "type": {
+                    "value": "BooleanObjectVariable"
+                  },
+                  "parameters": [
+                    "Rifleman",
+                    "drawPaths",
+                    "True",
+                    ""
+                  ]
                 }
-              ]
-            },
-            {
-              "name": "CurNode",
-              "type": "structure",
-              "children": [
+              ],
+              "actions": [],
+              "events": [
                 {
-                  "name": "X",
-                  "type": "number",
-                  "value": 0
+                  "infiniteLoopWarning": true,
+                  "type": "BuiltinCommonInstructions::While",
+                  "whileConditions": [
+                    {
+                      "type": {
+                        "value": "NumberVariable"
+                      },
+                      "parameters": [
+                        "nodeIndex",
+                        "<",
+                        "Rifleman.PathNodesCount"
+                      ]
+                    }
+                  ],
+                  "conditions": [],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "PrevNode.X",
+                        "=",
+                        "Rifleman.PathNodes[nodeIndex - 1].X"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "PrevNode.Y",
+                        "=",
+                        "Rifleman.PathNodes[nodeIndex - 1].Y"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "CurNode.X",
+                        "=",
+                        "Rifleman.PathNodes[nodeIndex].X"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "CurNode.Y",
+                        "=",
+                        "Rifleman.PathNodes[nodeIndex].Y"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "PrimitiveDrawing::LineV2"
+                      },
+                      "parameters": [
+                        "PathPainter",
+                        "PrevNode.X",
+                        "PrevNode.Y",
+                        "CurNode.X",
+                        "CurNode.Y",
+                        "4"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "PrimitiveDrawing::Rectangle"
+                      },
+                      "parameters": [
+                        "WaypointsPainter",
+                        "CurNode.X-WaypointSquareRadius",
+                        "CurNode.Y-WaypointSquareRadius",
+                        "CurNode.X+WaypointSquareRadius",
+                        "CurNode.Y+WaypointSquareRadius"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "nodeIndex",
+                        "+",
+                        "1"
+                      ]
+                    }
+                  ]
                 },
                 {
-                  "name": "Y",
+                  "disabled": true,
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [
+                    {
+                      "type": {
+                        "value": "NumberObjectVariable"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "PathNodesCount",
+                        ">",
+                        "0"
+                      ]
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "DebuggerTools::ConsoleLog"
+                      },
+                      "parameters": [
+                        "\"NodeIndex: \" + ToString(nodeIndex) + \" Draw line from: (\" + Rifleman.PathNodes[nodeIndex - 1].X + \", \" + Rifleman.PathNodes[nodeIndex - 1].Y + \") to (\" + Rifleman.PathNodes[nodeIndex].X + \", \" + Rifleman.PathNodes[nodeIndex].Y + \")\"",
+                        "\"info\"",
+                        ""
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "PrimitiveDrawing::LineV2"
+                      },
+                      "parameters": [
+                        "PathPainter",
+                        "Rifleman.PathNodes[0].X",
+                        "Rifleman.PathNodes[0].Y",
+                        "Rifleman.PathNodes[1].X",
+                        "Rifleman.PathNodes[1].Y",
+                        "4"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "DebuggerTools::ConsoleLog"
+                      },
+                      "parameters": [
+                        "\"Draw!!\"",
+                        "\"info\"",
+                        ""
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "variables": [
+                {
+                  "name": "nodeIndex",
                   "type": "number",
-                  "value": 0
+                  "value": 1
+                },
+                {
+                  "name": "PrevNode",
+                  "type": "structure",
+                  "children": [
+                    {
+                      "name": "X",
+                      "type": "number",
+                      "value": 0
+                    },
+                    {
+                      "name": "Y",
+                      "type": "number",
+                      "value": 0
+                    }
+                  ]
+                },
+                {
+                  "name": "CurNode",
+                  "type": "structure",
+                  "children": [
+                    {
+                      "name": "X",
+                      "type": "number",
+                      "value": 0
+                    },
+                    {
+                      "name": "Y",
+                      "type": "number",
+                      "value": 0
+                    }
+                  ]
                 }
               ]
             }
-          ]
+          ],
+          "parameters": []
         },
         {
           "colorB": 228,
@@ -1890,6 +2152,16 @@
             }
           ],
           "actions": [
+            {
+              "type": {
+                "value": "SetBooleanVariable"
+              },
+              "parameters": [
+                "isTurnExecuting",
+                "True",
+                ""
+              ]
+            },
             {
               "type": {
                 "value": "PathfindingBehavior::MaxSpeed"
@@ -1939,6 +2211,163 @@
               },
               "parameters": [
                 "NavArrows"
+              ]
+            },
+            {
+              "type": {
+                "value": "PathfindingBehavior::SetDestination"
+              },
+              "parameters": [
+                "Rifleman",
+                "Pathfinding",
+                "",
+                "Rifleman.CenterX()",
+                "Rifleman.CenterY()"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "BuiltinCommonInstructions::Standard",
+          "conditions": [
+            {
+              "type": {
+                "value": "BooleanVariable"
+              },
+              "parameters": [
+                "isTurnExecuting",
+                "True",
+                ""
+              ]
+            }
+          ],
+          "actions": [],
+          "events": [
+            {
+              "type": "BuiltinCommonInstructions::ForEach",
+              "object": "Rifleman",
+              "conditions": [
+                {
+                  "type": {
+                    "value": "PathfindingBehavior::DestinationReached"
+                  },
+                  "parameters": [
+                    "Rifleman",
+                    "Pathfinding"
+                  ]
+                }
+              ],
+              "actions": [],
+              "events": [
+                {
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [
+                    {
+                      "type": {
+                        "value": "NumberObjectVariable"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "nextNodeIndex",
+                        "<",
+                        "Rifleman.PathNodesCount"
+                      ]
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "nextNodeIndex",
+                        "=",
+                        "Rifleman.nextNodeIndex"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "NextNode.X",
+                        "=",
+                        "Rifleman.PathNodes[nextNodeIndex].X"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "NextNode.Y",
+                        "=",
+                        "Rifleman.PathNodes[nextNodeIndex].Y"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "PathfindingBehavior::SetDestination"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "Pathfinding",
+                        "",
+                        "NextNode.X",
+                        "NextNode.Y"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "DebuggerTools::ConsoleLog"
+                      },
+                      "parameters": [
+                        "\"NextNodeIndex: \" + nextNodeIndex + \" Location: \" + NextNode.X + \", \" + NextNode.Y",
+                        "\"info\"",
+                        ""
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberObjectVariable"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "nextNodeIndex",
+                        "+",
+                        "1"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "variables": [
+            {
+              "name": "nextNodeIndex",
+              "type": "number",
+              "value": 0
+            },
+            {
+              "name": "Variable",
+              "type": "number",
+              "value": 0
+            },
+            {
+              "name": "NextNode",
+              "type": "structure",
+              "children": [
+                {
+                  "name": "X",
+                  "type": "number",
+                  "value": 0
+                },
+                {
+                  "name": "Y",
+                  "type": "number",
+                  "value": 0
+                }
               ]
             }
           ]
