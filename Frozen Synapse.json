@@ -358,7 +358,7 @@
               "value": 0
             },
             {
-              "name": "drawPaths",
+              "name": "drawPath",
               "type": "boolean",
               "value": false
             },
@@ -392,12 +392,12 @@
               "CorrectionY": 2.0247e-320
             },
             {
+              "name": "Pathfinding",
+              "type": "PathfindingBehavior::PathfindingBehavior",
               "acceleration": 10000,
               "angularMaxSpeed": 540,
               "maxSpeed": 200,
-              "name": "Pathfinding",
               "rotateObject": false,
-              "type": "PathfindingBehavior::PathfindingBehavior",
               "allowDiagonals": true,
               "angleOffset": 0,
               "cellHeight": 20,
@@ -771,7 +771,7 @@
         },
         {
           "assetStoreId": "5faf2b0415c271fa6e747283ed36297a95f04d2b6c477a7b011775fa6fb444ee",
-          "name": "RightClickMenu",
+          "name": "AddWaypointButton",
           "type": "PanelSpriteButton::PanelSpriteButton",
           "variables": [],
           "effects": [],
@@ -900,7 +900,7 @@
             "objectName": "PrimeButton"
           },
           {
-            "objectName": "RightClickMenu"
+            "objectName": "AddWaypointButton"
           }
         ]
       },
@@ -1033,7 +1033,7 @@
                       },
                       "parameters": [
                         "",
-                        "RightClickMenu",
+                        "AddWaypointButton",
                         "0",
                         "0",
                         ""
@@ -1044,7 +1044,7 @@
                         "value": "Cache"
                       },
                       "parameters": [
-                        "RightClickMenu"
+                        "AddWaypointButton"
                       ]
                     }
                   ]
@@ -1149,7 +1149,7 @@
                           },
                           "parameters": [
                             "Rifleman",
-                            "drawPaths",
+                            "drawPath",
                             "False",
                             ""
                           ]
@@ -1215,7 +1215,7 @@
                           },
                           "parameters": [
                             "Rifleman",
-                            "drawPaths",
+                            "drawPath",
                             "True",
                             ""
                           ]
@@ -1378,6 +1378,18 @@
           "type": "BuiltinCommonInstructions::Group",
           "events": [
             {
+              "type": "BuiltinCommonInstructions::Comment",
+              "color": {
+                "b": 109,
+                "g": 230,
+                "r": 255,
+                "textB": 0,
+                "textG": 0,
+                "textR": 0
+              },
+              "comment": "Create path that may include multiple waypoints\n"
+            },
+            {
               "type": "BuiltinCommonInstructions::Standard",
               "conditions": [
                 {
@@ -1466,7 +1478,7 @@
                   },
                   "parameters": [
                     "Rifleman",
-                    "drawPaths",
+                    "drawPath",
                     "True",
                     ""
                   ]
@@ -1606,55 +1618,6 @@
                             ""
                           ]
                         }
-                      ],
-                      "events": [
-                        {
-                          "disabled": true,
-                          "type": "BuiltinCommonInstructions::Standard",
-                          "conditions": [],
-                          "actions": [
-                            {
-                              "type": {
-                                "value": "DebuggerTools::ConsoleLog"
-                              },
-                              "parameters": [
-                                "\"PathPoints: \" + ToString(Rifleman.PathNodes[NumPathNodes - 1].X) + \", \" + ToString(Rifleman.PathNodes[NumPathNodes - 1].Y)",
-                                "\"info\"",
-                                ""
-                              ]
-                            },
-                            {
-                              "type": {
-                                "value": "DebuggerTools::ConsoleLog"
-                              },
-                              "parameters": [
-                                "\"GetNode: \" + ToString(Rifleman.Pathfinding::GetNodeX(NumPathNodes)) + \", \" + ToString(Rifleman.Pathfinding::GetNodeY(NumPathNodes))",
-                                "\"info\"",
-                                ""
-                              ]
-                            },
-                            {
-                              "type": {
-                                "value": "DebuggerTools::ConsoleLog"
-                              },
-                              "parameters": [
-                                "\"NumPathNodes: \" + NumPathNodes",
-                                "\"info\"",
-                                ""
-                              ]
-                            },
-                            {
-                              "type": {
-                                "value": "DebuggerTools::ConsoleLog"
-                              },
-                              "parameters": [
-                                "\"NodeCount\" + ToString(Rifleman.Pathfinding::NodeCount())",
-                                "\"info\"",
-                                ""
-                              ]
-                            }
-                          ]
-                        }
                       ]
                     }
                   ],
@@ -1669,52 +1632,16 @@
               ]
             },
             {
-              "disabled": true,
-              "type": "BuiltinCommonInstructions::Standard",
-              "conditions": [
-                {
-                  "type": {
-                    "value": "SourisSurObjet"
-                  },
-                  "parameters": [
-                    "NavArrows",
-                    "",
-                    "",
-                    ""
-                  ]
-                }
-              ],
-              "actions": [],
-              "events": [
-                {
-                  "type": "BuiltinCommonInstructions::Standard",
-                  "conditions": [
-                    {
-                      "type": {
-                        "value": "MouseButtonPressed"
-                      },
-                      "parameters": [
-                        "",
-                        "Left"
-                      ]
-                    }
-                  ],
-                  "actions": [
-                    {
-                      "type": {
-                        "value": "SetCenter"
-                      },
-                      "parameters": [
-                        "NavArrows",
-                        "=",
-                        "CursorX()",
-                        "=",
-                        "CursorY()"
-                      ]
-                    }
-                  ]
-                }
-              ]
+              "type": "BuiltinCommonInstructions::Comment",
+              "color": {
+                "b": 109,
+                "g": 230,
+                "r": 255,
+                "textB": 0,
+                "textG": 0,
+                "textR": 0
+              },
+              "comment": "Moving waypoints"
             },
             {
               "type": "BuiltinCommonInstructions::Standard",
@@ -1856,13 +1783,6 @@
                             "CurNode.Y"
                           ]
                         }
-                      ],
-                      "events": [
-                        {
-                          "type": "BuiltinCommonInstructions::Standard",
-                          "conditions": [],
-                          "actions": []
-                        }
                       ]
                     },
                     {
@@ -1907,6 +1827,251 @@
                   ]
                 }
               ]
+            },
+            {
+              "type": "BuiltinCommonInstructions::Comment",
+              "color": {
+                "b": 109,
+                "g": 230,
+                "r": 255,
+                "textB": 0,
+                "textG": 0,
+                "textR": 0
+              },
+              "comment": "Right cllick menu\n"
+            },
+            {
+              "type": "BuiltinCommonInstructions::Standard",
+              "conditions": [
+                {
+                  "type": {
+                    "value": "MouseButtonReleased"
+                  },
+                  "parameters": [
+                    "",
+                    "Right"
+                  ]
+                }
+              ],
+              "actions": [
+                {
+                  "type": {
+                    "value": "MettreXY"
+                  },
+                  "parameters": [
+                    "AddWaypointButton",
+                    "=",
+                    "CursorX()",
+                    "=",
+                    "CursorY()"
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "Montre"
+                  },
+                  "parameters": [
+                    "AddWaypointButton",
+                    ""
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "BuiltinCommonInstructions::Comment",
+              "color": {
+                "b": 109,
+                "g": 230,
+                "r": 255,
+                "textB": 0,
+                "textG": 0,
+                "textR": 0
+              },
+              "comment": "Add Waypoint Button\n"
+            },
+            {
+              "type": "BuiltinCommonInstructions::Standard",
+              "conditions": [
+                {
+                  "type": {
+                    "value": "PanelSpriteButton::PanelSpriteButton::IsClicked"
+                  },
+                  "parameters": [
+                    "AddWaypointButton",
+                    ""
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "BooleanObjectVariable"
+                  },
+                  "parameters": [
+                    "Rifleman",
+                    "selected",
+                    "True",
+                    ""
+                  ]
+                }
+              ],
+              "actions": [
+                {
+                  "type": {
+                    "value": "SetBooleanObjectVariable"
+                  },
+                  "parameters": [
+                    "Rifleman",
+                    "drawPath",
+                    "True",
+                    ""
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "Cache"
+                  },
+                  "parameters": [
+                    "AddWaypointButton"
+                  ]
+                }
+              ],
+              "events": [
+                {
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [
+                    {
+                      "type": {
+                        "value": "ObjectVariableChildCount"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "PathNodes",
+                        "=",
+                        "0"
+                      ]
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "NewNode.X",
+                        "=",
+                        "Rifleman.CenterX()"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "NewNode.Y",
+                        "=",
+                        "Rifleman.CenterY()"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "ObjectVariablePush2"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "PathNodes",
+                        "NewNode"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberObjectVariable"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "PathNodesCount",
+                        "+",
+                        "1"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "NewNode.X",
+                        "=",
+                        "AddWaypointButton.X()"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "NewNode.Y",
+                        "=",
+                        "AddWaypointButton.Y()"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "ObjectVariablePush2"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "PathNodes",
+                        "NewNode"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberObjectVariable"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "PathNodesCount",
+                        "+",
+                        "1"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetCenter"
+                      },
+                      "parameters": [
+                        "NavArrows",
+                        "=",
+                        "NewNode.X",
+                        "=",
+                        "NewNode.Y"
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "variables": [
+                {
+                  "name": "NewNode",
+                  "type": "structure",
+                  "children": [
+                    {
+                      "name": "X",
+                      "type": "number",
+                      "value": 0
+                    },
+                    {
+                      "name": "Y",
+                      "type": "number",
+                      "value": 0
+                    }
+                  ]
+                }
+              ]
             }
           ],
           "parameters": []
@@ -1929,7 +2094,7 @@
                   },
                   "parameters": [
                     "Rifleman",
-                    "drawPaths",
+                    "drawPath",
                     "True",
                     ""
                   ]
@@ -2027,58 +2192,6 @@
                         "nodeIndex",
                         "+",
                         "1"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "disabled": true,
-                  "type": "BuiltinCommonInstructions::Standard",
-                  "conditions": [
-                    {
-                      "type": {
-                        "value": "NumberObjectVariable"
-                      },
-                      "parameters": [
-                        "Rifleman",
-                        "PathNodesCount",
-                        ">",
-                        "0"
-                      ]
-                    }
-                  ],
-                  "actions": [
-                    {
-                      "type": {
-                        "value": "DebuggerTools::ConsoleLog"
-                      },
-                      "parameters": [
-                        "\"NodeIndex: \" + ToString(nodeIndex) + \" Draw line from: (\" + Rifleman.PathNodes[nodeIndex - 1].X + \", \" + Rifleman.PathNodes[nodeIndex - 1].Y + \") to (\" + Rifleman.PathNodes[nodeIndex].X + \", \" + Rifleman.PathNodes[nodeIndex].Y + \")\"",
-                        "\"info\"",
-                        ""
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "PrimitiveDrawing::LineV2"
-                      },
-                      "parameters": [
-                        "PathPainter",
-                        "Rifleman.PathNodes[0].X",
-                        "Rifleman.PathNodes[0].Y",
-                        "Rifleman.PathNodes[1].X",
-                        "Rifleman.PathNodes[1].Y",
-                        "4"
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "DebuggerTools::ConsoleLog"
-                      },
-                      "parameters": [
-                        "\"Draw!!\"",
-                        "\"info\"",
-                        ""
                       ]
                     }
                   ]
@@ -2200,7 +2313,7 @@
               },
               "parameters": [
                 "Rifleman",
-                "drawPaths",
+                "drawPath",
                 "False",
                 ""
               ]
@@ -2371,55 +2484,6 @@
               ]
             }
           ]
-        },
-        {
-          "colorB": 228,
-          "colorG": 176,
-          "colorR": 74,
-          "creationTime": 0,
-          "name": "Right Click Menu",
-          "source": "",
-          "type": "BuiltinCommonInstructions::Group",
-          "events": [
-            {
-              "type": "BuiltinCommonInstructions::Standard",
-              "conditions": [
-                {
-                  "type": {
-                    "value": "MouseButtonReleased"
-                  },
-                  "parameters": [
-                    "",
-                    "Right"
-                  ]
-                }
-              ],
-              "actions": [
-                {
-                  "type": {
-                    "value": "MettreXY"
-                  },
-                  "parameters": [
-                    "RightClickMenu",
-                    "=",
-                    "CursorX()",
-                    "=",
-                    "CursorY()"
-                  ]
-                },
-                {
-                  "type": {
-                    "value": "Montre"
-                  },
-                  "parameters": [
-                    "RightClickMenu",
-                    ""
-                  ]
-                }
-              ]
-            }
-          ],
-          "parameters": []
         }
       ],
       "layers": [
