@@ -402,10 +402,10 @@
               "CorrectionY": 2.0247e-320
             },
             {
-              "allowDiagonals": true,
               "name": "Pathfinding",
-              "smoothingMaxCellGap": 1,
               "type": "PathfindingBehavior::PathfindingBehavior",
+              "allowDiagonals": true,
+              "smoothingMaxCellGap": 1,
               "acceleration": 10000,
               "angularMaxSpeed": 540,
               "maxSpeed": 200,
@@ -1265,7 +1265,7 @@
               "conditions": [
                 {
                   "type": {
-                    "value": "KeyPressed"
+                    "value": "KeyReleased"
                   },
                   "parameters": [
                     "",
@@ -1273,37 +1273,77 @@
                   ]
                 }
               ],
-              "actions": [
+              "actions": [],
+              "events": [
                 {
-                  "type": {
-                    "value": "SetBooleanObjectVariable"
-                  },
-                  "parameters": [
-                    "Rifleman",
-                    "selected",
-                    "False",
-                    ""
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [
+                    {
+                      "type": {
+                        "inverted": true,
+                        "value": "Visible"
+                      },
+                      "parameters": [
+                        "AddWaypointButton"
+                      ]
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "SetBooleanObjectVariable"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "selected",
+                        "False",
+                        ""
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "EffectCapability::EffectBehavior::EnableEffect"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "Effect",
+                        "\"Glow\"",
+                        ""
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetBooleanVariable"
+                      },
+                      "parameters": [
+                        "drawNavPaths",
+                        "False",
+                        ""
+                      ]
+                    }
                   ]
                 },
                 {
-                  "type": {
-                    "value": "EffectCapability::EffectBehavior::EnableEffect"
-                  },
-                  "parameters": [
-                    "Rifleman",
-                    "Effect",
-                    "\"Glow\"",
-                    ""
-                  ]
-                },
-                {
-                  "type": {
-                    "value": "SetBooleanVariable"
-                  },
-                  "parameters": [
-                    "drawNavPaths",
-                    "False",
-                    ""
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [
+                    {
+                      "type": {
+                        "value": "Visible"
+                      },
+                      "parameters": [
+                        "AddWaypointButton"
+                      ]
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "Cache"
+                      },
+                      "parameters": [
+                        "AddWaypointButton"
+                      ]
+                    }
                   ]
                 }
               ]
