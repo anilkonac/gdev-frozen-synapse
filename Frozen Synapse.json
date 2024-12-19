@@ -174,6 +174,11 @@
       "name": "isTurnExecuting",
       "type": "boolean",
       "value": false
+    },
+    {
+      "name": "movingWaypoint",
+      "type": "boolean",
+      "value": false
     }
   ],
   "layouts": [
@@ -397,20 +402,20 @@
               "CorrectionY": 2.0247e-320
             },
             {
+              "allowDiagonals": true,
               "name": "Pathfinding",
+              "smoothingMaxCellGap": 1,
               "type": "PathfindingBehavior::PathfindingBehavior",
               "acceleration": 10000,
               "angularMaxSpeed": 540,
               "maxSpeed": 200,
               "rotateObject": false,
-              "allowDiagonals": true,
               "angleOffset": 0,
               "cellHeight": 20,
               "cellWidth": 20,
               "extraBorder": 0,
               "gridOffsetX": 0,
-              "gridOffsetY": 0,
-              "smoothingMaxCellGap": 1
+              "gridOffsetY": 0
             }
           ],
           "animations": [
@@ -932,6 +937,16 @@
                 "Effect",
                 "\"Outline\"",
                 "no"
+              ]
+            },
+            {
+              "type": {
+                "value": "DoubleClick::SetMaxDelay"
+              },
+              "parameters": [
+                "",
+                "0.20",
+                ""
               ]
             }
           ],
@@ -1699,6 +1714,16 @@
                             "=",
                             "nodeIndex"
                           ]
+                        },
+                        {
+                          "type": {
+                            "value": "SetBooleanVariable"
+                          },
+                          "parameters": [
+                            "movingWaypoint",
+                            "True",
+                            ""
+                          ]
                         }
                       ]
                     },
@@ -1755,7 +1780,144 @@
                 "textG": 0,
                 "textR": 0
               },
-              "comment": "Show/Hide NavArrows\n"
+              "comment": "Moving Waypoint\n"
+            },
+            {
+              "type": "BuiltinCommonInstructions::Standard",
+              "conditions": [
+                {
+                  "type": {
+                    "value": "BooleanObjectVariable"
+                  },
+                  "parameters": [
+                    "Rifleman",
+                    "selected",
+                    "True",
+                    ""
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "BooleanObjectVariable"
+                  },
+                  "parameters": [
+                    "Rifleman",
+                    "drawPath",
+                    "True",
+                    ""
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "NumberObjectVariable"
+                  },
+                  "parameters": [
+                    "Rifleman",
+                    "selectedNodeIndex",
+                    ">",
+                    "0"
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "MouseButtonPressed"
+                  },
+                  "parameters": [
+                    "",
+                    "Left"
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "BooleanVariable"
+                  },
+                  "parameters": [
+                    "movingWaypoint",
+                    "True",
+                    ""
+                  ]
+                }
+              ],
+              "actions": [
+                {
+                  "type": {
+                    "value": "SetNumberObjectVariable"
+                  },
+                  "parameters": [
+                    "Rifleman",
+                    "PathNodes[Rifleman.selectedNodeIndex].X",
+                    "=",
+                    "CursorX()"
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "SetNumberObjectVariable"
+                  },
+                  "parameters": [
+                    "Rifleman",
+                    "PathNodes[Rifleman.selectedNodeIndex].Y",
+                    "=",
+                    "CursorY()"
+                  ]
+                }
+              ],
+              "variables": [
+                {
+                  "name": "CurNode",
+                  "type": "structure",
+                  "children": [
+                    {
+                      "name": "X",
+                      "type": "number",
+                      "value": 0
+                    },
+                    {
+                      "name": "Y",
+                      "type": "number",
+                      "value": 0
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "BuiltinCommonInstructions::Standard",
+              "conditions": [
+                {
+                  "type": {
+                    "value": "MouseButtonReleased"
+                  },
+                  "parameters": [
+                    "",
+                    "Left"
+                  ]
+                }
+              ],
+              "actions": [
+                {
+                  "type": {
+                    "value": "SetBooleanVariable"
+                  },
+                  "parameters": [
+                    "movingWaypoint",
+                    "False",
+                    ""
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "BuiltinCommonInstructions::Comment",
+              "color": {
+                "b": 109,
+                "g": 230,
+                "r": 255,
+                "textB": 0,
+                "textG": 0,
+                "textR": 0
+              },
+              "comment": "Show NavArrows\n"
             },
             {
               "type": "BuiltinCommonInstructions::Standard",
@@ -1790,16 +1952,6 @@
                   },
                   "parameters": [
                     "NavArrows",
-                    ""
-                  ]
-                },
-                {
-                  "type": {
-                    "value": "DebuggerTools::ConsoleLog"
-                  },
-                  "parameters": [
-                    "\"show navarrows\"",
-                    "\"info\"",
                     ""
                   ]
                 }
@@ -1864,43 +2016,122 @@
                       ]
                     }
                   ]
+                },
+                {
+                  "disabled": true,
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "DebuggerTools::ConsoleLog"
+                      },
+                      "parameters": [
+                        "\"show navarrows\"",
+                        "\"info\"",
+                        ""
+                      ]
+                    }
+                  ]
                 }
               ]
             },
             {
-              "disabled": true,
+              "type": "BuiltinCommonInstructions::Comment",
+              "color": {
+                "b": 109,
+                "g": 230,
+                "r": 255,
+                "textB": 0,
+                "textG": 0,
+                "textR": 0
+              },
+              "comment": "Hide NavArrows"
+            },
+            {
               "type": "BuiltinCommonInstructions::Standard",
-              "conditions": [
+              "conditions": [],
+              "actions": [],
+              "events": [
                 {
-                  "type": {
-                    "value": "BooleanObjectVariable"
-                  },
-                  "parameters": [
-                    "Rifleman",
-                    "selected",
-                    "False",
-                    ""
-                  ]
-                }
-              ],
-              "actions": [
-                {
-                  "type": {
-                    "value": "Cache"
-                  },
-                  "parameters": [
-                    "NavArrows"
+                  "type": "BuiltinCommonInstructions::ForEach",
+                  "object": "Rifleman",
+                  "conditions": [
+                    {
+                      "type": {
+                        "value": "BooleanObjectVariable"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "selected",
+                        "True",
+                        ""
+                      ]
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "SetBooleanVariable"
+                      },
+                      "parameters": [
+                        "anySelected",
+                        "True",
+                        ""
+                      ]
+                    }
                   ]
                 },
                 {
-                  "type": {
-                    "value": "DebuggerTools::ConsoleLog"
-                  },
-                  "parameters": [
-                    "\"hide navarrows\"",
-                    "\"info\"",
-                    ""
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [
+                    {
+                      "type": {
+                        "value": "BooleanVariable"
+                      },
+                      "parameters": [
+                        "anySelected",
+                        "False",
+                        ""
+                      ]
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "Cache"
+                      },
+                      "parameters": [
+                        "NavArrows"
+                      ]
+                    }
+                  ],
+                  "events": [
+                    {
+                      "disabled": true,
+                      "type": "BuiltinCommonInstructions::Standard",
+                      "conditions": [],
+                      "actions": [
+                        {
+                          "type": {
+                            "value": "DebuggerTools::ConsoleLog"
+                          },
+                          "parameters": [
+                            "\"hide navarrows\"",
+                            "\"info\"",
+                            ""
+                          ]
+                        }
+                      ]
+                    }
                   ]
+                }
+              ],
+              "variables": [
+                {
+                  "name": "anySelected",
+                  "type": "boolean",
+                  "value": false
                 }
               ]
             },
