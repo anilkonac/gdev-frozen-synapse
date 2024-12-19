@@ -827,7 +827,7 @@
               "texture": "Red Button With Shadow_Hovered.png",
               "tiled": true,
               "topMargin": 16,
-              "width": 132
+              "width": 168
             },
             "Idle": {
               "bottomMargin": 16,
@@ -837,7 +837,7 @@
               "texture": "Red Button With Shadow_Idle.png",
               "tiled": true,
               "topMargin": 16,
-              "width": 132
+              "width": 168
             },
             "Label": {
               "bold": false,
@@ -847,7 +847,7 @@
               "string": "Add Waypoint(s)",
               "font": "CantoraOne-Regular.ttf",
               "textAlignment": "center",
-              "characterSize": 16,
+              "characterSize": 18,
               "color": {
                 "b": 255,
                 "g": 255,
@@ -871,7 +871,7 @@
                 "font": "CantoraOne-Regular.ttf",
                 "textAlignment": "center",
                 "verticalTextAlignment": "top",
-                "characterSize": 16,
+                "characterSize": 18,
                 "color": "255;255;255"
               }
             },
@@ -883,7 +883,7 @@
               "texture": "Red Button With Shadow_Pressed.png",
               "tiled": true,
               "topMargin": 16,
-              "width": 132
+              "width": 168
             }
           }
         },
