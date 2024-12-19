@@ -366,6 +366,11 @@
               "name": "nextNodeIndex",
               "type": "number",
               "value": 0
+            },
+            {
+              "name": "selectedNodeIndex",
+              "type": "number",
+              "value": 0
             }
           ],
           "effects": [
@@ -1021,14 +1026,6 @@
                     },
                     {
                       "type": {
-                        "value": "Cache"
-                      },
-                      "parameters": [
-                        "NavArrows"
-                      ]
-                    },
-                    {
-                      "type": {
                         "value": "Create"
                       },
                       "parameters": [
@@ -1045,6 +1042,14 @@
                       },
                       "parameters": [
                         "AddWaypointButton"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "Cache"
+                      },
+                      "parameters": [
+                        "NavArrows"
                       ]
                     }
                   ]
@@ -1184,33 +1189,6 @@
                         },
                         {
                           "type": {
-                            "value": "Montre"
-                          },
-                          "parameters": [
-                            "NavArrows",
-                            ""
-                          ]
-                        }
-                      ]
-                    },
-                    {
-                      "type": "BuiltinCommonInstructions::Standard",
-                      "conditions": [
-                        {
-                          "type": {
-                            "value": "NumberObjectVariable"
-                          },
-                          "parameters": [
-                            "Rifleman",
-                            "PathNodesCount",
-                            ">",
-                            "0"
-                          ]
-                        }
-                      ],
-                      "actions": [
-                        {
-                          "type": {
                             "value": "SetBooleanObjectVariable"
                           },
                           "parameters": [
@@ -1218,48 +1196,6 @@
                             "drawPath",
                             "True",
                             ""
-                          ]
-                        },
-                        {
-                          "type": {
-                            "value": "SetCenter"
-                          },
-                          "parameters": [
-                            "NavArrows",
-                            "=",
-                            "Rifleman.PathNodes[Rifleman.PathNodesCount - 1].X",
-                            "=",
-                            "Rifleman.PathNodes[Rifleman.PathNodesCount - 1].Y"
-                          ]
-                        }
-                      ]
-                    },
-                    {
-                      "type": "BuiltinCommonInstructions::Standard",
-                      "conditions": [
-                        {
-                          "type": {
-                            "value": "NumberObjectVariable"
-                          },
-                          "parameters": [
-                            "Rifleman",
-                            "PathNodesCount",
-                            "=",
-                            "0"
-                          ]
-                        }
-                      ],
-                      "actions": [
-                        {
-                          "type": {
-                            "value": "SetCenter"
-                          },
-                          "parameters": [
-                            "NavArrows",
-                            "=",
-                            "Rifleman.CenterX()",
-                            "=",
-                            "Rifleman.CenterY()"
                           ]
                         }
                       ]
@@ -1332,14 +1268,6 @@
                     "selected",
                     "False",
                     ""
-                  ]
-                },
-                {
-                  "type": {
-                    "value": "Cache"
-                  },
-                  "parameters": [
-                    "NavArrows"
                   ]
                 },
                 {
@@ -1599,23 +1527,13 @@
                       "actions": [
                         {
                           "type": {
-                            "value": "SetCenter"
+                            "value": "SetNumberObjectVariable"
                           },
                           "parameters": [
-                            "NavArrows",
+                            "Rifleman",
+                            "selectedNodeIndex",
                             "=",
-                            "Rifleman.PathNodes[Rifleman.PathNodesCount - 1].X",
-                            "=",
-                            "Rifleman.PathNodes[Rifleman.PathNodesCount - 1].Y"
-                          ]
-                        },
-                        {
-                          "type": {
-                            "value": "Montre"
-                          },
-                          "parameters": [
-                            "NavArrows",
-                            ""
+                            "Rifleman.PathNodesCount-1"
                           ]
                         }
                       ]
@@ -1641,7 +1559,7 @@
                 "textG": 0,
                 "textR": 0
               },
-              "comment": "Moving waypoints"
+              "comment": "Waypoint Selection\n"
             },
             {
               "type": "BuiltinCommonInstructions::Standard",
@@ -1773,14 +1691,13 @@
                         },
                         {
                           "type": {
-                            "value": "SetCenter"
+                            "value": "SetNumberObjectVariable"
                           },
                           "parameters": [
-                            "NavArrows",
+                            "Rifleman",
+                            "selectedNodeIndex",
                             "=",
-                            "CurNode.X",
-                            "=",
-                            "CurNode.Y"
+                            "nodeIndex"
                           ]
                         }
                       ]
@@ -1824,6 +1741,165 @@
                       "type": "number",
                       "value": 0
                     }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "BuiltinCommonInstructions::Comment",
+              "color": {
+                "b": 109,
+                "g": 230,
+                "r": 255,
+                "textB": 0,
+                "textG": 0,
+                "textR": 0
+              },
+              "comment": "Show/Hide NavArrows\n"
+            },
+            {
+              "type": "BuiltinCommonInstructions::Standard",
+              "conditions": [
+                {
+                  "type": {
+                    "value": "BooleanObjectVariable"
+                  },
+                  "parameters": [
+                    "Rifleman",
+                    "selected",
+                    "True",
+                    ""
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "BooleanObjectVariable"
+                  },
+                  "parameters": [
+                    "Rifleman",
+                    "drawPath",
+                    "True",
+                    ""
+                  ]
+                }
+              ],
+              "actions": [
+                {
+                  "type": {
+                    "value": "Montre"
+                  },
+                  "parameters": [
+                    "NavArrows",
+                    ""
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "DebuggerTools::ConsoleLog"
+                  },
+                  "parameters": [
+                    "\"show navarrows\"",
+                    "\"info\"",
+                    ""
+                  ]
+                }
+              ],
+              "events": [
+                {
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [
+                    {
+                      "type": {
+                        "value": "NumberObjectVariable"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "selectedNodeIndex",
+                        ">",
+                        "0"
+                      ]
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "SetCenter"
+                      },
+                      "parameters": [
+                        "NavArrows",
+                        "=",
+                        "Rifleman.PathNodes[Rifleman.selectedNodeIndex].X",
+                        "=",
+                        "Rifleman.PathNodes[Rifleman.selectedNodeIndex].Y"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [
+                    {
+                      "type": {
+                        "value": "NumberObjectVariable"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "selectedNodeIndex",
+                        "=",
+                        "0"
+                      ]
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "SetCenter"
+                      },
+                      "parameters": [
+                        "NavArrows",
+                        "=",
+                        "Rifleman.CenterX()",
+                        "=",
+                        "Rifleman.CenterY()"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "disabled": true,
+              "type": "BuiltinCommonInstructions::Standard",
+              "conditions": [
+                {
+                  "type": {
+                    "value": "BooleanObjectVariable"
+                  },
+                  "parameters": [
+                    "Rifleman",
+                    "selected",
+                    "False",
+                    ""
+                  ]
+                }
+              ],
+              "actions": [
+                {
+                  "type": {
+                    "value": "Cache"
+                  },
+                  "parameters": [
+                    "NavArrows"
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "DebuggerTools::ConsoleLog"
+                  },
+                  "parameters": [
+                    "\"hide navarrows\"",
+                    "\"info\"",
+                    ""
                   ]
                 }
               ]
@@ -2041,14 +2117,13 @@
                     },
                     {
                       "type": {
-                        "value": "SetCenter"
+                        "value": "SetNumberObjectVariable"
                       },
                       "parameters": [
-                        "NavArrows",
+                        "Rifleman",
+                        "selectedNodeIndex",
                         "=",
-                        "NewNode.X",
-                        "=",
-                        "NewNode.Y"
+                        "Rifleman.PathNodesCount-1"
                       ]
                     }
                   ]
@@ -2320,14 +2395,6 @@
             },
             {
               "type": {
-                "value": "Cache"
-              },
-              "parameters": [
-                "NavArrows"
-              ]
-            },
-            {
-              "type": {
                 "value": "PathfindingBehavior::SetDestination"
               },
               "parameters": [
@@ -2336,6 +2403,17 @@
                 "",
                 "Rifleman.CenterX()",
                 "Rifleman.CenterY()"
+              ]
+            },
+            {
+              "type": {
+                "value": "SetBooleanObjectVariable"
+              },
+              "parameters": [
+                "Rifleman",
+                "selected",
+                "False",
+                ""
               ]
             }
           ]
