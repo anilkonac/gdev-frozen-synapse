@@ -905,12 +905,12 @@
           "effects": [],
           "behaviors": [
             {
+              "name": "Pathfinding",
+              "type": "PathfindingBehavior::PathfindingBehavior",
               "acceleration": 10000,
               "angularMaxSpeed": 540,
               "maxSpeed": 200,
-              "name": "Pathfinding",
               "rotateObject": false,
-              "type": "PathfindingBehavior::PathfindingBehavior",
               "allowDiagonals": true,
               "angleOffset": 0,
               "cellHeight": 20,
@@ -1816,28 +1816,6 @@
                           },
                           "parameters": [
                             "Rifleman",
-                            "PathNodes[nodeIndex].X",
-                            "=",
-                            "CursorX()"
-                          ]
-                        },
-                        {
-                          "type": {
-                            "value": "SetNumberObjectVariable"
-                          },
-                          "parameters": [
-                            "Rifleman",
-                            "PathNodes[nodeIndex].Y",
-                            "=",
-                            "CursorY()"
-                          ]
-                        },
-                        {
-                          "type": {
-                            "value": "SetNumberObjectVariable"
-                          },
-                          "parameters": [
-                            "Rifleman",
                             "selectedNodeIndex",
                             "=",
                             "nodeIndex"
@@ -1969,24 +1947,134 @@
               "actions": [
                 {
                   "type": {
-                    "value": "SetNumberObjectVariable"
+                    "value": "SetCenter"
                   },
                   "parameters": [
                     "Rifleman",
-                    "PathNodes[Rifleman.selectedNodeIndex].X",
                     "=",
-                    "CursorX()"
+                    "Rifleman.PathNodes[Rifleman.selectedNodeIndex-1].X",
+                    "=",
+                    "Rifleman.PathNodes[Rifleman.selectedNodeIndex-1].Y"
                   ]
                 },
                 {
                   "type": {
-                    "value": "SetNumberObjectVariable"
+                    "value": "PathfindingBehavior::MaxSpeed"
                   },
                   "parameters": [
                     "Rifleman",
-                    "PathNodes[Rifleman.selectedNodeIndex].Y",
+                    "Pathfinding",
                     "=",
+                    "0"
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "PathfindingBehavior::SetDestination"
+                  },
+                  "parameters": [
+                    "Rifleman",
+                    "Pathfinding",
+                    "",
+                    "CursorX()",
                     "CursorY()"
+                  ]
+                }
+              ],
+              "events": [
+                {
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [
+                    {
+                      "type": {
+                        "value": "PathfindingBehavior::PathFound"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "Pathfinding"
+                      ]
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "SetNumberObjectVariable"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "PathNodes[Rifleman.selectedNodeIndex].X",
+                        "=",
+                        "CursorX()"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberObjectVariable"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "PathNodes[Rifleman.selectedNodeIndex].Y",
+                        "=",
+                        "CursorY()"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [
+                    {
+                      "type": {
+                        "inverted": true,
+                        "value": "PathfindingBehavior::PathFound"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "Pathfinding"
+                      ]
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "SetBooleanVariable"
+                      },
+                      "parameters": [
+                        "movingWaypoint",
+                        "False",
+                        ""
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "SetCenter"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "=",
+                        "Rifleman.PathNodes[0].X",
+                        "=",
+                        "Rifleman.PathNodes[0].Y"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "PathfindingBehavior::SetDestination"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "Pathfinding",
+                        "",
+                        "Rifleman.PathNodes[0].X",
+                        "Rifleman.PathNodes[0].Y"
+                      ]
+                    }
                   ]
                 }
               ],
