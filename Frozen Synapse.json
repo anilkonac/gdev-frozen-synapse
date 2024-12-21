@@ -4517,6 +4517,16 @@
                 },
                 {
                   "type": {
+                    "value": "SetNumberVariable"
+                  },
+                  "parameters": [
+                    "cameraZoom",
+                    "=",
+                    "clamp(cameraZoom, 0.1, 2)"
+                  ]
+                },
+                {
+                  "type": {
                     "value": "Tween::TweenCameraZoom2"
                   },
                   "parameters": [
@@ -4535,6 +4545,20 @@
                   "parameters": [
                     "\"Mouse Wheel delta: \" + ToString(MouseWheelDelta())",
                     "\"info\"",
+                    ""
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "EdgeScrollCamera::ConfigureEdgeScrollCamera"
+                  },
+                  "parameters": [
+                    "",
+                    "100",
+                    "500*cameraZoom",
+                    "",
+                    "0",
+                    "\"Progressive speed\"",
                     ""
                   ]
                 }
@@ -4767,6 +4791,59 @@
                   "parameters": [
                     "",
                     "\"Zoom\"",
+                    "cameraZoom",
+                    "",
+                    "\"linear\"",
+                    "0.5"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "BuiltinCommonInstructions::Standard",
+              "conditions": [
+                {
+                  "type": {
+                    "value": "KeyPressed"
+                  },
+                  "parameters": [
+                    "",
+                    "r"
+                  ]
+                }
+              ],
+              "actions": [
+                {
+                  "type": {
+                    "value": "Tween::TweenCameraPosition2"
+                  },
+                  "parameters": [
+                    "",
+                    "\"PosReset\"",
+                    "ScreenWidth()/2",
+                    "ScreenHeight()/2",
+                    "",
+                    "\"linear\"",
+                    "0.5"
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "SetNumberVariable"
+                  },
+                  "parameters": [
+                    "cameraZoom",
+                    "=",
+                    "1"
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "Tween::TweenCameraZoom2"
+                  },
+                  "parameters": [
+                    "",
+                    "\"ZoomReset\"",
                     "cameraZoom",
                     "",
                     "\"linear\"",
