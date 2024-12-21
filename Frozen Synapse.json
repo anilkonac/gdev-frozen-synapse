@@ -971,6 +971,90 @@
               ]
             }
           ]
+        },
+        {
+          "assetStoreId": "5faf2b0415c271fa6e747283ed36297a95f04d2b6c477a7b011775fa6fb444ee",
+          "name": "DeleteWaypointButton",
+          "type": "PanelSpriteButton::PanelSpriteButton",
+          "variables": [],
+          "effects": [],
+          "behaviors": [],
+          "content": {
+            "LeftPadding": 16,
+            "RightPadding": 16,
+            "PressedLabelOffsetY": 3,
+            "BottomPadding": 32,
+            "TopPadding": 32,
+            "HoveredFadeOutDuration": 0.25
+          },
+          "childrenContent": {
+            "Hovered": {
+              "bottomMargin": 16,
+              "height": 48,
+              "leftMargin": 16,
+              "rightMargin": 16,
+              "texture": "Red Button With Shadow_Hovered.png",
+              "tiled": true,
+              "topMargin": 16,
+              "width": 168
+            },
+            "Idle": {
+              "bottomMargin": 16,
+              "height": 48,
+              "leftMargin": 16,
+              "rightMargin": 16,
+              "texture": "Red Button With Shadow_Idle.png",
+              "tiled": true,
+              "topMargin": 16,
+              "width": 168
+            },
+            "Label": {
+              "bold": false,
+              "italic": false,
+              "smoothed": true,
+              "underlined": false,
+              "string": "Delete Waypoint",
+              "font": "CantoraOne-Regular.ttf",
+              "textAlignment": "center",
+              "characterSize": 18,
+              "color": {
+                "b": 255,
+                "g": 255,
+                "r": 255
+              },
+              "content": {
+                "bold": false,
+                "isOutlineEnabled": false,
+                "isShadowEnabled": false,
+                "italic": false,
+                "outlineColor": "255;255;255",
+                "outlineThickness": 2,
+                "shadowAngle": 90,
+                "shadowBlurRadius": 2,
+                "shadowColor": "0;0;0",
+                "shadowDistance": 4,
+                "shadowOpacity": 127,
+                "smoothed": true,
+                "underlined": false,
+                "text": "Delete Waypoint",
+                "font": "CantoraOne-Regular.ttf",
+                "textAlignment": "center",
+                "verticalTextAlignment": "top",
+                "characterSize": 18,
+                "color": "255;255;255"
+              }
+            },
+            "Pressed": {
+              "bottomMargin": 16,
+              "height": 48,
+              "leftMargin": 16,
+              "rightMargin": 16,
+              "texture": "Red Button With Shadow_Pressed.png",
+              "tiled": true,
+              "topMargin": 16,
+              "width": 168
+            }
+          }
         }
       ],
       "objectsFolderStructure": {
@@ -996,6 +1080,9 @@
           },
           {
             "objectName": "AddWaypointButton"
+          },
+          {
+            "objectName": "DeleteWaypointButton"
           },
           {
             "objectName": "PathCreator"
@@ -1040,125 +1127,133 @@
           ],
           "events": [
             {
-              "colorB": 228,
-              "colorG": 176,
-              "colorR": 74,
-              "creationTime": 0,
-              "name": "Initialize Rifleman",
-              "source": "",
-              "type": "BuiltinCommonInstructions::Group",
-              "events": [
+              "type": "BuiltinCommonInstructions::Comment",
+              "color": {
+                "b": 109,
+                "g": 230,
+                "r": 255,
+                "textB": 0,
+                "textG": 0,
+                "textR": 0
+              },
+              "comment": "Initialize appearance of the Rifleman\n"
+            },
+            {
+              "type": "BuiltinCommonInstructions::Standard",
+              "conditions": [],
+              "actions": [
                 {
-                  "type": "BuiltinCommonInstructions::Comment",
-                  "color": {
-                    "b": 109,
-                    "g": 230,
-                    "r": 255,
-                    "textB": 0,
-                    "textG": 0,
-                    "textR": 0
+                  "type": {
+                    "value": "ChangeColor"
                   },
-                  "comment": "Initialize appearance of the Rifleman\n"
-                },
-                {
-                  "type": "BuiltinCommonInstructions::Standard",
-                  "conditions": [],
-                  "actions": [
-                    {
-                      "type": {
-                        "value": "ChangeColor"
-                      },
-                      "parameters": [
-                        "Rifleman",
-                        "\"0;255;0\""
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "EffectCapability::EffectBehavior::SetEffectStringParameter"
-                      },
-                      "parameters": [
-                        "Rifleman",
-                        "Effect",
-                        "\"Glow\"",
-                        "\"color\"",
-                        "\"0;255;0\""
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "EffectCapability::EffectBehavior::SetEffectStringParameter"
-                      },
-                      "parameters": [
-                        "Rifleman",
-                        "Effect",
-                        "\"Outline\"",
-                        "\"color\"",
-                        "\"0;255;0\""
-                      ]
-                    }
+                  "parameters": [
+                    "Rifleman",
+                    "\"0;255;0\""
                   ]
                 },
                 {
-                  "type": "BuiltinCommonInstructions::Comment",
-                  "color": {
-                    "b": 109,
-                    "g": 230,
-                    "r": 255,
-                    "textB": 0,
-                    "textG": 0,
-                    "textR": 0
+                  "type": {
+                    "value": "EffectCapability::EffectBehavior::SetEffectStringParameter"
                   },
-                  "comment": "Create UI elements \n\n"
+                  "parameters": [
+                    "Rifleman",
+                    "Effect",
+                    "\"Glow\"",
+                    "\"color\"",
+                    "\"0;255;0\""
+                  ]
                 },
                 {
-                  "type": "BuiltinCommonInstructions::Standard",
-                  "conditions": [],
-                  "actions": [
-                    {
-                      "type": {
-                        "value": "Create"
-                      },
-                      "parameters": [
-                        "",
-                        "NavArrows",
-                        "0",
-                        "0",
-                        ""
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "Create"
-                      },
-                      "parameters": [
-                        "",
-                        "AddWaypointButton",
-                        "0",
-                        "0",
-                        ""
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "Cache"
-                      },
-                      "parameters": [
-                        "AddWaypointButton"
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "Cache"
-                      },
-                      "parameters": [
-                        "NavArrows"
-                      ]
-                    }
+                  "type": {
+                    "value": "EffectCapability::EffectBehavior::SetEffectStringParameter"
+                  },
+                  "parameters": [
+                    "Rifleman",
+                    "Effect",
+                    "\"Outline\"",
+                    "\"color\"",
+                    "\"0;255;0\""
                   ]
                 }
-              ],
-              "parameters": []
+              ]
+            },
+            {
+              "type": "BuiltinCommonInstructions::Comment",
+              "color": {
+                "b": 109,
+                "g": 230,
+                "r": 255,
+                "textB": 0,
+                "textG": 0,
+                "textR": 0
+              },
+              "comment": "Create UI elements \n\n"
+            },
+            {
+              "type": "BuiltinCommonInstructions::Standard",
+              "conditions": [],
+              "actions": [
+                {
+                  "type": {
+                    "value": "Create"
+                  },
+                  "parameters": [
+                    "",
+                    "NavArrows",
+                    "0",
+                    "0",
+                    ""
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "Create"
+                  },
+                  "parameters": [
+                    "",
+                    "AddWaypointButton",
+                    "0",
+                    "0",
+                    ""
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "Create"
+                  },
+                  "parameters": [
+                    "",
+                    "DeleteWaypointButton",
+                    "0",
+                    "0",
+                    ""
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "Cache"
+                  },
+                  "parameters": [
+                    "NavArrows"
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "Cache"
+                  },
+                  "parameters": [
+                    "AddWaypointButton"
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "Cache"
+                  },
+                  "parameters": [
+                    "DeleteWaypointButton"
+                  ]
+                }
+              ]
             }
           ]
         },
@@ -1344,105 +1439,6 @@
                     "Effect",
                     "\"Glow\"",
                     "no"
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "BuiltinCommonInstructions::Standard",
-              "conditions": [
-                {
-                  "type": {
-                    "value": "KeyReleased"
-                  },
-                  "parameters": [
-                    "",
-                    "Escape"
-                  ]
-                }
-              ],
-              "actions": [],
-              "events": [
-                {
-                  "type": "BuiltinCommonInstructions::Standard",
-                  "conditions": [
-                    {
-                      "type": {
-                        "inverted": true,
-                        "value": "Visible"
-                      },
-                      "parameters": [
-                        "AddWaypointButton"
-                      ]
-                    }
-                  ],
-                  "actions": [
-                    {
-                      "type": {
-                        "value": "SetBooleanObjectVariable"
-                      },
-                      "parameters": [
-                        "Rifleman",
-                        "selected",
-                        "False",
-                        ""
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "EffectCapability::EffectBehavior::EnableEffect"
-                      },
-                      "parameters": [
-                        "Rifleman",
-                        "Effect",
-                        "\"Glow\"",
-                        ""
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "SetBooleanVariable"
-                      },
-                      "parameters": [
-                        "drawNavPaths",
-                        "False",
-                        ""
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "SetBooleanObjectVariable"
-                      },
-                      "parameters": [
-                        "Rifleman",
-                        "drawPath",
-                        "False",
-                        ""
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "BuiltinCommonInstructions::Standard",
-                  "conditions": [
-                    {
-                      "type": {
-                        "value": "Visible"
-                      },
-                      "parameters": [
-                        "AddWaypointButton"
-                      ]
-                    }
-                  ],
-                  "actions": [
-                    {
-                      "type": {
-                        "value": "Cache"
-                      },
-                      "parameters": [
-                        "AddWaypointButton"
-                      ]
-                    }
                   ]
                 }
               ]
@@ -1730,7 +1726,18 @@
                   ]
                 }
               ],
-              "actions": [],
+              "actions": [
+                {
+                  "type": {
+                    "value": "SetBooleanVariable"
+                  },
+                  "parameters": [
+                    "onAWaypoint",
+                    "False",
+                    ""
+                  ]
+                }
+              ],
               "events": [
                 {
                   "type": "BuiltinCommonInstructions::Repeat",
@@ -1809,18 +1816,19 @@
                             "",
                             ""
                           ]
-                        },
-                        {
-                          "type": {
-                            "value": "MouseButtonPressed"
-                          },
-                          "parameters": [
-                            "",
-                            "Left"
-                          ]
                         }
                       ],
                       "actions": [
+                        {
+                          "type": {
+                            "value": "SetBooleanVariable"
+                          },
+                          "parameters": [
+                            "onAWaypoint",
+                            "True",
+                            ""
+                          ]
+                        },
                         {
                           "type": {
                             "value": "SetNumberObjectVariable"
@@ -1831,15 +1839,33 @@
                             "=",
                             "nodeIndex"
                           ]
-                        },
+                        }
+                      ],
+                      "events": [
                         {
-                          "type": {
-                            "value": "SetBooleanVariable"
-                          },
-                          "parameters": [
-                            "movingWaypoint",
-                            "True",
-                            ""
+                          "type": "BuiltinCommonInstructions::Standard",
+                          "conditions": [
+                            {
+                              "type": {
+                                "value": "MouseButtonPressed"
+                              },
+                              "parameters": [
+                                "",
+                                "Left"
+                              ]
+                            }
+                          ],
+                          "actions": [
+                            {
+                              "type": {
+                                "value": "SetBooleanVariable"
+                              },
+                              "parameters": [
+                                "movingWaypoint",
+                                "True",
+                                ""
+                              ]
+                            }
                           ]
                         }
                       ]
@@ -1858,6 +1884,32 @@
                             "1"
                           ]
                         }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [
+                    {
+                      "type": {
+                        "value": "MouseButtonReleased"
+                      },
+                      "parameters": [
+                        "",
+                        "Left"
+                      ]
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "SetBooleanVariable"
+                      },
+                      "parameters": [
+                        "movingWaypoint",
+                        "False",
+                        ""
                       ]
                     }
                   ]
@@ -1884,6 +1936,11 @@
                       "value": 0
                     }
                   ]
+                },
+                {
+                  "name": "onAWaypoint",
+                  "type": "boolean",
+                  "value": false
                 }
               ]
             },
@@ -2663,6 +2720,223 @@
                     "AddWaypointButton",
                     ""
                   ]
+                },
+                {
+                  "type": {
+                    "value": "Cache"
+                  },
+                  "parameters": [
+                    "DeleteWaypointButton"
+                  ]
+                }
+              ],
+              "events": [
+                {
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [
+                    {
+                      "type": {
+                        "value": "SourisSurObjet"
+                      },
+                      "parameters": [
+                        "NavArrows",
+                        "",
+                        "",
+                        ""
+                      ]
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "MettreXY"
+                      },
+                      "parameters": [
+                        "DeleteWaypointButton",
+                        "=",
+                        "CursorX()",
+                        "=",
+                        "CursorY()+AddWaypointButton.Height()"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "Montre"
+                      },
+                      "parameters": [
+                        "DeleteWaypointButton",
+                        ""
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "PanelSpriteButton::PanelSpriteButton::Activate"
+                      },
+                      "parameters": [
+                        "DeleteWaypointButton",
+                        "yes",
+                        ""
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "OpacityCapability::OpacityBehavior::SetValue"
+                      },
+                      "parameters": [
+                        "DeleteWaypointButton",
+                        "Opacity",
+                        "=",
+                        "255"
+                      ]
+                    }
+                  ],
+                  "events": [
+                    {
+                      "type": "BuiltinCommonInstructions::Comment",
+                      "color": {
+                        "b": 109,
+                        "g": 230,
+                        "r": 255,
+                        "textB": 0,
+                        "textG": 0,
+                        "textR": 0
+                      },
+                      "comment": "Test whether deleting the node is safe\n"
+                    },
+                    {
+                      "type": "BuiltinCommonInstructions::Standard",
+                      "conditions": [
+                        {
+                          "type": {
+                            "value": "NumberObjectVariable"
+                          },
+                          "parameters": [
+                            "Rifleman",
+                            "selectedNodeIndex",
+                            "<",
+                            "Rifleman.PathNodesCount-1"
+                          ]
+                        }
+                      ],
+                      "actions": [
+                        {
+                          "type": {
+                            "value": "SetCenter"
+                          },
+                          "parameters": [
+                            "Rifleman",
+                            "=",
+                            "Rifleman.PathNodes[Rifleman.selectedNodeIndex-1].X",
+                            "=",
+                            "Rifleman.PathNodes[Rifleman.selectedNodeIndex-1].Y"
+                          ]
+                        },
+                        {
+                          "type": {
+                            "value": "PathfindingBehavior::MaxSpeed"
+                          },
+                          "parameters": [
+                            "Rifleman",
+                            "Pathfinding",
+                            "=",
+                            "0"
+                          ]
+                        },
+                        {
+                          "type": {
+                            "value": "PathfindingBehavior::SetDestination"
+                          },
+                          "parameters": [
+                            "Rifleman",
+                            "Pathfinding",
+                            "",
+                            "Rifleman.PathNodes[Rifleman.selectedNodeIndex+1].X",
+                            "Rifleman.PathNodes[Rifleman.selectedNodeIndex+1].Y"
+                          ]
+                        },
+                        {
+                          "type": {
+                            "value": "DebuggerTools::ConsoleLog"
+                          },
+                          "parameters": [
+                            "\"Node Count: \" + ToString(Rifleman.Pathfinding::NodeCount())",
+                            "\"info\"",
+                            ""
+                          ]
+                        }
+                      ],
+                      "events": [
+                        {
+                          "type": "BuiltinCommonInstructions::Standard",
+                          "conditions": [
+                            {
+                              "type": {
+                                "value": "BuiltinCommonInstructions::CompareNumbers"
+                              },
+                              "parameters": [
+                                "Rifleman.Pathfinding::NodeCount()",
+                                ">",
+                                "2"
+                              ]
+                            }
+                          ],
+                          "actions": [
+                            {
+                              "type": {
+                                "value": "PanelSpriteButton::PanelSpriteButton::Activate"
+                              },
+                              "parameters": [
+                                "DeleteWaypointButton",
+                                "no",
+                                ""
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "OpacityCapability::OpacityBehavior::SetValue"
+                              },
+                              "parameters": [
+                                "DeleteWaypointButton",
+                                "Opacity",
+                                "=",
+                                "127"
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "BuiltinCommonInstructions::Standard",
+                          "conditions": [],
+                          "actions": [
+                            {
+                              "type": {
+                                "value": "SetCenter"
+                              },
+                              "parameters": [
+                                "Rifleman",
+                                "=",
+                                "Rifleman.PathNodes[0].X",
+                                "=",
+                                "Rifleman.PathNodes[0].Y"
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "PathfindingBehavior::SetDestination"
+                              },
+                              "parameters": [
+                                "Rifleman",
+                                "Pathfinding",
+                                "",
+                                "Rifleman.PathNodes[0].X",
+                                "Rifleman.PathNodes[0].Y"
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
                 }
               ]
             },
@@ -2784,7 +3058,6 @@
                   ]
                 },
                 {
-                  "folded": true,
                   "type": "BuiltinCommonInstructions::Standard",
                   "conditions": [],
                   "actions": [
@@ -3030,6 +3303,173 @@
               ]
             },
             {
+              "type": "BuiltinCommonInstructions::Comment",
+              "color": {
+                "b": 109,
+                "g": 230,
+                "r": 255,
+                "textB": 0,
+                "textG": 0,
+                "textR": 0
+              },
+              "comment": "Delete Waypoint Button\n"
+            },
+            {
+              "type": "BuiltinCommonInstructions::Standard",
+              "conditions": [
+                {
+                  "type": {
+                    "value": "PanelSpriteButton::PanelSpriteButton::IsClicked"
+                  },
+                  "parameters": [
+                    "DeleteWaypointButton",
+                    ""
+                  ]
+                }
+              ],
+              "actions": [
+                {
+                  "type": {
+                    "value": "ObjectVariableRemoveAt"
+                  },
+                  "parameters": [
+                    "Rifleman",
+                    "PathNodes",
+                    "Rifleman.selectedNodeIndex"
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "SetNumberObjectVariable"
+                  },
+                  "parameters": [
+                    "Rifleman",
+                    "selectedNodeIndex",
+                    "-",
+                    "1"
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "SetNumberObjectVariable"
+                  },
+                  "parameters": [
+                    "Rifleman",
+                    "PathNodesCount",
+                    "-",
+                    "1"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "BuiltinCommonInstructions::Standard",
+              "conditions": [
+                {
+                  "type": {
+                    "value": "KeyReleased"
+                  },
+                  "parameters": [
+                    "",
+                    "Escape"
+                  ]
+                }
+              ],
+              "actions": [],
+              "events": [
+                {
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [
+                    {
+                      "type": {
+                        "inverted": true,
+                        "value": "Visible"
+                      },
+                      "parameters": [
+                        "AddWaypointButton"
+                      ]
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "SetBooleanObjectVariable"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "selected",
+                        "False",
+                        ""
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "EffectCapability::EffectBehavior::EnableEffect"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "Effect",
+                        "\"Glow\"",
+                        ""
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetBooleanVariable"
+                      },
+                      "parameters": [
+                        "drawNavPaths",
+                        "False",
+                        ""
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetBooleanObjectVariable"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "drawPath",
+                        "False",
+                        ""
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [
+                    {
+                      "type": {
+                        "value": "Visible"
+                      },
+                      "parameters": [
+                        "AddWaypointButton"
+                      ]
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "Cache"
+                      },
+                      "parameters": [
+                        "AddWaypointButton"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "Cache"
+                      },
+                      "parameters": [
+                        "DeleteWaypointButton"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
               "type": "BuiltinCommonInstructions::Standard",
               "conditions": [
                 {
@@ -3058,6 +3498,14 @@
                   "parameters": [
                     "AddWaypointButton"
                   ]
+                },
+                {
+                  "type": {
+                    "value": "Cache"
+                  },
+                  "parameters": [
+                    "DeleteWaypointButton"
+                  ]
                 }
               ]
             }
@@ -3069,6 +3517,7 @@
           "colorG": 176,
           "colorR": 74,
           "creationTime": 0,
+          "folded": true,
           "name": "Path and waypoint drawing",
           "source": "",
           "type": "BuiltinCommonInstructions::Group",
@@ -3233,248 +3682,250 @@
           "colorG": 176,
           "colorR": 74,
           "creationTime": 0,
+          "folded": true,
           "name": "Turn Execution",
           "source": "",
           "type": "BuiltinCommonInstructions::Group",
-          "events": [],
-          "parameters": []
-        },
-        {
-          "type": "BuiltinCommonInstructions::Standard",
-          "conditions": [
-            {
-              "type": {
-                "value": "PanelSpriteButton::PanelSpriteButton::IsClicked"
-              },
-              "parameters": [
-                "PrimeButton",
-                ""
-              ]
-            }
-          ],
-          "actions": [
-            {
-              "type": {
-                "value": "SetBooleanVariable"
-              },
-              "parameters": [
-                "isTurnExecuting",
-                "True",
-                ""
-              ]
-            },
-            {
-              "type": {
-                "value": "PathfindingBehavior::MaxSpeed"
-              },
-              "parameters": [
-                "Rifleman",
-                "Pathfinding",
-                "=",
-                "200"
-              ]
-            },
-            {
-              "type": {
-                "value": "PathfindingBehavior::RotateObject"
-              },
-              "parameters": [
-                "Rifleman",
-                "Pathfinding",
-                "yes"
-              ]
-            },
-            {
-              "type": {
-                "value": "EffectCapability::EffectBehavior::EnableEffect"
-              },
-              "parameters": [
-                "Rifleman",
-                "Effect",
-                "\"Glow\"",
-                "no"
-              ]
-            },
-            {
-              "type": {
-                "value": "SetBooleanObjectVariable"
-              },
-              "parameters": [
-                "Rifleman",
-                "drawPath",
-                "False",
-                ""
-              ]
-            },
-            {
-              "type": {
-                "value": "PathfindingBehavior::SetDestination"
-              },
-              "parameters": [
-                "Rifleman",
-                "Pathfinding",
-                "",
-                "Rifleman.CenterX()",
-                "Rifleman.CenterY()"
-              ]
-            },
-            {
-              "type": {
-                "value": "SetBooleanObjectVariable"
-              },
-              "parameters": [
-                "Rifleman",
-                "selected",
-                "False",
-                ""
-              ]
-            }
-          ]
-        },
-        {
-          "type": "BuiltinCommonInstructions::Standard",
-          "conditions": [
-            {
-              "type": {
-                "value": "BooleanVariable"
-              },
-              "parameters": [
-                "isTurnExecuting",
-                "True",
-                ""
-              ]
-            }
-          ],
-          "actions": [],
           "events": [
             {
-              "type": "BuiltinCommonInstructions::ForEach",
-              "object": "Rifleman",
+              "type": "BuiltinCommonInstructions::Standard",
               "conditions": [
                 {
                   "type": {
-                    "value": "PathfindingBehavior::DestinationReached"
+                    "value": "PanelSpriteButton::PanelSpriteButton::IsClicked"
+                  },
+                  "parameters": [
+                    "PrimeButton",
+                    ""
+                  ]
+                }
+              ],
+              "actions": [
+                {
+                  "type": {
+                    "value": "SetBooleanVariable"
+                  },
+                  "parameters": [
+                    "isTurnExecuting",
+                    "True",
+                    ""
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "PathfindingBehavior::MaxSpeed"
                   },
                   "parameters": [
                     "Rifleman",
-                    "Pathfinding"
+                    "Pathfinding",
+                    "=",
+                    "200"
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "PathfindingBehavior::RotateObject"
+                  },
+                  "parameters": [
+                    "Rifleman",
+                    "Pathfinding",
+                    "yes"
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "EffectCapability::EffectBehavior::EnableEffect"
+                  },
+                  "parameters": [
+                    "Rifleman",
+                    "Effect",
+                    "\"Glow\"",
+                    "no"
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "SetBooleanObjectVariable"
+                  },
+                  "parameters": [
+                    "Rifleman",
+                    "drawPath",
+                    "False",
+                    ""
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "PathfindingBehavior::SetDestination"
+                  },
+                  "parameters": [
+                    "Rifleman",
+                    "Pathfinding",
+                    "",
+                    "Rifleman.CenterX()",
+                    "Rifleman.CenterY()"
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "SetBooleanObjectVariable"
+                  },
+                  "parameters": [
+                    "Rifleman",
+                    "selected",
+                    "False",
+                    ""
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "BuiltinCommonInstructions::Standard",
+              "conditions": [
+                {
+                  "type": {
+                    "value": "BooleanVariable"
+                  },
+                  "parameters": [
+                    "isTurnExecuting",
+                    "True",
+                    ""
                   ]
                 }
               ],
               "actions": [],
               "events": [
                 {
-                  "type": "BuiltinCommonInstructions::Standard",
+                  "type": "BuiltinCommonInstructions::ForEach",
+                  "object": "Rifleman",
                   "conditions": [
                     {
                       "type": {
-                        "value": "NumberObjectVariable"
+                        "value": "PathfindingBehavior::DestinationReached"
                       },
                       "parameters": [
                         "Rifleman",
-                        "nextNodeIndex",
-                        "<",
-                        "Rifleman.PathNodesCount"
+                        "Pathfinding"
                       ]
                     }
                   ],
-                  "actions": [
+                  "actions": [],
+                  "events": [
                     {
-                      "type": {
-                        "value": "SetNumberVariable"
-                      },
-                      "parameters": [
-                        "nextNodeIndex",
-                        "=",
-                        "Rifleman.nextNodeIndex"
+                      "type": "BuiltinCommonInstructions::Standard",
+                      "conditions": [
+                        {
+                          "type": {
+                            "value": "NumberObjectVariable"
+                          },
+                          "parameters": [
+                            "Rifleman",
+                            "nextNodeIndex",
+                            "<",
+                            "Rifleman.PathNodesCount"
+                          ]
+                        }
+                      ],
+                      "actions": [
+                        {
+                          "type": {
+                            "value": "SetNumberVariable"
+                          },
+                          "parameters": [
+                            "nextNodeIndex",
+                            "=",
+                            "Rifleman.nextNodeIndex"
+                          ]
+                        },
+                        {
+                          "type": {
+                            "value": "SetNumberVariable"
+                          },
+                          "parameters": [
+                            "NextNode.X",
+                            "=",
+                            "Rifleman.PathNodes[nextNodeIndex].X"
+                          ]
+                        },
+                        {
+                          "type": {
+                            "value": "SetNumberVariable"
+                          },
+                          "parameters": [
+                            "NextNode.Y",
+                            "=",
+                            "Rifleman.PathNodes[nextNodeIndex].Y"
+                          ]
+                        },
+                        {
+                          "type": {
+                            "value": "PathfindingBehavior::SetDestination"
+                          },
+                          "parameters": [
+                            "Rifleman",
+                            "Pathfinding",
+                            "",
+                            "NextNode.X",
+                            "NextNode.Y"
+                          ]
+                        },
+                        {
+                          "type": {
+                            "value": "DebuggerTools::ConsoleLog"
+                          },
+                          "parameters": [
+                            "\"NextNodeIndex: \" + nextNodeIndex + \" Location: \" + NextNode.X + \", \" + NextNode.Y",
+                            "\"info\"",
+                            ""
+                          ]
+                        },
+                        {
+                          "type": {
+                            "value": "SetNumberObjectVariable"
+                          },
+                          "parameters": [
+                            "Rifleman",
+                            "nextNodeIndex",
+                            "+",
+                            "1"
+                          ]
+                        }
                       ]
+                    }
+                  ]
+                }
+              ],
+              "variables": [
+                {
+                  "name": "nextNodeIndex",
+                  "type": "number",
+                  "value": 0
+                },
+                {
+                  "name": "Variable",
+                  "type": "number",
+                  "value": 0
+                },
+                {
+                  "name": "NextNode",
+                  "type": "structure",
+                  "children": [
+                    {
+                      "name": "X",
+                      "type": "number",
+                      "value": 0
                     },
                     {
-                      "type": {
-                        "value": "SetNumberVariable"
-                      },
-                      "parameters": [
-                        "NextNode.X",
-                        "=",
-                        "Rifleman.PathNodes[nextNodeIndex].X"
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "SetNumberVariable"
-                      },
-                      "parameters": [
-                        "NextNode.Y",
-                        "=",
-                        "Rifleman.PathNodes[nextNodeIndex].Y"
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "PathfindingBehavior::SetDestination"
-                      },
-                      "parameters": [
-                        "Rifleman",
-                        "Pathfinding",
-                        "",
-                        "NextNode.X",
-                        "NextNode.Y"
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "DebuggerTools::ConsoleLog"
-                      },
-                      "parameters": [
-                        "\"NextNodeIndex: \" + nextNodeIndex + \" Location: \" + NextNode.X + \", \" + NextNode.Y",
-                        "\"info\"",
-                        ""
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "SetNumberObjectVariable"
-                      },
-                      "parameters": [
-                        "Rifleman",
-                        "nextNodeIndex",
-                        "+",
-                        "1"
-                      ]
+                      "name": "Y",
+                      "type": "number",
+                      "value": 0
                     }
                   ]
                 }
               ]
             }
           ],
-          "variables": [
-            {
-              "name": "nextNodeIndex",
-              "type": "number",
-              "value": 0
-            },
-            {
-              "name": "Variable",
-              "type": "number",
-              "value": 0
-            },
-            {
-              "name": "NextNode",
-              "type": "structure",
-              "children": [
-                {
-                  "name": "X",
-                  "type": "number",
-                  "value": 0
-                },
-                {
-                  "name": "Y",
-                  "type": "number",
-                  "value": 0
-                }
-              ]
-            }
-          ]
+          "parameters": []
         }
       ],
       "layers": [
