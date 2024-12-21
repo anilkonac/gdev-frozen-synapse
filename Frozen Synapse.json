@@ -2951,9 +2951,126 @@
                   "parameters": [
                     "DeleteWaypointButton"
                   ]
+                },
+                {
+                  "type": {
+                    "value": "PanelSpriteButton::PanelSpriteButton::Activate"
+                  },
+                  "parameters": [
+                    "AddWaypointButton",
+                    "yes",
+                    ""
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "OpacityCapability::OpacityBehavior::SetValue"
+                  },
+                  "parameters": [
+                    "AddWaypointButton",
+                    "Opacity",
+                    "=",
+                    "255"
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "SetNumberVariable"
+                  },
+                  "parameters": [
+                    "CurNode.X",
+                    "=",
+                    "Rifleman.PathNodes[Rifleman.selectedNodeIndex].X"
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "SetNumberVariable"
+                  },
+                  "parameters": [
+                    "CurNode.Y",
+                    "=",
+                    "Rifleman.PathNodes[Rifleman.selectedNodeIndex].Y"
+                  ]
                 }
               ],
               "events": [
+                {
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [
+                    {
+                      "type": {
+                        "value": "CursorX"
+                      },
+                      "parameters": [
+                        "",
+                        ">=",
+                        "CurNode.X-WaypointSquareRadius",
+                        "",
+                        ""
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "CursorX"
+                      },
+                      "parameters": [
+                        "",
+                        "<=",
+                        "CurNode.X+WaypointSquareRadius",
+                        "",
+                        ""
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "CursorY"
+                      },
+                      "parameters": [
+                        "",
+                        ">=",
+                        "CurNode.Y-WaypointSquareRadius",
+                        "",
+                        ""
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "CursorY"
+                      },
+                      "parameters": [
+                        "",
+                        "<=",
+                        "CurNode.Y+WaypointSquareRadius",
+                        "",
+                        ""
+                      ]
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "PanelSpriteButton::PanelSpriteButton::Activate"
+                      },
+                      "parameters": [
+                        "AddWaypointButton",
+                        "no",
+                        ""
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "OpacityCapability::OpacityBehavior::SetValue"
+                      },
+                      "parameters": [
+                        "AddWaypointButton",
+                        "Opacity",
+                        "=",
+                        "127"
+                      ]
+                    }
+                  ]
+                },
                 {
                   "type": "BuiltinCommonInstructions::Standard",
                   "conditions": [
@@ -3211,6 +3328,24 @@
                     }
                   ]
                 }
+              ],
+              "variables": [
+                {
+                  "name": "CurNode",
+                  "type": "structure",
+                  "children": [
+                    {
+                      "name": "X",
+                      "type": "number",
+                      "value": 0
+                    },
+                    {
+                      "name": "Y",
+                      "type": "number",
+                      "value": 0
+                    }
+                  ]
+                }
               ]
             },
             {
@@ -3374,7 +3509,7 @@
                         "value": "DebuggerTools::ConsoleLog"
                       },
                       "parameters": [
-                        "\"Move Rifleman!! to last\"",
+                        "\"Move Rifleman!! to AddWaypointsButton\"",
                         "\"info\"",
                         ""
                       ]
