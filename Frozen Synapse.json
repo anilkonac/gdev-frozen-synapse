@@ -246,6 +246,11 @@
       "name": "initialCursorY",
       "type": "number",
       "value": 0
+    },
+    {
+      "name": "EdgeScrollSpeed",
+      "type": "number",
+      "value": 600
     }
   ],
   "layouts": [
@@ -1386,7 +1391,7 @@
               "parameters": [
                 "",
                 "100",
-                "500",
+                "EdgeScrollSpeed*cameraZoom",
                 "",
                 "0",
                 "\"Progressive speed\"",
@@ -4522,7 +4527,7 @@
                   "parameters": [
                     "cameraZoom",
                     "=",
-                    "clamp(cameraZoom, 0.1, 2)"
+                    "clamp(cameraZoom, 0.25, 2.25)"
                   ]
                 },
                 {
@@ -4555,7 +4560,7 @@
                   "parameters": [
                     "",
                     "100",
-                    "500*cameraZoom",
+                    "EdgeScrollSpeed*cameraZoom",
                     "",
                     "0",
                     "\"Progressive speed\"",
