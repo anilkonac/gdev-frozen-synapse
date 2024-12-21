@@ -251,6 +251,11 @@
       "name": "EdgeScrollSpeed",
       "type": "number",
       "value": 600
+    },
+    {
+      "name": "EdgeScrollMargin",
+      "type": "number",
+      "value": 125
     }
   ],
   "layouts": [
@@ -1390,7 +1395,7 @@
               },
               "parameters": [
                 "",
-                "100",
+                "EdgeScrollMargin",
                 "EdgeScrollSpeed*cameraZoom",
                 "",
                 "0",
@@ -4559,7 +4564,7 @@
                   },
                   "parameters": [
                     "",
-                    "100",
+                    "EdgeScrollMargin",
                     "EdgeScrollSpeed*cameraZoom",
                     "",
                     "0",
