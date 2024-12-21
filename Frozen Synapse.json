@@ -3453,16 +3453,89 @@
                     },
                     {
                       "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "nodeX",
+                        "=",
+                        "Rifleman.PathNodes[Rifleman.selectedNodeIndex].X"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "nodeY",
+                        "=",
+                        "Rifleman.PathNodes[Rifleman.selectedNodeIndex].Y"
+                      ]
+                    },
+                    {
+                      "type": {
                         "value": "PrimitiveDrawing::LineV2"
                       },
                       "parameters": [
                         "RotationLinePainter",
-                        "Rifleman.PathNodes[Rifleman.selectedNodeIndex].X",
-                        "Rifleman.PathNodes[Rifleman.selectedNodeIndex].Y\n",
+                        "nodeX",
+                        "nodeY",
                         "RotationButton.CenterX()",
                         "RotationButton.CenterY()",
                         "2"
                       ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "angle",
+                        "=",
+                        "AngleBetweenPositions(nodeX, nodeY, CursorX(), CursorY())"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "PrimitiveDrawing::LineV2"
+                      },
+                      "parameters": [
+                        "RotationLinePainter",
+                        "nodeX",
+                        "nodeY",
+                        "nodeX + 1000*cos(ToRad(angle-60))",
+                        "nodeY+ 1000*sin(ToRad(angle-60))",
+                        "1"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "PrimitiveDrawing::LineV2"
+                      },
+                      "parameters": [
+                        "RotationLinePainter",
+                        "nodeX",
+                        "nodeY",
+                        "nodeX + 1000*cos(ToRad(angle+60))",
+                        "nodeY+ 1000*sin(ToRad(angle+60))",
+                        "1"
+                      ]
+                    }
+                  ],
+                  "variables": [
+                    {
+                      "name": "angle",
+                      "type": "number",
+                      "value": 0
+                    },
+                    {
+                      "name": "nodeX",
+                      "type": "number",
+                      "value": 0
+                    },
+                    {
+                      "name": "nodeY",
+                      "type": "number",
+                      "value": 0
                     }
                   ]
                 },
