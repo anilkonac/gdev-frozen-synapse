@@ -282,6 +282,16 @@
       "name": "RotationLineLength",
       "type": "number",
       "value": 100
+    },
+    {
+      "name": "RiflemanWalkSpeed",
+      "type": "number",
+      "value": 200
+    },
+    {
+      "name": "RiflemanWalkAimSpeed",
+      "type": "number",
+      "value": 100
     }
   ],
   "layouts": [
@@ -2168,7 +2178,6 @@
           "colorG": 176,
           "colorR": 74,
           "creationTime": 0,
-          "folded": true,
           "name": "Planning",
           "source": "",
           "type": "BuiltinCommonInstructions::Group",
@@ -5244,7 +5253,7 @@
                     "Rifleman",
                     "Pathfinding",
                     "=",
-                    "200"
+                    "RiflemanWalkSpeed"
                   ]
                 },
                 {
@@ -5499,6 +5508,17 @@
                                     "\"Rotate to angle: \" + Rifleman.PathNodes[Rifleman.nextNodeIndex-1].angle",
                                     "\"info\"",
                                     ""
+                                  ]
+                                },
+                                {
+                                  "type": {
+                                    "value": "PathfindingBehavior::MaxSpeed"
+                                  },
+                                  "parameters": [
+                                    "Rifleman",
+                                    "Pathfinding",
+                                    "=",
+                                    "RiflemanWalkAimSpeed"
                                   ]
                                 }
                               ]
@@ -5907,7 +5927,6 @@
           "colorG": 176,
           "colorR": 74,
           "creationTime": 0,
-          "folded": true,
           "name": "Camera controls",
           "source": "",
           "type": "BuiltinCommonInstructions::Group",
