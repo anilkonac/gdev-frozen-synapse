@@ -330,6 +330,11 @@
       "name": "Player2Color_alt",
       "type": "string",
       "value": "4;217;255"
+    },
+    {
+      "name": "TurnPlayerID",
+      "type": "number",
+      "value": 1
     }
   ],
   "layouts": [
@@ -389,22 +394,6 @@
       "instances": [
         {
           "angle": 0,
-          "customSize": false,
-          "height": 0,
-          "keepRatio": true,
-          "layer": "",
-          "name": "Rifleman",
-          "persistentUuid": "79709fba-b9bc-44ea-a358-b81729622ef8",
-          "width": 0,
-          "x": 805,
-          "y": 336,
-          "zOrder": 1,
-          "numberProperties": [],
-          "stringProperties": [],
-          "initialVariables": []
-        },
-        {
-          "angle": 0,
           "customSize": true,
           "depth": 1,
           "height": 28,
@@ -413,8 +402,8 @@
           "name": "Wall",
           "persistentUuid": "c37ac437-ce35-4e4d-ab92-bb348bd1aba3",
           "width": 252,
-          "x": 854,
-          "y": 493,
+          "x": 226,
+          "y": 565,
           "zOrder": 4,
           "numberProperties": [],
           "stringProperties": [],
@@ -430,8 +419,8 @@
           "name": "Wall",
           "persistentUuid": "7bb50725-e42d-4a3d-b5a3-bae138f2ed50",
           "width": 25,
-          "x": 1104,
-          "y": 284,
+          "x": 476,
+          "y": 356,
           "zOrder": 4,
           "numberProperties": [],
           "stringProperties": [],
@@ -543,8 +532,8 @@
           "name": "Rifleman",
           "persistentUuid": "78140339-f30f-4bb6-873b-e1e4738d42a7",
           "width": 0,
-          "x": 1521,
-          "y": 647,
+          "x": 1290,
+          "y": 423,
           "zOrder": 11,
           "numberProperties": [],
           "stringProperties": [],
@@ -565,8 +554,8 @@
           "name": "Rifleman",
           "persistentUuid": "0f7aeebb-3a25-4e36-9466-1af6465824ab",
           "width": 0,
-          "x": 1374,
-          "y": 758,
+          "x": 1000,
+          "y": 647,
           "zOrder": 13,
           "numberProperties": [],
           "stringProperties": [],
@@ -587,25 +576,9 @@
           "name": "Rifleman",
           "persistentUuid": "0c576071-142a-4930-8353-6da229c844b8",
           "width": 0,
-          "x": 964,
-          "y": 236,
+          "x": 690,
+          "y": 420,
           "zOrder": 14,
-          "numberProperties": [],
-          "stringProperties": [],
-          "initialVariables": []
-        },
-        {
-          "angle": 0,
-          "customSize": false,
-          "height": 0,
-          "keepRatio": true,
-          "layer": "",
-          "name": "Rifleman",
-          "persistentUuid": "4c6df0c2-fd43-4b95-812a-6e2f4e11377c",
-          "width": 0,
-          "x": 890,
-          "y": 415,
-          "zOrder": 15,
           "numberProperties": [],
           "stringProperties": [],
           "initialVariables": []
@@ -2026,6 +1999,7 @@
       },
       "events": [
         {
+          "folded": true,
           "type": "BuiltinCommonInstructions::Standard",
           "conditions": [
             {
@@ -2682,6 +2656,7 @@
           "colorG": 176,
           "colorR": 74,
           "creationTime": 0,
+          "folded": true,
           "name": "Planning",
           "source": "",
           "type": "BuiltinCommonInstructions::Group",
@@ -3935,6 +3910,7 @@
               "colorG": 176,
               "colorR": 74,
               "creationTime": 0,
+              "folded": true,
               "name": "Aim Button",
               "source": "",
               "type": "BuiltinCommonInstructions::Group",
@@ -5816,6 +5792,7 @@
           "colorG": 176,
           "colorR": 74,
           "creationTime": 0,
+          "folded": true,
           "name": "Path and waypoint drawing",
           "source": "",
           "type": "BuiltinCommonInstructions::Group",
@@ -7062,7 +7039,7 @@
                                 "value": "SetNumberVariable"
                               },
                               "parameters": [
-                                "rayAngle",
+                                "raySourceAngle",
                                 "=",
                                 "Rifleman.Angle()"
                               ]
@@ -7151,7 +7128,7 @@
                                         "value": "DebuggerTools::ConsoleLog"
                                       },
                                       "parameters": [
-                                        "\"Ray source id: \" + raySourceID + \" Player ID: \" + raySourcePlayerID + \" Enemy ID: \" + Rifleman.ID + \" Player ID : \" + Rifleman.playerID",
+                                        "\"Ray source player id: \" + raySourcePlayerID + \" id: \" + raySourceID + \" Enemy player id: \" + Rifleman.playerID + \" id : \" + Rifleman.ID",
                                         "\"info\"",
                                         ""
                                       ]
@@ -7169,17 +7146,135 @@
                                     },
                                     {
                                       "type": {
-                                        "value": "PrimitiveDrawing::LineV2"
+                                        "value": "SetNumberVariable"
                                       },
                                       "parameters": [
-                                        "AimLinePainter",
-                                        "raySourceX",
-                                        "raySourceY",
-                                        "Rifleman.CenterX()",
-                                        "Rifleman.CenterY()",
-                                        "4"
+                                        "angle",
+                                        "=",
+                                        "abs(AngleDifference(raySourceAngle, AngleBetweenPositions(raySourceX, raySourceY, Rifleman.CenterX(), Rifleman.CenterY())))"
+                                      ]
+                                    },
+                                    {
+                                      "type": {
+                                        "value": "DebuggerTools::ConsoleLog"
+                                      },
+                                      "parameters": [
+                                        "\"Angle: \" + raySourceAngle + \" Angle between: \" + angle",
+                                        "\"info\"",
+                                        ""
                                       ]
                                     }
+                                  ],
+                                  "events": [
+                                    {
+                                      "type": "BuiltinCommonInstructions::Comment",
+                                      "color": {
+                                        "b": 109,
+                                        "g": 230,
+                                        "r": 255,
+                                        "textB": 0,
+                                        "textG": 0,
+                                        "textR": 0
+                                      },
+                                      "comment": "Find enemy with min angle"
+                                    },
+                                    {
+                                      "type": "BuiltinCommonInstructions::Standard",
+                                      "conditions": [
+                                        {
+                                          "type": {
+                                            "value": "NumberVariable"
+                                          },
+                                          "parameters": [
+                                            "angle",
+                                            "<",
+                                            "minAngle"
+                                          ]
+                                        }
+                                      ],
+                                      "actions": [
+                                        {
+                                          "type": {
+                                            "value": "SetNumberVariable"
+                                          },
+                                          "parameters": [
+                                            "minAngle",
+                                            "=",
+                                            "angle"
+                                          ]
+                                        },
+                                        {
+                                          "type": {
+                                            "value": "SetNumberVariable"
+                                          },
+                                          "parameters": [
+                                            "minAngleTargetID",
+                                            "=",
+                                            "Rifleman.ID"
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "variables": [
+                                    {
+                                      "name": "angle",
+                                      "type": "number",
+                                      "value": 0
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "BuiltinCommonInstructions::Comment",
+                              "color": {
+                                "b": 109,
+                                "g": 230,
+                                "r": 255,
+                                "textB": 0,
+                                "textG": 0,
+                                "textR": 0
+                              },
+                              "comment": "Fire enemy with min angle"
+                            },
+                            {
+                              "type": "BuiltinCommonInstructions::Standard",
+                              "conditions": [
+                                {
+                                  "type": {
+                                    "value": "NumberObjectVariable"
+                                  },
+                                  "parameters": [
+                                    "Rifleman",
+                                    "ID",
+                                    "=",
+                                    "minAngleTargetID"
+                                  ]
+                                },
+                                {
+                                  "type": {
+                                    "value": "NumberVariable"
+                                  },
+                                  "parameters": [
+                                    "raySourcePlayerID",
+                                    "=",
+                                    "1"
+                                  ]
+                                }
+                              ],
+                              "actions": [
+                                {
+                                  "type": {
+                                    "value": "PrimitiveDrawing::LineV2"
+                                  },
+                                  "parameters": [
+                                    "AimLinePainter",
+                                    "raySourceX",
+                                    "raySourceY",
+                                    "Rifleman.CenterX()",
+                                    "Rifleman.CenterY()",
+                                    "4"
                                   ]
                                 }
                               ]
@@ -7207,7 +7302,17 @@
                               "value": 0
                             },
                             {
-                              "name": "rayAngle",
+                              "name": "raySourceAngle",
+                              "type": "number",
+                              "value": 0
+                            },
+                            {
+                              "name": "minAngle",
+                              "type": "number",
+                              "value": 999999
+                            },
+                            {
+                              "name": "minAngleTargetID",
                               "type": "number",
                               "value": 0
                             }
