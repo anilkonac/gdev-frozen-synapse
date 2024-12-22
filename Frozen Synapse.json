@@ -1890,7 +1890,7 @@
         {
           "adaptCollisionMaskAutomatically": true,
           "assetStoreId": "",
-          "name": "NewSprite",
+          "name": "Bullet",
           "type": "Sprite",
           "updateIfNotVisible": false,
           "variables": [],
@@ -2024,7 +2024,7 @@
             "objectName": "TurnTitle"
           },
           {
-            "objectName": "NewSprite"
+            "objectName": "Bullet"
           }
         ]
       },
@@ -6792,6 +6792,7 @@
                           "comment": "Move and Aim"
                         },
                         {
+                          "folded": true,
                           "type": "BuiltinCommonInstructions::Standard",
                           "conditions": [
                             {
@@ -7851,7 +7852,7 @@
                                   },
                                   "parameters": [
                                     "",
-                                    "NewSprite",
+                                    "Bullet",
                                     "Rifleman.PointX(\"FireStart\")",
                                     "Rifleman.PointY(\"FireStart\")",
                                     ""
@@ -7859,13 +7860,14 @@
                                 },
                                 {
                                   "type": {
-                                    "value": "AddForceAL"
+                                    "value": "RotateTowardPosition"
                                   },
                                   "parameters": [
-                                    "NewSprite",
-                                    "Rifleman.Angle()",
-                                    "100",
-                                    "1"
+                                    "Bullet",
+                                    "Rifleman.targetPosX",
+                                    "Rifleman.targetPosY",
+                                    "0",
+                                    ""
                                   ]
                                 },
                                 {
@@ -7877,6 +7879,26 @@
                                     "fireCooldown",
                                     "=",
                                     "RiflemanFireCooldown"
+                                  ]
+                                }
+                              ],
+                              "events": [
+                                {
+                                  "disabled": true,
+                                  "type": "BuiltinCommonInstructions::Standard",
+                                  "conditions": [],
+                                  "actions": [
+                                    {
+                                      "type": {
+                                        "value": "AddForceAL"
+                                      },
+                                      "parameters": [
+                                        "Bullet",
+                                        "Rifleman.Angle()",
+                                        "100",
+                                        "1"
+                                      ]
+                                    }
                                   ]
                                 }
                               ]
@@ -7910,6 +7932,23 @@
                                 }
                               ]
                             }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "BuiltinCommonInstructions::Standard",
+                      "conditions": [],
+                      "actions": [
+                        {
+                          "type": {
+                            "value": "AddForceAL"
+                          },
+                          "parameters": [
+                            "Bullet",
+                            "Bullet.Angle()",
+                            "400",
+                            "0"
                           ]
                         }
                       ]
