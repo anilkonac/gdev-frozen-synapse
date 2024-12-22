@@ -575,6 +575,22 @@
               "value": 2
             }
           ]
+        },
+        {
+          "angle": 0,
+          "customSize": false,
+          "height": 0,
+          "keepRatio": true,
+          "layer": "",
+          "name": "BulletTrailPainter",
+          "persistentUuid": "8a59b437-c18b-42c2-95b4-928cae813866",
+          "width": 0,
+          "x": 1634,
+          "y": 535,
+          "zOrder": 15,
+          "numberProperties": [],
+          "stringProperties": [],
+          "initialVariables": []
         }
       ],
       "objects": [
@@ -1893,7 +1909,18 @@
           "name": "Bullet",
           "type": "Sprite",
           "updateIfNotVisible": false,
-          "variables": [],
+          "variables": [
+            {
+              "name": "spawnPosX",
+              "type": "number",
+              "value": 0
+            },
+            {
+              "name": "spawnPosY",
+              "type": "number",
+              "value": 0
+            }
+          ],
           "effects": [],
           "behaviors": [],
           "animations": [
@@ -1947,6 +1974,30 @@
               ]
             }
           ]
+        },
+        {
+          "assetStoreId": "",
+          "name": "BulletTrailPainter",
+          "type": "PrimitiveDrawing::Drawer",
+          "variables": [],
+          "effects": [],
+          "behaviors": [],
+          "fillOpacity": 255,
+          "outlineSize": 1,
+          "outlineOpacity": 255,
+          "absoluteCoordinates": true,
+          "clearBetweenFrames": true,
+          "antialiasing": "medium",
+          "fillColor": {
+            "r": 255,
+            "g": 255,
+            "b": 255
+          },
+          "outlineColor": {
+            "r": 255,
+            "g": 255,
+            "b": 255
+          }
         }
       ],
       "objectsFolderStructure": {
@@ -1991,6 +2042,9 @@
               },
               {
                 "objectName": "AimLinePainter"
+              },
+              {
+                "objectName": "BulletTrailPainter"
               }
             ]
           },
@@ -7880,6 +7934,28 @@
                                     "=",
                                     "RiflemanFireCooldown"
                                   ]
+                                },
+                                {
+                                  "type": {
+                                    "value": "SetNumberObjectVariable"
+                                  },
+                                  "parameters": [
+                                    "Bullet",
+                                    "spawnPosX",
+                                    "=",
+                                    "Bullet.CenterX()"
+                                  ]
+                                },
+                                {
+                                  "type": {
+                                    "value": "SetNumberObjectVariable"
+                                  },
+                                  "parameters": [
+                                    "Bullet",
+                                    "spawnPosY",
+                                    "=",
+                                    "Bullet.CenterY()"
+                                  ]
                                 }
                               ],
                               "events": [
@@ -8690,6 +8766,55 @@
             }
           ],
           "parameters": []
+        },
+        {
+          "type": "BuiltinCommonInstructions::ForEach",
+          "object": "Bullet",
+          "conditions": [],
+          "actions": [
+            {
+              "type": {
+                "value": "PrimitiveDrawing::LineV2"
+              },
+              "parameters": [
+                "BulletTrailPainter",
+                "Bullet.spawnPosX",
+                "Bullet.spawnPosY",
+                "Bullet.CenterX()",
+                "Bullet.CenterY()",
+                "3"
+              ]
+            },
+            {
+              "type": {
+                "value": "DebuggerTools::ConsoleLog"
+              },
+              "parameters": [
+                "\"Bullet Spawn:\" + Bullet.spawnPosX + \", \" + Bullet.spawnPosY",
+                "\"info\"",
+                ""
+              ]
+            }
+          ],
+          "events": [
+            {
+              "disabled": true,
+              "type": "BuiltinCommonInstructions::Standard",
+              "conditions": [],
+              "actions": [
+                {
+                  "type": {
+                    "value": "DebuggerTools::ConsoleLog"
+                  },
+                  "parameters": [
+                    "\"Trail çizsene be adam\"",
+                    "\"info\"",
+                    ""
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ],
       "layers": [
