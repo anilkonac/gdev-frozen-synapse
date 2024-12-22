@@ -650,12 +650,25 @@
           ],
           "effects": [
             {
-              "effectType": "Glow",
-              "name": "Glow",
+              "effectType": "AdvancedBloom",
+              "name": "Bloom",
               "doubleParameters": {
-                "distance": 15,
-                "innerStrength": 1,
-                "outerStrength": 2
+                "bloomScale": 0.7,
+                "blur": 4,
+                "brightness": 0.7,
+                "padding": 0,
+                "quality": 7,
+                "threshold": 0.5
+              },
+              "stringParameters": {},
+              "booleanParameters": {}
+            },
+            {
+              "effectType": "Outline",
+              "name": "Outline",
+              "doubleParameters": {
+                "padding": 0,
+                "thickness": 2
               },
               "stringParameters": {
                 "color": "255;255;255"
@@ -1871,17 +1884,6 @@
           "actions": [
             {
               "type": {
-                "value": "EffectCapability::EffectBehavior::EnableEffect"
-              },
-              "parameters": [
-                "Rifleman",
-                "Effect",
-                "\"Outline\"",
-                "no"
-              ]
-            },
-            {
-              "type": {
                 "value": "DoubleClick::SetMaxDelay"
               },
               "parameters": [
@@ -2054,6 +2056,42 @@
                         "\"color\"",
                         "Player1Color"
                       ]
+                    },
+                    {
+                      "type": {
+                        "value": "EffectCapability::EffectBehavior::SetEffectDoubleParameter"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "Effect",
+                        "\"Bloom\"",
+                        "\"threshold\"",
+                        "0"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "EffectCapability::EffectBehavior::SetEffectDoubleParameter"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "Effect",
+                        "\"Bloom\"",
+                        "\"brightness\"",
+                        "1"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "EffectCapability::EffectBehavior::SetEffectDoubleParameter"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "Effect",
+                        "\"Bloom\"",
+                        "\"bloomScale\"",
+                        "0.8"
+                      ]
                     }
                   ]
                 },
@@ -2104,6 +2142,30 @@
                         "\"Outline\"",
                         "\"color\"",
                         "Player2Color"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "EffectCapability::EffectBehavior::SetEffectDoubleParameter"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "Effect",
+                        "\"Bloom\"",
+                        "\"bloomScale\"",
+                        "0.3"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "EffectCapability::EffectBehavior::SetEffectDoubleParameter"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "Effect",
+                        "\"Bloom\"",
+                        "\"blur\"",
+                        "2.5"
                       ]
                     }
                   ]
@@ -2345,7 +2407,7 @@
                   "parameters": [
                     "Rifleman",
                     "Effect",
-                    "\"Glow\"",
+                    "\"Outline\"",
                     "yes"
                   ]
                 }
@@ -2412,7 +2474,7 @@
                           "parameters": [
                             "Rifleman",
                             "Effect",
-                            "\"Glow\"",
+                            "\"Outline\"",
                             "no"
                           ]
                         }
@@ -2440,7 +2502,7 @@
                           "parameters": [
                             "Rifleman",
                             "Effect",
-                            "\"Glow\"",
+                            "\"Outline\"",
                             "yes"
                           ]
                         }
@@ -2485,7 +2547,7 @@
                   "parameters": [
                     "Rifleman",
                     "Effect",
-                    "\"Glow\"",
+                    "\"Outline\"",
                     "no"
                   ]
                 }
@@ -5482,7 +5544,7 @@
                       "parameters": [
                         "Rifleman",
                         "Effect",
-                        "\"Glow\"",
+                        "\"Outline\"",
                         ""
                       ]
                     },
@@ -6100,7 +6162,7 @@
                   "parameters": [
                     "Rifleman",
                     "Effect",
-                    "\"Glow\"",
+                    "\"Outline\"",
                     "no"
                   ]
                 },
