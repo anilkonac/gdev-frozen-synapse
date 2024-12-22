@@ -271,7 +271,7 @@
     {
       "name": "EdgeScrollMargin",
       "type": "number",
-      "value": 125
+      "value": 100
     },
     {
       "name": "orderingRotation",
@@ -305,7 +305,7 @@
         "gridColor": 10401023,
         "gridAlpha": 0.8,
         "snap": false,
-        "zoomFactor": 0.6846283916654055,
+        "zoomFactor": 0.7817486425451768,
         "windowMask": false
       },
       "objectsGroups": [],
@@ -589,13 +589,6 @@
             }
           ],
           "behaviors": [
-            {
-              "name": "DrawPathfinding",
-              "type": "DrawPathfinding::DrawPathfinding",
-              "LoopIndex": 0,
-              "CorrectionX": 2.0247e-320,
-              "CorrectionY": 2.0247e-320
-            },
             {
               "name": "Pathfinding",
               "type": "PathfindingBehavior::PathfindingBehavior",
@@ -5387,16 +5380,72 @@
                                 "\"info\"",
                                 ""
                               ]
+                            }
+                          ],
+                          "events": [
+                            {
+                              "type": "BuiltinCommonInstructions::Standard",
+                              "conditions": [
+                                {
+                                  "type": {
+                                    "value": "BooleanObjectVariable"
+                                  },
+                                  "parameters": [
+                                    "Rifleman",
+                                    "PathNodes[nextNodeIndex-1].angleSetted",
+                                    "True",
+                                    ""
+                                  ]
+                                }
+                              ],
+                              "actions": [
+                                {
+                                  "type": {
+                                    "value": "PathfindingBehavior::RotateObject"
+                                  },
+                                  "parameters": [
+                                    "Rifleman",
+                                    "Pathfinding",
+                                    ""
+                                  ]
+                                },
+                                {
+                                  "type": {
+                                    "value": "SetAngle"
+                                  },
+                                  "parameters": [
+                                    "Rifleman",
+                                    "=",
+                                    "Rifleman.PathNodes[nextNodeIndex-1].angle"
+                                  ]
+                                },
+                                {
+                                  "type": {
+                                    "value": "DebuggerTools::ConsoleLog"
+                                  },
+                                  "parameters": [
+                                    "\"Rotate to angle: \" + Rifleman.PathNodes[nextNodeIndex-1].angle",
+                                    "\"info\"",
+                                    ""
+                                  ]
+                                }
+                              ]
                             },
                             {
-                              "type": {
-                                "value": "SetNumberObjectVariable"
-                              },
-                              "parameters": [
-                                "Rifleman",
-                                "nextNodeIndex",
-                                "+",
-                                "1"
+                              "type": "BuiltinCommonInstructions::Standard",
+                              "conditions": [],
+                              "actions": [
+                                {
+                                  "type": {
+                                    "value": "SetNumberObjectVariable"
+                                  },
+                                  "parameters": [
+                                    "Rifleman",
+                                    "nextNodeIndex",
+                                    "+",
+                                    "1"
+                                  ]
+                                }
                               ]
                             }
                           ]
@@ -5425,6 +5474,17 @@
                                 ">",
                                 "1"
                               ]
+                            },
+                            {
+                              "type": {
+                                "value": "BooleanObjectVariable"
+                              },
+                              "parameters": [
+                                "Rifleman",
+                                "PathNodes[nextNodeIndex-1].angleSetted",
+                                "True",
+                                ""
+                              ]
                             }
                           ],
                           "actions": [
@@ -5434,6 +5494,36 @@
                               },
                               "parameters": [
                                 "\"nextNodeIndex: \" + Rifleman.nextNodeIndex + \" pathCOunt: \" + Rifleman.PathNodesCount + \"'a eşit\"",
+                                "\"info\"",
+                                ""
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "PathfindingBehavior::RotateObject"
+                              },
+                              "parameters": [
+                                "Rifleman",
+                                "Pathfinding",
+                                ""
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "SetAngle"
+                              },
+                              "parameters": [
+                                "Rifleman",
+                                "=",
+                                "Rifleman.PathNodes[nextNodeIndex-1].angle"
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "DebuggerTools::ConsoleLog"
+                              },
+                              "parameters": [
+                                "\"Rotate to angle: \" + Rifleman.PathNodes[nextNodeIndex-1].angle",
                                 "\"info\"",
                                 ""
                               ]
@@ -6239,10 +6329,6 @@
         {
           "name": "Animation",
           "type": "AnimatableCapability::AnimatableBehavior"
-        },
-        {
-          "name": "DrawPathfinding",
-          "type": "DrawPathfinding::DrawPathfinding"
         },
         {
           "name": "Effect",
