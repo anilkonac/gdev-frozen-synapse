@@ -350,6 +350,11 @@
       "name": "RiflemanRotateInSec",
       "type": "number",
       "value": 0.2
+    },
+    {
+      "name": "BulletSpeed_pix_sec",
+      "type": "number",
+      "value": 400
     }
   ],
   "layouts": [
@@ -8033,7 +8038,7 @@
                           "parameters": [
                             "Bullet",
                             "Bullet.Angle()",
-                            "400",
+                            "BulletSpeed_pix_sec",
                             "0"
                           ]
                         }
