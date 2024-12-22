@@ -3067,6 +3067,16 @@
                             "",
                             ""
                           ]
+                        },
+                        {
+                          "type": {
+                            "value": "BooleanVariable"
+                          },
+                          "parameters": [
+                            "orderingRotation",
+                            "=",
+                            ""
+                          ]
                         }
                       ],
                       "actions": [
