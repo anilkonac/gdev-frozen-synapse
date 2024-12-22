@@ -537,8 +537,8 @@
           "name": "Rifleman",
           "persistentUuid": "8f74bee5-68ca-47d8-a8ea-f7ac1e7287b4",
           "width": 0,
-          "x": 915,
-          "y": 409,
+          "x": 867,
+          "y": 709,
           "zOrder": 11,
           "numberProperties": [],
           "stringProperties": [],
@@ -1970,6 +1970,7 @@
       },
       "events": [
         {
+          "folded": true,
           "type": "BuiltinCommonInstructions::Standard",
           "conditions": [
             {
@@ -2626,6 +2627,7 @@
           "colorG": 176,
           "colorR": 74,
           "creationTime": 0,
+          "folded": true,
           "name": "Planning",
           "source": "",
           "type": "BuiltinCommonInstructions::Group",
@@ -6676,7 +6678,19 @@
                       "type": "BuiltinCommonInstructions::ForEach",
                       "object": "Rifleman",
                       "conditions": [],
-                      "actions": [],
+                      "actions": [
+                        {
+                          "type": {
+                            "value": "SetNumberObjectVariable"
+                          },
+                          "parameters": [
+                            "Rifleman",
+                            "targetID",
+                            "=",
+                            "0"
+                          ]
+                        }
+                      ],
                       "events": [
                         {
                           "type": "BuiltinCommonInstructions::Comment",
@@ -7053,121 +7067,85 @@
                                 "\"info\"",
                                 ""
                               ]
-                            },
-                            {
-                              "type": {
-                                "value": "AjoutObjConcern"
-                              },
-                              "parameters": [
-                                "",
-                                "Rifleman"
-                              ]
                             }
                           ],
                           "events": [
                             {
                               "type": "BuiltinCommonInstructions::Standard",
                               "conditions": [],
-                              "actions": []
-                            },
-                            {
-                              "type": "BuiltinCommonInstructions::ForEach",
-                              "object": "Rifleman",
-                              "conditions": [
+                              "actions": [
                                 {
                                   "type": {
-                                    "value": "NumberObjectVariable"
+                                    "value": "AjoutObjConcern"
                                   },
                                   "parameters": [
-                                    "Rifleman",
-                                    "ID",
-                                    "!=",
-                                    "raySourceID"
-                                  ]
-                                },
-                                {
-                                  "type": {
-                                    "value": "RaycastToPosition"
-                                  },
-                                  "parameters": [
-                                    "Shootable",
-                                    "raySourceX",
-                                    "raySourceY",
-                                    "Rifleman.CenterX()",
-                                    "Rifleman.CenterY()",
-                                    "rayResultX",
-                                    "rayResultY",
-                                    ""
+                                    "",
+                                    "Rifleman"
                                   ]
                                 }
                               ],
-                              "actions": [],
                               "events": [
                                 {
-                                  "disabled": true,
-                                  "type": "BuiltinCommonInstructions::Standard",
-                                  "conditions": [],
-                                  "actions": [
-                                    {
-                                      "type": {
-                                        "value": "DebuggerTools::ConsoleLog"
-                                      },
-                                      "parameters": [
-                                        "\"Ray source id: \" + raySourceID + \" Player ID: \" + raySourcePlayerID + \" Enemy ID: \" + Rifleman.ID + \" Player ID : \" + Rifleman.playerID",
-                                        "\"info\"",
-                                        ""
-                                      ]
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "BuiltinCommonInstructions::Standard",
+                                  "type": "BuiltinCommonInstructions::ForEach",
+                                  "object": "Rifleman",
                                   "conditions": [
                                     {
                                       "type": {
-                                        "value": "PickedInstancesCount"
+                                        "value": "NumberObjectVariable"
                                       },
                                       "parameters": [
                                         "Rifleman",
-                                        ">",
-                                        "0"
+                                        "ID",
+                                        "!=",
+                                        "raySourceID"
                                       ]
                                     },
                                     {
                                       "type": {
-                                        "value": "NumberVariable"
+                                        "value": "RaycastToPosition"
                                       },
                                       "parameters": [
-                                        "raySourcePlayerID",
-                                        "!=",
-                                        "Rifleman.playerID"
+                                        "Shootable",
+                                        "raySourceX",
+                                        "raySourceY",
+                                        "Rifleman.CenterX()",
+                                        "Rifleman.CenterY()",
+                                        "rayResultX",
+                                        "rayResultY",
+                                        ""
                                       ]
                                     }
                                   ],
-                                  "actions": [
-                                    {
-                                      "type": {
-                                        "value": "SetNumberVariable"
-                                      },
-                                      "parameters": [
-                                        "angleBetween",
-                                        "=",
-                                        "abs(AngleDifference(raySourceAngle, AngleBetweenPositions(raySourceX, raySourceY, Rifleman.CenterX(), Rifleman.CenterY())))"
-                                      ]
-                                    }
-                                  ],
+                                  "actions": [],
                                   "events": [
+                                    {
+                                      "disabled": true,
+                                      "type": "BuiltinCommonInstructions::Standard",
+                                      "conditions": [],
+                                      "actions": [
+                                        {
+                                          "type": {
+                                            "value": "DebuggerTools::ConsoleLog"
+                                          },
+                                          "parameters": [
+                                            "\"Ray source id: \" + raySourceID + \" Player ID: \" + raySourcePlayerID + \" Enemy ID: \" + Rifleman.ID + \" Player ID : \" + Rifleman.playerID",
+                                            "\"info\"",
+                                            ""
+                                          ]
+                                        }
+                                      ]
+                                    },
                                     {
                                       "type": "BuiltinCommonInstructions::Standard",
                                       "conditions": [
                                         {
                                           "type": {
-                                            "value": "NumberVariable"
+                                            "value": "PickedInstancesCount"
                                           },
                                           "parameters": [
-                                            "angleBetween",
-                                            "<=",
-                                            "RiflemanLineOfSight/2"
+                                            "Rifleman",
+                                            ">",
+                                            "0"
                                           ]
                                         },
                                         {
@@ -7175,9 +7153,9 @@
                                             "value": "NumberVariable"
                                           },
                                           "parameters": [
-                                            "angleBetween",
-                                            "<",
-                                            "minAngle"
+                                            "raySourcePlayerID",
+                                            "!=",
+                                            "Rifleman.playerID"
                                           ]
                                         }
                                       ],
@@ -7187,21 +7165,92 @@
                                             "value": "SetNumberVariable"
                                           },
                                           "parameters": [
-                                            "minAngle",
+                                            "angleBetween",
                                             "=",
-                                            "angleBetween"
-                                          ]
-                                        },
-                                        {
-                                          "type": {
-                                            "value": "SetNumberVariable"
-                                          },
-                                          "parameters": [
-                                            "minAngleTargetID",
-                                            "=",
-                                            "Rifleman.ID"
+                                            "abs(AngleDifference(raySourceAngle, AngleBetweenPositions(raySourceX, raySourceY, Rifleman.CenterX(), Rifleman.CenterY())))"
                                           ]
                                         }
+                                      ],
+                                      "events": [
+                                        {
+                                          "type": "BuiltinCommonInstructions::Standard",
+                                          "conditions": [
+                                            {
+                                              "type": {
+                                                "value": "NumberVariable"
+                                              },
+                                              "parameters": [
+                                                "angleBetween",
+                                                "<=",
+                                                "RiflemanLineOfSight/2"
+                                              ]
+                                            },
+                                            {
+                                              "type": {
+                                                "value": "NumberVariable"
+                                              },
+                                              "parameters": [
+                                                "angleBetween",
+                                                "<",
+                                                "minAngle"
+                                              ]
+                                            }
+                                          ],
+                                          "actions": [
+                                            {
+                                              "type": {
+                                                "value": "SetNumberVariable"
+                                              },
+                                              "parameters": [
+                                                "minAngle",
+                                                "=",
+                                                "angleBetween"
+                                              ]
+                                            },
+                                            {
+                                              "type": {
+                                                "value": "SetNumberVariable"
+                                              },
+                                              "parameters": [
+                                                "minAngleTargetID",
+                                                "=",
+                                                "Rifleman.ID"
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "disabled": true,
+                                  "type": "BuiltinCommonInstructions::Standard",
+                                  "conditions": [
+                                    {
+                                      "type": {
+                                        "value": "NumberObjectVariable"
+                                      },
+                                      "parameters": [
+                                        "Rifleman",
+                                        "ID",
+                                        "=",
+                                        "minAngleTargetID"
+                                      ]
+                                    }
+                                  ],
+                                  "actions": [
+                                    {
+                                      "type": {
+                                        "value": "PrimitiveDrawing::LineV2"
+                                      },
+                                      "parameters": [
+                                        "AimLinePainter",
+                                        "raySourceX",
+                                        "raySourceY",
+                                        "Rifleman.CenterX()",
+                                        "Rifleman.CenterY()",
+                                        "3"
                                       ]
                                     }
                                   ]
@@ -7209,38 +7258,6 @@
                               ]
                             },
                             {
-                              "type": "BuiltinCommonInstructions::Standard",
-                              "conditions": [
-                                {
-                                  "type": {
-                                    "value": "NumberObjectVariable"
-                                  },
-                                  "parameters": [
-                                    "Rifleman",
-                                    "ID",
-                                    "=",
-                                    "minAngleTargetID"
-                                  ]
-                                }
-                              ],
-                              "actions": [
-                                {
-                                  "type": {
-                                    "value": "PrimitiveDrawing::LineV2"
-                                  },
-                                  "parameters": [
-                                    "AimLinePainter",
-                                    "raySourceX",
-                                    "raySourceY",
-                                    "Rifleman.CenterX()",
-                                    "Rifleman.CenterY()",
-                                    "3"
-                                  ]
-                                }
-                              ]
-                            },
-                            {
-                              "disabled": true,
                               "type": "BuiltinCommonInstructions::Standard",
                               "conditions": [],
                               "actions": [
@@ -7253,43 +7270,6 @@
                                     "targetID",
                                     "=",
                                     "minAngleTargetID"
-                                  ]
-                                }
-                              ]
-                            },
-                            {
-                              "type": "BuiltinCommonInstructions::Standard",
-                              "conditions": [],
-                              "actions": []
-                            },
-                            {
-                              "disabled": true,
-                              "type": "BuiltinCommonInstructions::Standard",
-                              "conditions": [
-                                {
-                                  "type": {
-                                    "value": "NumberObjectVariable"
-                                  },
-                                  "parameters": [
-                                    "Rifleman",
-                                    "fireCooldown",
-                                    "<=",
-                                    "0"
-                                  ]
-                                }
-                              ],
-                              "actions": [
-                                {
-                                  "type": {
-                                    "value": "PrimitiveDrawing::LineV2"
-                                  },
-                                  "parameters": [
-                                    "AimLinePainter",
-                                    "raySourceX",
-                                    "raySourceY",
-                                    "Rifleman.CenterX()",
-                                    "Rifleman.CenterY()",
-                                    "3"
                                   ]
                                 }
                               ]
@@ -7333,6 +7313,146 @@
                             },
                             {
                               "name": "minAngleTargetID",
+                              "type": "number",
+                              "value": 0
+                            }
+                          ]
+                        },
+                        {
+                          "type": "BuiltinCommonInstructions::Comment",
+                          "color": {
+                            "b": 109,
+                            "g": 230,
+                            "r": 255,
+                            "textB": 0,
+                            "textG": 0,
+                            "textR": 0
+                          },
+                          "comment": "Fire"
+                        },
+                        {
+                          "type": "BuiltinCommonInstructions::Standard",
+                          "conditions": [
+                            {
+                              "type": {
+                                "value": "NumberObjectVariable"
+                              },
+                              "parameters": [
+                                "Rifleman",
+                                "fireCooldown",
+                                "<=",
+                                "0"
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "NumberObjectVariable"
+                              },
+                              "parameters": [
+                                "Rifleman",
+                                "targetID",
+                                ">",
+                                "0"
+                              ]
+                            }
+                          ],
+                          "actions": [
+                            {
+                              "type": {
+                                "value": "DebuggerTools::ConsoleLog"
+                              },
+                              "parameters": [
+                                "\"Soldier with ID: \" + Rifleman.ID + \" has a target with ID:\" + Rifleman.targetID",
+                                "\"info\"",
+                                ""
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "SetNumberVariable"
+                              },
+                              "parameters": [
+                                "fireStartX",
+                                "=",
+                                "Rifleman.PointX(\"FireStart\")"
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "SetNumberVariable"
+                              },
+                              "parameters": [
+                                "fireStartY",
+                                "=",
+                                "Rifleman.PointY(\"FireStart\")"
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "SetNumberVariable"
+                              },
+                              "parameters": [
+                                "targetID",
+                                "=",
+                                "Rifleman.targetID"
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "AjoutObjConcern"
+                              },
+                              "parameters": [
+                                "",
+                                "Rifleman"
+                              ]
+                            }
+                          ],
+                          "events": [
+                            {
+                              "type": "BuiltinCommonInstructions::Standard",
+                              "conditions": [
+                                {
+                                  "type": {
+                                    "value": "NumberObjectVariable"
+                                  },
+                                  "parameters": [
+                                    "Rifleman",
+                                    "ID",
+                                    "=",
+                                    "targetID"
+                                  ]
+                                }
+                              ],
+                              "actions": [
+                                {
+                                  "type": {
+                                    "value": "PrimitiveDrawing::LineV2"
+                                  },
+                                  "parameters": [
+                                    "AimLinePainter",
+                                    "fireStartX",
+                                    "fireStartY",
+                                    "Rifleman.CenterX()",
+                                    "Rifleman.CenterY()",
+                                    "3"
+                                  ]
+                                }
+                              ]
+                            }
+                          ],
+                          "variables": [
+                            {
+                              "name": "fireStartX",
+                              "type": "number",
+                              "value": 0
+                            },
+                            {
+                              "name": "fireStartY",
+                              "type": "number",
+                              "value": 0
+                            },
+                            {
+                              "name": "targetID",
                               "type": "number",
                               "value": 0
                             }
@@ -7839,6 +7959,7 @@
           "colorG": 176,
           "colorR": 74,
           "creationTime": 0,
+          "folded": true,
           "name": "Camera controls",
           "source": "",
           "type": "BuiltinCommonInstructions::Group",
