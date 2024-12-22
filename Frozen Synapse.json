@@ -6654,9 +6654,152 @@
                           ]
                         },
                         {
+                          "disabled": true,
                           "type": "BuiltinCommonInstructions::Standard",
-                          "conditions": [],
-                          "actions": []
+                          "conditions": [
+                            {
+                              "type": {
+                                "value": "Raycast"
+                              },
+                              "parameters": [
+                                "Shootable",
+                                "Rifleman.PointX(\"FireStart\")",
+                                "Rifleman.PointY(\"FireStart\")",
+                                "Rifleman.Angle()",
+                                "1000",
+                                "rayResultX",
+                                "rayResultY",
+                                ""
+                              ]
+                            }
+                          ],
+                          "actions": [],
+                          "events": [
+                            {
+                              "type": "BuiltinCommonInstructions::Standard",
+                              "conditions": [
+                                {
+                                  "type": {
+                                    "value": "PickedInstancesCount"
+                                  },
+                                  "parameters": [
+                                    "Shootable",
+                                    ">",
+                                    "0"
+                                  ]
+                                }
+                              ],
+                              "actions": [
+                                {
+                                  "type": {
+                                    "value": "TextContainerCapability::TextContainerBehavior::SetValue"
+                                  },
+                                  "parameters": [
+                                    "DebugRayText",
+                                    "Text",
+                                    "=",
+                                    "rayResultX + \", \" + rayResultY"
+                                  ]
+                                },
+                                {
+                                  "type": {
+                                    "value": "DebuggerTools::ConsoleLog"
+                                  },
+                                  "parameters": [
+                                    "\"Ray source id: \" + raySourceID + \" Player ID: \" + raySourcePlayerID + \" Enemy ID: \" + Rifleman.ID + \" Player ID : \" + Rifleman.playerID",
+                                    "\"info\"",
+                                    ""
+                                  ]
+                                }
+                              ]
+                            }
+                          ],
+                          "variables": [
+                            {
+                              "name": "raySourceID",
+                              "type": "number",
+                              "value": 0
+                            },
+                            {
+                              "name": "raySourcePlayerID",
+                              "type": "number",
+                              "value": 0
+                            }
+                          ]
+                        },
+                        {
+                          "disabled": true,
+                          "type": "BuiltinCommonInstructions::ForEach",
+                          "object": "Shootable",
+                          "conditions": [
+                            {
+                              "type": {
+                                "value": "NumberObjectVariable"
+                              },
+                              "parameters": [
+                                "Rifleman",
+                                "ID",
+                                "!=",
+                                "Shootable.ID"
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "RaycastToPosition"
+                              },
+                              "parameters": [
+                                "Shootable",
+                                "Rifleman.PointX(\"FireStart\")",
+                                "Rifleman.PointY(\"FireStart\")",
+                                "Shootable.CenterX()",
+                                "Shootable.CenterY()",
+                                "rayResultX",
+                                "rayResultY",
+                                ""
+                              ]
+                            }
+                          ],
+                          "actions": [],
+                          "events": [
+                            {
+                              "type": "BuiltinCommonInstructions::Standard",
+                              "conditions": [
+                                {
+                                  "type": {
+                                    "value": "PickedInstancesCount"
+                                  },
+                                  "parameters": [
+                                    "Shootable",
+                                    ">",
+                                    "0"
+                                  ]
+                                }
+                              ],
+                              "actions": [
+                                {
+                                  "type": {
+                                    "value": "TextContainerCapability::TextContainerBehavior::SetValue"
+                                  },
+                                  "parameters": [
+                                    "DebugRayText",
+                                    "Text",
+                                    "=",
+                                    "rayResultX + \", \" + rayResultY"
+                                  ]
+                                },
+                                {
+                                  "type": {
+                                    "value": "DebuggerTools::ConsoleLog"
+                                  },
+                                  "parameters": [
+                                    "\"Ray source id: \" + Rifleman. ID+ \" Player ID: \" + Rifleman.playerID + \" Enemy ID: \" + Rifleman.ID + \" Player ID : \" + Rifleman.playerID",
+                                    "\"info\"",
+                                    ""
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
                         },
                         {
                           "type": "BuiltinCommonInstructions::Standard",
@@ -6711,10 +6854,113 @@
                                 "=",
                                 "Rifleman.Angle()"
                               ]
+                            },
+                            {
+                              "type": {
+                                "value": "DebuggerTools::ConsoleLog"
+                              },
+                              "parameters": [
+                                "\"RaySourceID: \" + raySourceID",
+                                "\"info\"",
+                                ""
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "AjoutObjConcern"
+                              },
+                              "parameters": [
+                                "",
+                                "Shootable"
+                              ]
                             }
                           ],
                           "events": [
                             {
+                              "type": "BuiltinCommonInstructions::ForEach",
+                              "object": "Shootable",
+                              "conditions": [
+                                {
+                                  "type": {
+                                    "value": "RaycastToPosition"
+                                  },
+                                  "parameters": [
+                                    "Shootable",
+                                    "raySourceX",
+                                    "raySourceY",
+                                    "Shootable.CenterX()",
+                                    "Shootable.CenterY()",
+                                    "rayResultX",
+                                    "rayResultY",
+                                    ""
+                                  ]
+                                }
+                              ],
+                              "actions": [],
+                              "events": [
+                                {
+                                  "type": "BuiltinCommonInstructions::Standard",
+                                  "conditions": [
+                                    {
+                                      "type": {
+                                        "value": "PickedInstancesCount"
+                                      },
+                                      "parameters": [
+                                        "Rifleman",
+                                        ">",
+                                        "0"
+                                      ]
+                                    },
+                                    {
+                                      "type": {
+                                        "value": "NumberVariable"
+                                      },
+                                      "parameters": [
+                                        "raySourceID",
+                                        "!=",
+                                        "Rifleman.ID"
+                                      ]
+                                    }
+                                  ],
+                                  "actions": [
+                                    {
+                                      "type": {
+                                        "value": "DebuggerTools::ConsoleLog"
+                                      },
+                                      "parameters": [
+                                        "\"Ray source id: \" + raySourceID + \" Player ID: \" + raySourcePlayerID + \" Enemy ID: \" + Rifleman.ID + \" Player ID : \" + Rifleman.playerID",
+                                        "\"info\"",
+                                        ""
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "disabled": true,
+                              "type": "BuiltinCommonInstructions::Standard",
+                              "conditions": [
+                                {
+                                  "type": {
+                                    "value": "RaycastToPosition"
+                                  },
+                                  "parameters": [
+                                    "Shootable",
+                                    "raySourceX",
+                                    "raySourceY",
+                                    "Shootable.CenterX()",
+                                    "Shootable.CenterY()",
+                                    "rayResultX",
+                                    "rayResultY",
+                                    ""
+                                  ]
+                                }
+                              ],
+                              "actions": []
+                            },
+                            {
+                              "disabled": true,
                               "type": "BuiltinCommonInstructions::Standard",
                               "conditions": [
                                 {
