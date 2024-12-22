@@ -495,22 +495,6 @@
           "numberProperties": [],
           "stringProperties": [],
           "initialVariables": []
-        },
-        {
-          "angle": 0,
-          "customSize": false,
-          "height": 0,
-          "keepRatio": true,
-          "layer": "",
-          "name": "DebugAngleText",
-          "persistentUuid": "5641e4cb-0b30-418f-bba5-d03153883de5",
-          "width": 0,
-          "x": 1206,
-          "y": 430,
-          "zOrder": 11,
-          "numberProperties": [],
-          "stringProperties": [],
-          "initialVariables": []
         }
       ],
       "objects": [
@@ -2110,7 +2094,6 @@
           "colorG": 176,
           "colorR": 74,
           "creationTime": 0,
-          "folded": true,
           "name": "Planning",
           "source": "",
           "type": "BuiltinCommonInstructions::Group",
@@ -4383,6 +4366,23 @@
                               ]
                             }
                           ]
+                        },
+                        {
+                          "type": "BuiltinCommonInstructions::Standard",
+                          "conditions": [],
+                          "actions": [
+                            {
+                              "type": {
+                                "value": "SetNumberObjectVariable"
+                              },
+                              "parameters": [
+                                "Rifleman",
+                                "PathNodesCount",
+                                "+",
+                                "Rifleman.Pathfinding::NodeCount()-1"
+                              ]
+                            }
+                          ]
                         }
                       ],
                       "variables": [
@@ -4415,17 +4415,6 @@
                   "type": "BuiltinCommonInstructions::Standard",
                   "conditions": [],
                   "actions": [
-                    {
-                      "type": {
-                        "value": "SetNumberObjectVariable"
-                      },
-                      "parameters": [
-                        "Rifleman",
-                        "PathNodesCount",
-                        "+",
-                        "Rifleman.Pathfinding::NodeCount()-1"
-                      ]
-                    },
                     {
                       "type": {
                         "value": "SetNumberObjectVariable"
@@ -5144,6 +5133,7 @@
           "colorG": 176,
           "colorR": 74,
           "creationTime": 0,
+          "folded": true,
           "name": "Turn Execution",
           "source": "",
           "type": "BuiltinCommonInstructions::Group",
