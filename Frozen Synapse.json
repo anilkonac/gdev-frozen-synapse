@@ -271,7 +271,7 @@
     {
       "name": "EdgeScrollMargin",
       "type": "number",
-      "value": 125
+      "value": 100
     },
     {
       "name": "orderingRotation",
@@ -1564,6 +1564,90 @@
               ]
             }
           ]
+        },
+        {
+          "assetStoreId": "5faf2b0415c271fa6e747283ed36297a95f04d2b6c477a7b011775fa6fb444ee",
+          "name": "CancelAimButton",
+          "type": "PanelSpriteButton::PanelSpriteButton",
+          "variables": [],
+          "effects": [],
+          "behaviors": [],
+          "content": {
+            "LeftPadding": 16,
+            "RightPadding": 16,
+            "PressedLabelOffsetY": 3,
+            "BottomPadding": 32,
+            "TopPadding": 32,
+            "HoveredFadeOutDuration": 0.25
+          },
+          "childrenContent": {
+            "Hovered": {
+              "bottomMargin": 16,
+              "height": 48,
+              "leftMargin": 16,
+              "rightMargin": 16,
+              "texture": "Red Button With Shadow_Hovered.png",
+              "tiled": true,
+              "topMargin": 16,
+              "width": 168
+            },
+            "Idle": {
+              "bottomMargin": 16,
+              "height": 48,
+              "leftMargin": 16,
+              "rightMargin": 16,
+              "texture": "Red Button With Shadow_Idle.png",
+              "tiled": true,
+              "topMargin": 16,
+              "width": 168
+            },
+            "Label": {
+              "bold": false,
+              "italic": false,
+              "smoothed": true,
+              "underlined": false,
+              "string": "Cancel Aim",
+              "font": "CantoraOne-Regular.ttf",
+              "textAlignment": "center",
+              "characterSize": 18,
+              "color": {
+                "b": 255,
+                "g": 255,
+                "r": 255
+              },
+              "content": {
+                "bold": false,
+                "isOutlineEnabled": false,
+                "isShadowEnabled": false,
+                "italic": false,
+                "outlineColor": "255;255;255",
+                "outlineThickness": 2,
+                "shadowAngle": 90,
+                "shadowBlurRadius": 2,
+                "shadowColor": "0;0;0",
+                "shadowDistance": 4,
+                "shadowOpacity": 127,
+                "smoothed": true,
+                "underlined": false,
+                "text": "Cancel Aim",
+                "font": "CantoraOne-Regular.ttf",
+                "textAlignment": "center",
+                "verticalTextAlignment": "top",
+                "characterSize": 18,
+                "color": "255;255;255"
+              }
+            },
+            "Pressed": {
+              "bottomMargin": 16,
+              "height": 48,
+              "leftMargin": 16,
+              "rightMargin": 16,
+              "texture": "Red Button With Shadow_Pressed.png",
+              "tiled": true,
+              "topMargin": 16,
+              "width": 168
+            }
+          }
         }
       ],
       "objectsFolderStructure": {
@@ -1592,6 +1676,9 @@
           },
           {
             "objectName": "DeleteWaypointButton"
+          },
+          {
+            "objectName": "CancelAimButton"
           },
           {
             "objectName": "PathCreator"
@@ -1940,7 +2027,7 @@
                     "AddWaypointButton",
                     "0",
                     "0",
-                    ""
+                    "\"UI Layer\""
                   ]
                 },
                 {
@@ -1950,6 +2037,18 @@
                   "parameters": [
                     "",
                     "DeleteWaypointButton",
+                    "0",
+                    "0",
+                    "\"UI Layer\""
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "Create"
+                  },
+                  "parameters": [
+                    "",
+                    "CancelAimButton",
                     "0",
                     "0",
                     ""
@@ -1985,6 +2084,14 @@
                   },
                   "parameters": [
                     "RotationButton"
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "Cache"
+                  },
+                  "parameters": [
+                    "CancelAimButton"
                   ]
                 }
               ]
@@ -4212,6 +4319,57 @@
                           ]
                         }
                       ]
+                    },
+                    {
+                      "type": "BuiltinCommonInstructions::Comment",
+                      "color": {
+                        "b": 109,
+                        "g": 230,
+                        "r": 255,
+                        "textB": 0,
+                        "textG": 0,
+                        "textR": 0
+                      },
+                      "comment": "Show Cancel Aim Button"
+                    },
+                    {
+                      "type": "BuiltinCommonInstructions::Standard",
+                      "conditions": [
+                        {
+                          "type": {
+                            "value": "BooleanObjectVariable"
+                          },
+                          "parameters": [
+                            "Rifleman",
+                            "PathNodes[Rifleman.selectedNodeIndex].angleSetted",
+                            "True",
+                            ""
+                          ]
+                        }
+                      ],
+                      "actions": [
+                        {
+                          "type": {
+                            "value": "MettreXY"
+                          },
+                          "parameters": [
+                            "CancelAimButton",
+                            "=",
+                            "CursorX()",
+                            "=",
+                            "CursorY() + AddWaypointButton.Height() +  DeleteWaypointButton.Height() + 10"
+                          ]
+                        },
+                        {
+                          "type": {
+                            "value": "Montre"
+                          },
+                          "parameters": [
+                            "CancelAimButton",
+                            ""
+                          ]
+                        }
+                      ]
                     }
                   ]
                 }
@@ -4706,6 +4864,94 @@
                         "1"
                       ]
                     }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "BuiltinCommonInstructions::Comment",
+              "color": {
+                "b": 109,
+                "g": 230,
+                "r": 255,
+                "textB": 0,
+                "textG": 0,
+                "textR": 0
+              },
+              "comment": "Cancel Aim Button\n"
+            },
+            {
+              "type": "BuiltinCommonInstructions::Standard",
+              "conditions": [
+                {
+                  "type": {
+                    "value": "PanelSpriteButton::PanelSpriteButton::IsClicked"
+                  },
+                  "parameters": [
+                    "CancelAimButton",
+                    ""
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "BooleanObjectVariable"
+                  },
+                  "parameters": [
+                    "Rifleman",
+                    "selected",
+                    "True",
+                    ""
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "LinkedObjects::PickObjectsLinkedTo"
+                  },
+                  "parameters": [
+                    "",
+                    "RotationCrosshair",
+                    "Rifleman",
+                    ""
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "NumberObjectVariable"
+                  },
+                  "parameters": [
+                    "RotationCrosshair",
+                    "nodeIndex",
+                    "=",
+                    "Rifleman.selectedNodeIndex"
+                  ]
+                }
+              ],
+              "actions": [
+                {
+                  "type": {
+                    "value": "SetBooleanObjectVariable"
+                  },
+                  "parameters": [
+                    "Rifleman",
+                    "PathNodes[Rifleman.selectedNodeIndex].angleSetted",
+                    "False",
+                    ""
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "Cache"
+                  },
+                  "parameters": [
+                    "RotationCrosshair"
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "Cache"
+                  },
+                  "parameters": [
+                    "CancelAimButton"
                   ]
                 }
               ]
