@@ -396,8 +396,8 @@
           "name": "Rifleman",
           "persistentUuid": "79709fba-b9bc-44ea-a358-b81729622ef8",
           "width": 0,
-          "x": 752,
-          "y": 645,
+          "x": 805,
+          "y": 336,
           "zOrder": 1,
           "numberProperties": [],
           "stringProperties": [],
@@ -430,7 +430,7 @@
           "name": "Wall",
           "persistentUuid": "7bb50725-e42d-4a3d-b5a3-bae138f2ed50",
           "width": 25,
-          "x": 1100,
+          "x": 1104,
           "y": 284,
           "zOrder": 4,
           "numberProperties": [],
@@ -524,7 +524,7 @@
           "height": 0,
           "keepRatio": true,
           "layer": "",
-          "name": "RotationLinePainter",
+          "name": "AimLinePainter",
           "persistentUuid": "aefcf5f6-2f4e-4770-84d9-2a251e7e729c",
           "width": 0,
           "x": 1253,
@@ -571,6 +571,28 @@
           "numberProperties": [],
           "stringProperties": [],
           "initialVariables": []
+        },
+        {
+          "angle": 0,
+          "customSize": false,
+          "height": 0,
+          "keepRatio": true,
+          "layer": "",
+          "name": "Rifleman",
+          "persistentUuid": "0f7aeebb-3a25-4e36-9466-1af6465824ab",
+          "width": 0,
+          "x": 1374,
+          "y": 758,
+          "zOrder": 13,
+          "numberProperties": [],
+          "stringProperties": [],
+          "initialVariables": [
+            {
+              "name": "playerID",
+              "type": "number",
+              "value": 2
+            }
+          ]
         }
       ],
       "objects": [
@@ -1596,7 +1618,7 @@
         },
         {
           "assetStoreId": "",
-          "name": "RotationLinePainter",
+          "name": "AimLinePainter",
           "type": "PrimitiveDrawing::Drawer",
           "variables": [],
           "effects": [],
@@ -1970,7 +1992,7 @@
             "objectName": "AimButton"
           },
           {
-            "objectName": "RotationLinePainter"
+            "objectName": "AimLinePainter"
           },
           {
             "objectName": "DebugAngleText"
@@ -2064,7 +2086,7 @@
               "parameters": [
                 "",
                 "no",
-                "",
+                "no",
                 "no",
                 "no"
               ]
@@ -4014,7 +4036,7 @@
                         "value": "PrimitiveDrawing::LineV2"
                       },
                       "parameters": [
-                        "RotationLinePainter",
+                        "AimLinePainter",
                         "nodeX",
                         "nodeY",
                         "AimButton.CenterX()",
@@ -4037,7 +4059,7 @@
                         "value": "PrimitiveDrawing::LineV2"
                       },
                       "parameters": [
-                        "RotationLinePainter",
+                        "AimLinePainter",
                         "nodeX",
                         "nodeY",
                         "nodeX + 1000*cos(ToRad(angle-60))",
@@ -4050,7 +4072,7 @@
                         "value": "PrimitiveDrawing::LineV2"
                       },
                       "parameters": [
-                        "RotationLinePainter",
+                        "AimLinePainter",
                         "nodeX",
                         "nodeY",
                         "nodeX + 1000*cos(ToRad(angle+60))",
@@ -5994,7 +6016,7 @@
                             "value": "PrimitiveDrawing::LineV2"
                           },
                           "parameters": [
-                            "RotationLinePainter",
+                            "AimLinePainter",
                             "CurNode.X",
                             "CurNode.Y",
                             "CurNode.X + RotationLineLength*cos(ToRad(angle))",
@@ -6110,7 +6132,7 @@
                             "value": "PrimitiveDrawing::LineV2"
                           },
                           "parameters": [
-                            "RotationLinePainter",
+                            "AimLinePainter",
                             "CurNode.X",
                             "CurNode.Y",
                             "CurNode.X + CancelAimLineLength* cos(ToRad(CancelAimLineAngle))",
@@ -6654,154 +6676,6 @@
                           ]
                         },
                         {
-                          "disabled": true,
-                          "type": "BuiltinCommonInstructions::Standard",
-                          "conditions": [
-                            {
-                              "type": {
-                                "value": "Raycast"
-                              },
-                              "parameters": [
-                                "Shootable",
-                                "Rifleman.PointX(\"FireStart\")",
-                                "Rifleman.PointY(\"FireStart\")",
-                                "Rifleman.Angle()",
-                                "1000",
-                                "rayResultX",
-                                "rayResultY",
-                                ""
-                              ]
-                            }
-                          ],
-                          "actions": [],
-                          "events": [
-                            {
-                              "type": "BuiltinCommonInstructions::Standard",
-                              "conditions": [
-                                {
-                                  "type": {
-                                    "value": "PickedInstancesCount"
-                                  },
-                                  "parameters": [
-                                    "Shootable",
-                                    ">",
-                                    "0"
-                                  ]
-                                }
-                              ],
-                              "actions": [
-                                {
-                                  "type": {
-                                    "value": "TextContainerCapability::TextContainerBehavior::SetValue"
-                                  },
-                                  "parameters": [
-                                    "DebugRayText",
-                                    "Text",
-                                    "=",
-                                    "rayResultX + \", \" + rayResultY"
-                                  ]
-                                },
-                                {
-                                  "type": {
-                                    "value": "DebuggerTools::ConsoleLog"
-                                  },
-                                  "parameters": [
-                                    "\"Ray source id: \" + raySourceID + \" Player ID: \" + raySourcePlayerID + \" Enemy ID: \" + Rifleman.ID + \" Player ID : \" + Rifleman.playerID",
-                                    "\"info\"",
-                                    ""
-                                  ]
-                                }
-                              ]
-                            }
-                          ],
-                          "variables": [
-                            {
-                              "name": "raySourceID",
-                              "type": "number",
-                              "value": 0
-                            },
-                            {
-                              "name": "raySourcePlayerID",
-                              "type": "number",
-                              "value": 0
-                            }
-                          ]
-                        },
-                        {
-                          "disabled": true,
-                          "type": "BuiltinCommonInstructions::ForEach",
-                          "object": "Shootable",
-                          "conditions": [
-                            {
-                              "type": {
-                                "value": "NumberObjectVariable"
-                              },
-                              "parameters": [
-                                "Rifleman",
-                                "ID",
-                                "!=",
-                                "Shootable.ID"
-                              ]
-                            },
-                            {
-                              "type": {
-                                "value": "RaycastToPosition"
-                              },
-                              "parameters": [
-                                "Shootable",
-                                "Rifleman.PointX(\"FireStart\")",
-                                "Rifleman.PointY(\"FireStart\")",
-                                "Shootable.CenterX()",
-                                "Shootable.CenterY()",
-                                "rayResultX",
-                                "rayResultY",
-                                ""
-                              ]
-                            }
-                          ],
-                          "actions": [],
-                          "events": [
-                            {
-                              "type": "BuiltinCommonInstructions::Standard",
-                              "conditions": [
-                                {
-                                  "type": {
-                                    "value": "PickedInstancesCount"
-                                  },
-                                  "parameters": [
-                                    "Shootable",
-                                    ">",
-                                    "0"
-                                  ]
-                                }
-                              ],
-                              "actions": [
-                                {
-                                  "type": {
-                                    "value": "TextContainerCapability::TextContainerBehavior::SetValue"
-                                  },
-                                  "parameters": [
-                                    "DebugRayText",
-                                    "Text",
-                                    "=",
-                                    "rayResultX + \", \" + rayResultY"
-                                  ]
-                                },
-                                {
-                                  "type": {
-                                    "value": "DebuggerTools::ConsoleLog"
-                                  },
-                                  "parameters": [
-                                    "\"Ray source id: \" + Rifleman. ID+ \" Player ID: \" + Rifleman.playerID + \" Enemy ID: \" + Rifleman.ID + \" Player ID : \" + Rifleman.playerID",
-                                    "\"info\"",
-                                    ""
-                                  ]
-                                }
-                              ]
-                            }
-                          ]
-                        },
-                        {
                           "type": "BuiltinCommonInstructions::Standard",
                           "conditions": [],
                           "actions": [
@@ -6871,15 +6745,26 @@
                               },
                               "parameters": [
                                 "",
-                                "Shootable"
+                                "Rifleman"
                               ]
                             }
                           ],
                           "events": [
                             {
                               "type": "BuiltinCommonInstructions::ForEach",
-                              "object": "Shootable",
+                              "object": "Rifleman",
                               "conditions": [
+                                {
+                                  "type": {
+                                    "value": "NumberObjectVariable"
+                                  },
+                                  "parameters": [
+                                    "Rifleman",
+                                    "ID",
+                                    "!=",
+                                    "raySourceID"
+                                  ]
+                                },
                                 {
                                   "type": {
                                     "value": "RaycastToPosition"
@@ -6888,8 +6773,8 @@
                                     "Shootable",
                                     "raySourceX",
                                     "raySourceY",
-                                    "Shootable.CenterX()",
-                                    "Shootable.CenterY()",
+                                    "Rifleman.CenterX()",
+                                    "Rifleman.CenterY()",
                                     "rayResultX",
                                     "rayResultY",
                                     ""
@@ -6916,9 +6801,9 @@
                                         "value": "NumberVariable"
                                       },
                                       "parameters": [
-                                        "raySourceID",
+                                        "raySourcePlayerID",
                                         "!=",
-                                        "Rifleman.ID"
+                                        "Rifleman.playerID"
                                       ]
                                     }
                                   ],
@@ -6932,79 +6817,7 @@
                                         "\"info\"",
                                         ""
                                       ]
-                                    }
-                                  ]
-                                }
-                              ]
-                            },
-                            {
-                              "disabled": true,
-                              "type": "BuiltinCommonInstructions::Standard",
-                              "conditions": [
-                                {
-                                  "type": {
-                                    "value": "RaycastToPosition"
-                                  },
-                                  "parameters": [
-                                    "Shootable",
-                                    "raySourceX",
-                                    "raySourceY",
-                                    "Shootable.CenterX()",
-                                    "Shootable.CenterY()",
-                                    "rayResultX",
-                                    "rayResultY",
-                                    ""
-                                  ]
-                                }
-                              ],
-                              "actions": []
-                            },
-                            {
-                              "disabled": true,
-                              "type": "BuiltinCommonInstructions::Standard",
-                              "conditions": [
-                                {
-                                  "type": {
-                                    "value": "AjoutObjConcern"
-                                  },
-                                  "parameters": [
-                                    "",
-                                    "Rifleman"
-                                  ]
-                                },
-                                {
-                                  "type": {
-                                    "value": "Raycast"
-                                  },
-                                  "parameters": [
-                                    "Shootable",
-                                    "raySourceX",
-                                    "raySourceY",
-                                    "rayAngle",
-                                    "1000",
-                                    "rayResultX",
-                                    "rayResultY",
-                                    ""
-                                  ]
-                                }
-                              ],
-                              "actions": [],
-                              "events": [
-                                {
-                                  "type": "BuiltinCommonInstructions::Standard",
-                                  "conditions": [
-                                    {
-                                      "type": {
-                                        "value": "PickedInstancesCount"
-                                      },
-                                      "parameters": [
-                                        "Rifleman",
-                                        ">",
-                                        "0"
-                                      ]
-                                    }
-                                  ],
-                                  "actions": [
+                                    },
                                     {
                                       "type": {
                                         "value": "TextContainerCapability::TextContainerBehavior::SetValue"
@@ -7018,12 +6831,15 @@
                                     },
                                     {
                                       "type": {
-                                        "value": "DebuggerTools::ConsoleLog"
+                                        "value": "PrimitiveDrawing::LineV2"
                                       },
                                       "parameters": [
-                                        "\"Ray source id: \" + raySourceID + \" Player ID: \" + raySourcePlayerID + \" Enemy ID: \" + Rifleman.ID + \" Player ID : \" + Rifleman.playerID",
-                                        "\"info\"",
-                                        ""
+                                        "AimLinePainter",
+                                        "raySourceX",
+                                        "raySourceY",
+                                        "Rifleman.CenterX()",
+                                        "Rifleman.CenterY()",
+                                        "4"
                                       ]
                                     }
                                   ]
