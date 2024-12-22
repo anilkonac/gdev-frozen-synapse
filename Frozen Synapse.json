@@ -356,12 +356,34 @@
         "zoomFactor": 0.6846283916654055,
         "windowMask": false
       },
-      "objectsGroups": [],
+      "objectsGroups": [
+        {
+          "name": "Shootable",
+          "objects": [
+            {
+              "name": "Rifleman"
+            },
+            {
+              "name": "Wall"
+            }
+          ]
+        }
+      ],
       "variables": [
         {
           "name": "cameraZoom",
           "type": "number",
           "value": 1
+        },
+        {
+          "name": "rayResultX",
+          "type": "number",
+          "value": 0
+        },
+        {
+          "name": "rayResultY",
+          "type": "number",
+          "value": 0
         }
       ],
       "instances": [
@@ -374,47 +396,9 @@
           "name": "Rifleman",
           "persistentUuid": "79709fba-b9bc-44ea-a358-b81729622ef8",
           "width": 0,
-          "x": 505,
-          "y": 313,
+          "x": 752,
+          "y": 645,
           "zOrder": 1,
-          "numberProperties": [],
-          "stringProperties": [],
-          "initialVariables": []
-        },
-        {
-          "angle": 0,
-          "customSize": false,
-          "height": 0,
-          "keepRatio": true,
-          "layer": "",
-          "name": "Rifleman",
-          "persistentUuid": "08e12aa9-5be7-4db5-8327-42d8be3918d8",
-          "width": 0,
-          "x": 841,
-          "y": 312,
-          "zOrder": 2,
-          "numberProperties": [],
-          "stringProperties": [],
-          "initialVariables": [
-            {
-              "name": "playerID",
-              "type": "number",
-              "value": 1
-            }
-          ]
-        },
-        {
-          "angle": 0,
-          "customSize": false,
-          "height": 0,
-          "keepRatio": true,
-          "layer": "",
-          "name": "Rifleman",
-          "persistentUuid": "f3a38e7a-b6b4-4562-a4f8-ab1639dde0de",
-          "width": 0,
-          "x": 678,
-          "y": 535,
-          "zOrder": 3,
           "numberProperties": [],
           "stringProperties": [],
           "initialVariables": []
@@ -446,8 +430,8 @@
           "name": "Wall",
           "persistentUuid": "7bb50725-e42d-4a3d-b5a3-bae138f2ed50",
           "width": 25,
-          "x": 1081,
-          "y": 250,
+          "x": 1100,
+          "y": 284,
           "zOrder": 4,
           "numberProperties": [],
           "stringProperties": [],
@@ -559,8 +543,8 @@
           "name": "Rifleman",
           "persistentUuid": "78140339-f30f-4bb6-873b-e1e4738d42a7",
           "width": 0,
-          "x": 1557,
-          "y": 607,
+          "x": 1521,
+          "y": 647,
           "zOrder": 11,
           "numberProperties": [],
           "stringProperties": [],
@@ -571,6 +555,22 @@
               "value": 2
             }
           ]
+        },
+        {
+          "angle": 0,
+          "customSize": false,
+          "height": 0,
+          "keepRatio": true,
+          "layer": "",
+          "name": "DebugRayText",
+          "persistentUuid": "672b4256-53a0-4e6d-82bc-2c7574db3f08",
+          "width": 0,
+          "x": 958,
+          "y": 531,
+          "zOrder": 12,
+          "numberProperties": [],
+          "stringProperties": [],
+          "initialVariables": []
         }
       ],
       "objects": [
@@ -701,7 +701,13 @@
                     {
                       "hasCustomCollisionMask": true,
                       "image": "rifleman2",
-                      "points": [],
+                      "points": [
+                        {
+                          "name": "FireStart",
+                          "x": 61,
+                          "y": 35
+                        }
+                      ],
                       "originPoint": {
                         "name": "origine",
                         "x": 32,
@@ -879,7 +885,87 @@
           "name": "Wall",
           "type": "Sprite",
           "updateIfNotVisible": false,
-          "variables": [],
+          "variables": [
+            {
+              "name": "selected",
+              "persistentUuid": "fa6252c8-287a-484b-af72-a9941c44489d",
+              "type": "boolean",
+              "value": false
+            },
+            {
+              "name": "PathNodes",
+              "persistentUuid": "e057f656-b6d7-4817-884a-da5c621bbabb",
+              "type": "array",
+              "children": [
+                {
+                  "persistentUuid": "b3413400-c520-47fe-bbdb-717b8d139541",
+                  "type": "structure",
+                  "children": [
+                    {
+                      "name": "X",
+                      "persistentUuid": "5917ebd9-ce10-4173-867d-40aba83bea07",
+                      "type": "number",
+                      "value": 0
+                    },
+                    {
+                      "name": "Y",
+                      "persistentUuid": "535bfaab-e90d-4e25-b92b-386bec66e1fe",
+                      "type": "number",
+                      "value": 0
+                    },
+                    {
+                      "name": "angle",
+                      "persistentUuid": "dca30fd5-8ff5-4eb6-9c7c-f2089e1916ba",
+                      "type": "number",
+                      "value": 0
+                    },
+                    {
+                      "name": "angleSetted",
+                      "persistentUuid": "1c838978-e16a-4df5-8c25-97b1ea58b0cf",
+                      "type": "boolean",
+                      "value": false
+                    },
+                    {
+                      "name": "cancelAim",
+                      "persistentUuid": "eaa0747e-e96a-4ff0-8706-6eab175bafa2",
+                      "type": "boolean",
+                      "value": false
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "PathNodesCount",
+              "persistentUuid": "2232d211-c80d-4730-a1cd-a17af6936b5b",
+              "type": "number",
+              "value": 0
+            },
+            {
+              "name": "nextNodeIndex",
+              "persistentUuid": "4d3fdbc2-6f18-4014-ab54-5f1a2cd3a69c",
+              "type": "number",
+              "value": 0
+            },
+            {
+              "name": "selectedNodeIndex",
+              "persistentUuid": "8e777fce-6b91-49dc-9089-6c97b49edef7",
+              "type": "number",
+              "value": 0
+            },
+            {
+              "name": "ID",
+              "persistentUuid": "f8cf196f-50d5-4abd-a84c-f40f4c78a3fa",
+              "type": "number",
+              "value": 0
+            },
+            {
+              "name": "playerID",
+              "persistentUuid": "c24f4337-0b74-445d-9462-eea7a9b306c0",
+              "type": "number",
+              "value": 1
+            }
+          ],
           "effects": [],
           "behaviors": [
             {
@@ -1797,6 +1883,48 @@
               ]
             }
           ]
+        },
+        {
+          "assetStoreId": "",
+          "bold": false,
+          "italic": false,
+          "name": "DebugRayText",
+          "smoothed": true,
+          "type": "TextObject::Text",
+          "underlined": false,
+          "variables": [],
+          "effects": [],
+          "behaviors": [],
+          "string": "Text",
+          "font": "",
+          "textAlignment": "left",
+          "characterSize": 20,
+          "color": {
+            "b": 255,
+            "g": 255,
+            "r": 255
+          },
+          "content": {
+            "bold": false,
+            "isOutlineEnabled": false,
+            "isShadowEnabled": false,
+            "italic": false,
+            "outlineColor": "255;255;255",
+            "outlineThickness": 2,
+            "shadowAngle": 90,
+            "shadowBlurRadius": 2,
+            "shadowColor": "0;0;0",
+            "shadowDistance": 4,
+            "shadowOpacity": 127,
+            "smoothed": true,
+            "underlined": false,
+            "text": "Text",
+            "font": "",
+            "textAlignment": "left",
+            "verticalTextAlignment": "top",
+            "characterSize": 20,
+            "color": "255;255;255"
+          }
         }
       ],
       "objectsFolderStructure": {
@@ -1852,11 +1980,15 @@
           },
           {
             "objectName": "CancelAimCrosshair"
+          },
+          {
+            "objectName": "DebugRayText"
           }
         ]
       },
       "events": [
         {
+          "folded": true,
           "type": "BuiltinCommonInstructions::Standard",
           "conditions": [
             {
@@ -1924,6 +2056,18 @@
                 "\"Progressive speed\"",
                 ""
               ]
+            },
+            {
+              "type": {
+                "value": "DebuggerTools::EnableDebugDraw"
+              },
+              "parameters": [
+                "",
+                "no",
+                "",
+                "no",
+                "no"
+              ]
             }
           ],
           "events": [
@@ -1932,6 +2076,7 @@
               "colorG": 176,
               "colorR": 74,
               "creationTime": 0,
+              "folded": true,
               "name": "Initialize Rifleman",
               "source": "",
               "type": "BuiltinCommonInstructions::Group",
@@ -2318,6 +2463,7 @@
           "colorG": 176,
           "colorR": 74,
           "creationTime": 0,
+          "folded": true,
           "name": "Rifleman selection",
           "source": "",
           "type": "BuiltinCommonInstructions::Group",
@@ -2499,6 +2645,7 @@
           "colorG": 176,
           "colorR": 74,
           "creationTime": 0,
+          "folded": true,
           "name": "Planning",
           "source": "",
           "type": "BuiltinCommonInstructions::Group",
@@ -5633,6 +5780,7 @@
           "colorG": 176,
           "colorR": 74,
           "creationTime": 0,
+          "folded": true,
           "name": "Path and waypoint drawing",
           "source": "",
           "type": "BuiltinCommonInstructions::Group",
@@ -6200,47 +6348,36 @@
                   "actions": [],
                   "events": [
                     {
-                      "type": "BuiltinCommonInstructions::Comment",
-                      "color": {
-                        "b": 109,
-                        "g": 230,
-                        "r": 255,
-                        "textB": 0,
-                        "textG": 0,
-                        "textR": 0
-                      },
-                      "comment": "Move Soldiers"
-                    },
-                    {
                       "type": "BuiltinCommonInstructions::ForEach",
                       "object": "Rifleman",
-                      "conditions": [
-                        {
-                          "type": {
-                            "value": "PathfindingBehavior::DestinationReached"
-                          },
-                          "parameters": [
-                            "Rifleman",
-                            "Pathfinding"
-                          ]
-                        }
-                      ],
-                      "actions": [
-                        {
-                          "type": {
-                            "value": "DebuggerTools::ConsoleLog"
-                          },
-                          "parameters": [
-                            "\"Rifleman: \" + Rifleman.ID + \" reached its destination, nextNodeIndex: \" + Rifleman.nextNodeIndex",
-                            "\"info\"",
-                            ""
-                          ]
-                        }
-                      ],
+                      "conditions": [],
+                      "actions": [],
                       "events": [
                         {
+                          "type": "BuiltinCommonInstructions::Comment",
+                          "color": {
+                            "b": 109,
+                            "g": 230,
+                            "r": 255,
+                            "textB": 0,
+                            "textG": 0,
+                            "textR": 0
+                          },
+                          "comment": "Move and Aim"
+                        },
+                        {
+                          "folded": true,
                           "type": "BuiltinCommonInstructions::Standard",
                           "conditions": [
+                            {
+                              "type": {
+                                "value": "PathfindingBehavior::DestinationReached"
+                              },
+                              "parameters": [
+                                "Rifleman",
+                                "Pathfinding"
+                              ]
+                            },
                             {
                               "type": {
                                 "value": "NumberObjectVariable"
@@ -6248,7 +6385,7 @@
                               "parameters": [
                                 "Rifleman",
                                 "nextNodeIndex",
-                                "<",
+                                "<=",
                                 "Rifleman.PathNodesCount"
                               ]
                             }
@@ -6256,42 +6393,10 @@
                           "actions": [
                             {
                               "type": {
-                                "value": "SetNumberVariable"
-                              },
-                              "parameters": [
-                                "NextNode.X",
-                                "=",
-                                "Rifleman.PathNodes[Rifleman.nextNodeIndex].X"
-                              ]
-                            },
-                            {
-                              "type": {
-                                "value": "SetNumberVariable"
-                              },
-                              "parameters": [
-                                "NextNode.Y",
-                                "=",
-                                "Rifleman.PathNodes[Rifleman.nextNodeIndex].Y"
-                              ]
-                            },
-                            {
-                              "type": {
-                                "value": "PathfindingBehavior::SetDestination"
-                              },
-                              "parameters": [
-                                "Rifleman",
-                                "Pathfinding",
-                                "",
-                                "NextNode.X",
-                                "NextNode.Y"
-                              ]
-                            },
-                            {
-                              "type": {
                                 "value": "DebuggerTools::ConsoleLog"
                               },
                               "parameters": [
-                                "\"NextNodeIndex: \" + Rifleman.nextNodeIndex + \" Location: \" + NextNode.X + \", \" + NextNode.Y",
+                                "\"Rifleman: \" + Rifleman.ID + \" reached its destination, nextNodeIndex: \" + Rifleman.nextNodeIndex",
                                 "\"info\"",
                                 ""
                               ]
@@ -6303,36 +6408,169 @@
                               "conditions": [
                                 {
                                   "type": {
-                                    "value": "BooleanObjectVariable"
+                                    "value": "NumberObjectVariable"
                                   },
                                   "parameters": [
                                     "Rifleman",
-                                    "PathNodes[Rifleman.nextNodeIndex-1].cancelAim",
-                                    "True",
-                                    ""
+                                    "nextNodeIndex",
+                                    "<",
+                                    "Rifleman.PathNodesCount"
                                   ]
                                 }
                               ],
                               "actions": [
                                 {
                                   "type": {
-                                    "value": "PathfindingBehavior::MaxSpeed"
+                                    "value": "SetNumberVariable"
                                   },
                                   "parameters": [
-                                    "Rifleman",
-                                    "Pathfinding",
+                                    "NextNode.X",
                                     "=",
-                                    "RiflemanWalkSpeed"
+                                    "Rifleman.PathNodes[Rifleman.nextNodeIndex].X"
                                   ]
                                 },
                                 {
                                   "type": {
-                                    "value": "PathfindingBehavior::RotateObject"
+                                    "value": "SetNumberVariable"
+                                  },
+                                  "parameters": [
+                                    "NextNode.Y",
+                                    "=",
+                                    "Rifleman.PathNodes[Rifleman.nextNodeIndex].Y"
+                                  ]
+                                },
+                                {
+                                  "type": {
+                                    "value": "PathfindingBehavior::SetDestination"
                                   },
                                   "parameters": [
                                     "Rifleman",
                                     "Pathfinding",
-                                    "yes"
+                                    "",
+                                    "NextNode.X",
+                                    "NextNode.Y"
+                                  ]
+                                },
+                                {
+                                  "type": {
+                                    "value": "DebuggerTools::ConsoleLog"
+                                  },
+                                  "parameters": [
+                                    "\"NextNodeIndex: \" + Rifleman.nextNodeIndex + \" Location: \" + NextNode.X + \", \" + NextNode.Y",
+                                    "\"info\"",
+                                    ""
+                                  ]
+                                }
+                              ],
+                              "events": [
+                                {
+                                  "type": "BuiltinCommonInstructions::Comment",
+                                  "color": {
+                                    "b": 109,
+                                    "g": 230,
+                                    "r": 255,
+                                    "textB": 0,
+                                    "textG": 0,
+                                    "textR": 0
+                                  },
+                                  "comment": "Aim/Cancel Aim"
+                                },
+                                {
+                                  "type": "BuiltinCommonInstructions::Standard",
+                                  "conditions": [
+                                    {
+                                      "type": {
+                                        "value": "BooleanObjectVariable"
+                                      },
+                                      "parameters": [
+                                        "Rifleman",
+                                        "PathNodes[Rifleman.nextNodeIndex-1].cancelAim",
+                                        "True",
+                                        ""
+                                      ]
+                                    }
+                                  ],
+                                  "actions": [
+                                    {
+                                      "type": {
+                                        "value": "PathfindingBehavior::MaxSpeed"
+                                      },
+                                      "parameters": [
+                                        "Rifleman",
+                                        "Pathfinding",
+                                        "=",
+                                        "RiflemanWalkSpeed"
+                                      ]
+                                    },
+                                    {
+                                      "type": {
+                                        "value": "PathfindingBehavior::RotateObject"
+                                      },
+                                      "parameters": [
+                                        "Rifleman",
+                                        "Pathfinding",
+                                        "yes"
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "BuiltinCommonInstructions::Standard",
+                                  "conditions": [
+                                    {
+                                      "type": {
+                                        "value": "BooleanObjectVariable"
+                                      },
+                                      "parameters": [
+                                        "Rifleman",
+                                        "PathNodes[Rifleman.nextNodeIndex-1].angleSetted",
+                                        "True",
+                                        ""
+                                      ]
+                                    }
+                                  ],
+                                  "actions": [
+                                    {
+                                      "type": {
+                                        "value": "PathfindingBehavior::RotateObject"
+                                      },
+                                      "parameters": [
+                                        "Rifleman",
+                                        "Pathfinding",
+                                        ""
+                                      ]
+                                    },
+                                    {
+                                      "type": {
+                                        "value": "SetAngle"
+                                      },
+                                      "parameters": [
+                                        "Rifleman",
+                                        "=",
+                                        "Rifleman.PathNodes[Rifleman.nextNodeIndex-1].angle"
+                                      ]
+                                    },
+                                    {
+                                      "type": {
+                                        "value": "DebuggerTools::ConsoleLog"
+                                      },
+                                      "parameters": [
+                                        "\"Rotate to angle: \" + Rifleman.PathNodes[Rifleman.nextNodeIndex-1].angle",
+                                        "\"info\"",
+                                        ""
+                                      ]
+                                    },
+                                    {
+                                      "type": {
+                                        "value": "PathfindingBehavior::MaxSpeed"
+                                      },
+                                      "parameters": [
+                                        "Rifleman",
+                                        "Pathfinding",
+                                        "=",
+                                        "RiflemanWalkAimSpeed"
+                                      ]
+                                    }
                                   ]
                                 }
                               ]
@@ -6340,6 +6578,17 @@
                             {
                               "type": "BuiltinCommonInstructions::Standard",
                               "conditions": [
+                                {
+                                  "type": {
+                                    "value": "NumberObjectVariable"
+                                  },
+                                  "parameters": [
+                                    "Rifleman",
+                                    "nextNodeIndex",
+                                    "=",
+                                    "Rifleman.PathNodesCount"
+                                  ]
+                                },
                                 {
                                   "type": {
                                     "value": "BooleanObjectVariable"
@@ -6382,16 +6631,22 @@
                                     "\"info\"",
                                     ""
                                   ]
-                                },
+                                }
+                              ]
+                            },
+                            {
+                              "type": "BuiltinCommonInstructions::Standard",
+                              "conditions": [],
+                              "actions": [
                                 {
                                   "type": {
-                                    "value": "PathfindingBehavior::MaxSpeed"
+                                    "value": "SetNumberObjectVariable"
                                   },
                                   "parameters": [
                                     "Rifleman",
-                                    "Pathfinding",
-                                    "=",
-                                    "RiflemanWalkAimSpeed"
+                                    "nextNodeIndex",
+                                    "+",
+                                    "1"
                                   ]
                                 }
                               ]
@@ -6400,62 +6655,8 @@
                         },
                         {
                           "type": "BuiltinCommonInstructions::Standard",
-                          "conditions": [
-                            {
-                              "type": {
-                                "value": "NumberObjectVariable"
-                              },
-                              "parameters": [
-                                "Rifleman",
-                                "nextNodeIndex",
-                                "=",
-                                "Rifleman.PathNodesCount"
-                              ]
-                            },
-                            {
-                              "type": {
-                                "value": "BooleanObjectVariable"
-                              },
-                              "parameters": [
-                                "Rifleman",
-                                "PathNodes[Rifleman.nextNodeIndex-1].angleSetted",
-                                "True",
-                                ""
-                              ]
-                            }
-                          ],
-                          "actions": [
-                            {
-                              "type": {
-                                "value": "PathfindingBehavior::RotateObject"
-                              },
-                              "parameters": [
-                                "Rifleman",
-                                "Pathfinding",
-                                ""
-                              ]
-                            },
-                            {
-                              "type": {
-                                "value": "SetAngle"
-                              },
-                              "parameters": [
-                                "Rifleman",
-                                "=",
-                                "Rifleman.PathNodes[Rifleman.nextNodeIndex-1].angle"
-                              ]
-                            },
-                            {
-                              "type": {
-                                "value": "DebuggerTools::ConsoleLog"
-                              },
-                              "parameters": [
-                                "\"Rotate to angle: \" + Rifleman.PathNodes[Rifleman.nextNodeIndex-1].angle",
-                                "\"info\"",
-                                ""
-                              ]
-                            }
-                          ]
+                          "conditions": [],
+                          "actions": []
                         },
                         {
                           "type": "BuiltinCommonInstructions::Standard",
@@ -6463,14 +6664,152 @@
                           "actions": [
                             {
                               "type": {
-                                "value": "SetNumberObjectVariable"
+                                "value": "SetNumberVariable"
                               },
                               "parameters": [
-                                "Rifleman",
-                                "nextNodeIndex",
-                                "+",
-                                "1"
+                                "raySourcePlayerID",
+                                "=",
+                                "Rifleman.playerID"
                               ]
+                            },
+                            {
+                              "type": {
+                                "value": "SetNumberVariable"
+                              },
+                              "parameters": [
+                                "raySourceID",
+                                "=",
+                                "Rifleman.ID"
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "SetNumberVariable"
+                              },
+                              "parameters": [
+                                "raySourceX",
+                                "=",
+                                "Rifleman.PointX(\"FireStart\")"
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "SetNumberVariable"
+                              },
+                              "parameters": [
+                                "raySourceY",
+                                "=",
+                                "Rifleman.PointY(\"FireStart\")"
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "SetNumberVariable"
+                              },
+                              "parameters": [
+                                "rayAngle",
+                                "=",
+                                "Rifleman.Angle()"
+                              ]
+                            }
+                          ],
+                          "events": [
+                            {
+                              "type": "BuiltinCommonInstructions::Standard",
+                              "conditions": [
+                                {
+                                  "type": {
+                                    "value": "AjoutObjConcern"
+                                  },
+                                  "parameters": [
+                                    "",
+                                    "Rifleman"
+                                  ]
+                                },
+                                {
+                                  "type": {
+                                    "value": "Raycast"
+                                  },
+                                  "parameters": [
+                                    "Shootable",
+                                    "raySourceX",
+                                    "raySourceY",
+                                    "rayAngle",
+                                    "1000",
+                                    "rayResultX",
+                                    "rayResultY",
+                                    ""
+                                  ]
+                                }
+                              ],
+                              "actions": [],
+                              "events": [
+                                {
+                                  "type": "BuiltinCommonInstructions::Standard",
+                                  "conditions": [
+                                    {
+                                      "type": {
+                                        "value": "PickedInstancesCount"
+                                      },
+                                      "parameters": [
+                                        "Rifleman",
+                                        ">",
+                                        "0"
+                                      ]
+                                    }
+                                  ],
+                                  "actions": [
+                                    {
+                                      "type": {
+                                        "value": "TextContainerCapability::TextContainerBehavior::SetValue"
+                                      },
+                                      "parameters": [
+                                        "DebugRayText",
+                                        "Text",
+                                        "=",
+                                        "rayResultX + \", \" + rayResultY"
+                                      ]
+                                    },
+                                    {
+                                      "type": {
+                                        "value": "DebuggerTools::ConsoleLog"
+                                      },
+                                      "parameters": [
+                                        "\"Ray source id: \" + raySourceID + \" Player ID: \" + raySourcePlayerID + \" Enemy ID: \" + Rifleman.ID + \" Player ID : \" + Rifleman.playerID",
+                                        "\"info\"",
+                                        ""
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ],
+                          "variables": [
+                            {
+                              "name": "raySourceID",
+                              "type": "number",
+                              "value": 0
+                            },
+                            {
+                              "name": "raySourcePlayerID",
+                              "type": "number",
+                              "value": 0
+                            },
+                            {
+                              "name": "raySourceX",
+                              "type": "number",
+                              "value": 0
+                            },
+                            {
+                              "name": "raySourceY",
+                              "type": "number",
+                              "value": 0
+                            },
+                            {
+                              "name": "rayAngle",
+                              "type": "number",
+                              "value": 0
                             }
                           ]
                         }
