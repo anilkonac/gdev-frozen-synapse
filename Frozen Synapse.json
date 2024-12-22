@@ -339,7 +339,17 @@
     {
       "name": "RiflemanFireCooldown",
       "type": "number",
-      "value": 3
+      "value": 0.5
+    },
+    {
+      "name": "RiflemanFirePreperation",
+      "type": "number",
+      "value": 0.45
+    },
+    {
+      "name": "RiflemanRotateInSec",
+      "type": "number",
+      "value": 0.2
     }
   ],
   "layouts": [
@@ -535,48 +545,10 @@
           "keepRatio": true,
           "layer": "",
           "name": "Rifleman",
-          "persistentUuid": "8f74bee5-68ca-47d8-a8ea-f7ac1e7287b4",
-          "width": 0,
-          "x": 867,
-          "y": 709,
-          "zOrder": 11,
-          "numberProperties": [],
-          "stringProperties": [],
-          "initialVariables": []
-        },
-        {
-          "angle": 0,
-          "customSize": false,
-          "height": 0,
-          "keepRatio": true,
-          "layer": "",
-          "name": "Rifleman",
-          "persistentUuid": "d8dfac9e-13c8-48a5-9c06-ba8fbd101ebd",
-          "width": 0,
-          "x": 1256,
-          "y": 727,
-          "zOrder": 12,
-          "numberProperties": [],
-          "stringProperties": [],
-          "initialVariables": [
-            {
-              "name": "playerID",
-              "type": "number",
-              "value": 2
-            }
-          ]
-        },
-        {
-          "angle": 0,
-          "customSize": false,
-          "height": 0,
-          "keepRatio": true,
-          "layer": "",
-          "name": "Rifleman",
           "persistentUuid": "fcdaaf83-d7af-4d54-801b-c81fdbf74262",
           "width": 0,
-          "x": 855,
-          "y": 587,
+          "x": 592,
+          "y": 369,
           "zOrder": 13,
           "numberProperties": [],
           "stringProperties": [],
@@ -680,12 +652,27 @@
               "value": 1
             },
             {
-              "name": "targetID",
+              "name": "firePreperation",
               "type": "number",
               "value": 0
             },
             {
               "name": "fireCooldown",
+              "type": "number",
+              "value": 0
+            },
+            {
+              "name": "targetID",
+              "type": "number",
+              "value": 0
+            },
+            {
+              "name": "targetPosX",
+              "type": "number",
+              "value": 0
+            },
+            {
+              "name": "targetPosY",
               "type": "number",
               "value": 0
             }
@@ -728,6 +715,10 @@
               "extraBorder": 0,
               "gridOffsetX": 0,
               "gridOffsetY": 0
+            },
+            {
+              "name": "Tween",
+              "type": "Tween::TweenBehavior"
             }
           ],
           "animations": [
@@ -2691,7 +2682,6 @@
           "colorG": 176,
           "colorR": 74,
           "creationTime": 0,
-          "folded": true,
           "name": "Planning",
           "source": "",
           "type": "BuiltinCommonInstructions::Group",
@@ -4354,6 +4344,23 @@
                           "value": 0
                         }
                       ]
+                    },
+                    {
+                      "disabled": true,
+                      "type": "BuiltinCommonInstructions::Standard",
+                      "conditions": [],
+                      "actions": [
+                        {
+                          "type": {
+                            "value": "SetNumberVariable"
+                          },
+                          "parameters": [
+                            "angle",
+                            "=",
+                            "mod(angle, 360)"
+                          ]
+                        }
+                      ]
                     }
                   ]
                 }
@@ -4378,6 +4385,7 @@
               "actions": []
             },
             {
+              "folded": true,
               "type": "BuiltinCommonInstructions::Standard",
               "conditions": [],
               "actions": [],
@@ -6769,7 +6777,6 @@
                           "comment": "Move and Aim"
                         },
                         {
-                          "folded": true,
                           "type": "BuiltinCommonInstructions::Standard",
                           "conditions": [
                             {
@@ -6945,14 +6952,76 @@
                                     },
                                     {
                                       "type": {
-                                        "value": "SetAngle"
+                                        "value": "PathfindingBehavior::MaxSpeed"
                                       },
                                       "parameters": [
                                         "Rifleman",
+                                        "Pathfinding",
+                                        "=",
+                                        "RiflemanWalkAimSpeed"
+                                      ]
+                                    },
+                                    {
+                                      "type": {
+                                        "value": "SetNumberVariable"
+                                      },
+                                      "parameters": [
+                                        "currentAngle",
+                                        "=",
+                                        "Rifleman.Angle()"
+                                      ]
+                                    },
+                                    {
+                                      "type": {
+                                        "value": "SetNumberVariable"
+                                      },
+                                      "parameters": [
+                                        "targetAngle",
                                         "=",
                                         "Rifleman.PathNodes[Rifleman.nextNodeIndex-1].angle"
                                       ]
                                     },
+                                    {
+                                      "type": {
+                                        "value": "SetNumberVariable"
+                                      },
+                                      "parameters": [
+                                        "angleDifference",
+                                        "=",
+                                        "AngleDifference(Rifleman.Angle(), targetAngle)"
+                                      ]
+                                    },
+                                    {
+                                      "type": {
+                                        "value": "Tween::TweenBehavior::AddObjectAngleTween2"
+                                      },
+                                      "parameters": [
+                                        "Rifleman",
+                                        "Tween",
+                                        "\"Rotate\"",
+                                        "currentAngle - angleDifference",
+                                        "\"linear\"",
+                                        "RiflemanRotateInSec",
+                                        ""
+                                      ]
+                                    },
+                                    {
+                                      "type": {
+                                        "value": "DebuggerTools::ConsoleLog"
+                                      },
+                                      "parameters": [
+                                        "\"Current angle: \" + currentAngle + \" targetAngle: \" + targetAngle + \" angleDifference: \" + angleDifference",
+                                        "\"info\"",
+                                        ""
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "disabled": true,
+                                  "type": "BuiltinCommonInstructions::Standard",
+                                  "conditions": [],
+                                  "actions": [
                                     {
                                       "type": {
                                         "value": "DebuggerTools::ConsoleLog"
@@ -6965,13 +7034,23 @@
                                     },
                                     {
                                       "type": {
-                                        "value": "PathfindingBehavior::MaxSpeed"
+                                        "value": "SetAngle"
                                       },
                                       "parameters": [
                                         "Rifleman",
-                                        "Pathfinding",
                                         "=",
-                                        "RiflemanWalkAimSpeed"
+                                        "Rifleman.PathNodes[Rifleman.nextNodeIndex-1].angle"
+                                      ]
+                                    },
+                                    {
+                                      "type": {
+                                        "value": "RotateTowardAngle"
+                                      },
+                                      "parameters": [
+                                        "Rifleman",
+                                        "Rifleman.PathNodes[Rifleman.nextNodeIndex-1].angle",
+                                        "180",
+                                        ""
                                       ]
                                     }
                                   ]
@@ -7017,6 +7096,77 @@
                                 },
                                 {
                                   "type": {
+                                    "value": "SetNumberVariable"
+                                  },
+                                  "parameters": [
+                                    "currentAngle",
+                                    "=",
+                                    "Rifleman.Angle()"
+                                  ]
+                                },
+                                {
+                                  "type": {
+                                    "value": "SetNumberVariable"
+                                  },
+                                  "parameters": [
+                                    "targetAngle",
+                                    "=",
+                                    "Rifleman.PathNodes[Rifleman.nextNodeIndex-1].angle"
+                                  ]
+                                },
+                                {
+                                  "type": {
+                                    "value": "SetNumberVariable"
+                                  },
+                                  "parameters": [
+                                    "angleDifference",
+                                    "=",
+                                    "AngleDifference(Rifleman.Angle(), targetAngle)"
+                                  ]
+                                },
+                                {
+                                  "type": {
+                                    "value": "Tween::TweenBehavior::AddObjectAngleTween2"
+                                  },
+                                  "parameters": [
+                                    "Rifleman",
+                                    "Tween",
+                                    "\"Rotate\"",
+                                    "currentAngle - angleDifference",
+                                    "\"linear\"",
+                                    "RiflemanRotateInSec",
+                                    ""
+                                  ]
+                                },
+                                {
+                                  "type": {
+                                    "value": "DebuggerTools::ConsoleLog"
+                                  },
+                                  "parameters": [
+                                    "\"Current angle: \" + currentAngle + \" targetAngle: \" + targetAngle + \" angleDifference: \" + angleDifference",
+                                    "\"info\"",
+                                    ""
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "disabled": true,
+                              "type": "BuiltinCommonInstructions::Standard",
+                              "conditions": [],
+                              "actions": [
+                                {
+                                  "type": {
+                                    "value": "DebuggerTools::ConsoleLog"
+                                  },
+                                  "parameters": [
+                                    "\"Rotate to angle: \" + Rifleman.PathNodes[Rifleman.nextNodeIndex-1].angle",
+                                    "\"info\"",
+                                    ""
+                                  ]
+                                },
+                                {
+                                  "type": {
                                     "value": "SetAngle"
                                   },
                                   "parameters": [
@@ -7027,11 +7177,12 @@
                                 },
                                 {
                                   "type": {
-                                    "value": "DebuggerTools::ConsoleLog"
+                                    "value": "RotateTowardAngle"
                                   },
                                   "parameters": [
-                                    "\"Rotate to angle: \" + Rifleman.PathNodes[Rifleman.nextNodeIndex-1].angle",
-                                    "\"info\"",
+                                    "Rifleman",
+                                    "Rifleman.PathNodes[Rifleman.nextNodeIndex-1].angle",
+                                    "180",
                                     ""
                                   ]
                                 }
@@ -7053,6 +7204,23 @@
                                   ]
                                 }
                               ]
+                            }
+                          ],
+                          "variables": [
+                            {
+                              "name": "angleDifference",
+                              "type": "number",
+                              "value": 0
+                            },
+                            {
+                              "name": "targetAngle",
+                              "type": "number",
+                              "value": 0
+                            },
+                            {
+                              "name": "currentAngle",
+                              "type": "number",
+                              "value": 0
                             }
                           ]
                         },
@@ -7121,19 +7289,26 @@
                                 "=",
                                 "Rifleman.Angle()"
                               ]
-                            },
-                            {
-                              "type": {
-                                "value": "DebuggerTools::ConsoleLog"
-                              },
-                              "parameters": [
-                                "\"RaySourceID: \" + raySourceID",
-                                "\"info\"",
-                                ""
-                              ]
                             }
                           ],
                           "events": [
+                            {
+                              "disabled": true,
+                              "type": "BuiltinCommonInstructions::Standard",
+                              "conditions": [],
+                              "actions": [
+                                {
+                                  "type": {
+                                    "value": "DebuggerTools::ConsoleLog"
+                                  },
+                                  "parameters": [
+                                    "\"RaySourceID: \" + raySourceID",
+                                    "\"info\"",
+                                    ""
+                                  ]
+                                }
+                              ]
+                            },
                             {
                               "type": "BuiltinCommonInstructions::Standard",
                               "conditions": [],
@@ -7280,6 +7455,26 @@
                                                 "=",
                                                 "Rifleman.ID"
                                               ]
+                                            },
+                                            {
+                                              "type": {
+                                                "value": "SetNumberVariable"
+                                              },
+                                              "parameters": [
+                                                "targetPosX",
+                                                "=",
+                                                "Rifleman.CenterX()"
+                                              ]
+                                            },
+                                            {
+                                              "type": {
+                                                "value": "SetNumberVariable"
+                                              },
+                                              "parameters": [
+                                                "targetPosY",
+                                                "=",
+                                                "Rifleman.CenterY()"
+                                              ]
                                             }
                                           ]
                                         }
@@ -7335,6 +7530,28 @@
                                     "=",
                                     "minAngleTargetID"
                                   ]
+                                },
+                                {
+                                  "type": {
+                                    "value": "SetNumberObjectVariable"
+                                  },
+                                  "parameters": [
+                                    "Rifleman",
+                                    "targetPosX",
+                                    "=",
+                                    "targetPosX"
+                                  ]
+                                },
+                                {
+                                  "type": {
+                                    "value": "SetNumberObjectVariable"
+                                  },
+                                  "parameters": [
+                                    "Rifleman",
+                                    "targetPosY",
+                                    "=",
+                                    "targetPosY"
+                                  ]
                                 }
                               ]
                             }
@@ -7379,6 +7596,16 @@
                               "name": "minAngleTargetID",
                               "type": "number",
                               "value": 0
+                            },
+                            {
+                              "name": "targetPosX",
+                              "type": "number",
+                              "value": 0
+                            },
+                            {
+                              "name": "targetPosY",
+                              "type": "number",
+                              "value": 0
                             }
                           ]
                         },
@@ -7403,17 +7630,6 @@
                               },
                               "parameters": [
                                 "Rifleman",
-                                "fireCooldown",
-                                "<=",
-                                "0"
-                              ]
-                            },
-                            {
-                              "type": {
-                                "value": "NumberObjectVariable"
-                              },
-                              "parameters": [
-                                "Rifleman",
                                 "targetID",
                                 ">",
                                 "0"
@@ -7430,66 +7646,6 @@
                                 "\"info\"",
                                 ""
                               ]
-                            },
-                            {
-                              "type": {
-                                "value": "SetNumberVariable"
-                              },
-                              "parameters": [
-                                "fireStartX",
-                                "=",
-                                "Rifleman.PointX(\"FireStart\")"
-                              ]
-                            },
-                            {
-                              "type": {
-                                "value": "SetNumberVariable"
-                              },
-                              "parameters": [
-                                "fireStartY",
-                                "=",
-                                "Rifleman.PointY(\"FireStart\")"
-                              ]
-                            },
-                            {
-                              "type": {
-                                "value": "SetNumberVariable"
-                              },
-                              "parameters": [
-                                "targetID",
-                                "=",
-                                "Rifleman.targetID"
-                              ]
-                            },
-                            {
-                              "type": {
-                                "value": "SetNumberVariable"
-                              },
-                              "parameters": [
-                                "fireAngle",
-                                "=",
-                                "Rifleman.Angle()"
-                              ]
-                            },
-                            {
-                              "type": {
-                                "value": "SetNumberObjectVariable"
-                              },
-                              "parameters": [
-                                "Rifleman",
-                                "fireCooldown",
-                                "=",
-                                "0.5"
-                              ]
-                            },
-                            {
-                              "type": {
-                                "value": "AjoutObjConcern"
-                              },
-                              "parameters": [
-                                "",
-                                "Rifleman"
-                              ]
                             }
                           ],
                           "events": [
@@ -7502,9 +7658,72 @@
                                   },
                                   "parameters": [
                                     "Rifleman",
-                                    "ID",
+                                    "firePreperation",
+                                    "<=",
+                                    "RiflemanFirePreperation"
+                                  ]
+                                }
+                              ],
+                              "actions": [
+                                {
+                                  "type": {
+                                    "value": "RotateTowardPosition"
+                                  },
+                                  "parameters": [
+                                    "Rifleman",
+                                    "Rifleman.targetPosX",
+                                    "Rifleman.targetPosY",
+                                    "40",
+                                    ""
+                                  ]
+                                },
+                                {
+                                  "type": {
+                                    "value": "SetNumberObjectVariable"
+                                  },
+                                  "parameters": [
+                                    "Rifleman",
+                                    "firePreperation",
+                                    "+",
+                                    "TimeDelta()"
+                                  ]
+                                },
+                                {
+                                  "type": {
+                                    "value": "PathfindingBehavior::MaxSpeed"
+                                  },
+                                  "parameters": [
+                                    "Rifleman",
+                                    "Pathfinding",
                                     "=",
-                                    "targetID"
+                                    "0"
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "BuiltinCommonInstructions::Standard",
+                              "conditions": [
+                                {
+                                  "type": {
+                                    "value": "NumberObjectVariable"
+                                  },
+                                  "parameters": [
+                                    "Rifleman",
+                                    "firePreperation",
+                                    ">",
+                                    "RiflemanFirePreperation"
+                                  ]
+                                },
+                                {
+                                  "type": {
+                                    "value": "NumberObjectVariable"
+                                  },
+                                  "parameters": [
+                                    "Rifleman",
+                                    "fireCooldown",
+                                    "<=",
+                                    "0"
                                   ]
                                 }
                               ],
@@ -7516,8 +7735,8 @@
                                   "parameters": [
                                     "",
                                     "NewSprite",
-                                    "fireStartX",
-                                    "fireStartY",
+                                    "Rifleman.PointX(\"FireStart\")",
+                                    "Rifleman.PointY(\"FireStart\")",
                                     ""
                                   ]
                                 },
@@ -7527,93 +7746,51 @@
                                   },
                                   "parameters": [
                                     "NewSprite",
-                                    "fireAngle",
+                                    "Rifleman.Angle()",
                                     "100",
                                     "1"
                                   ]
-                                }
-                              ]
-                            },
-                            {
-                              "disabled": true,
-                              "type": "BuiltinCommonInstructions::Standard",
-                              "conditions": [],
-                              "actions": [
+                                },
                                 {
                                   "type": {
-                                    "value": "PrimitiveDrawing::LineV2"
+                                    "value": "SetNumberObjectVariable"
                                   },
                                   "parameters": [
-                                    "AimLinePainter",
-                                    "fireStartX",
-                                    "fireStartY",
-                                    "Rifleman.CenterX()",
-                                    "Rifleman.CenterY()",
-                                    "3"
+                                    "Rifleman",
+                                    "fireCooldown",
+                                    "=",
+                                    "RiflemanFireCooldown"
                                   ]
                                 }
                               ]
-                            }
-                          ],
-                          "variables": [
-                            {
-                              "name": "fireStartX",
-                              "type": "number",
-                              "value": 0
                             },
                             {
-                              "name": "fireStartY",
-                              "type": "number",
-                              "value": 0
-                            },
-                            {
-                              "name": "fireAngle",
-                              "type": "number",
-                              "value": 0
-                            },
-                            {
-                              "name": "targetID",
-                              "type": "number",
-                              "value": 0
-                            }
-                          ]
-                        },
-                        {
-                          "type": "BuiltinCommonInstructions::Standard",
-                          "conditions": [
-                            {
-                              "type": {
-                                "value": "NumberObjectVariable"
-                              },
-                              "parameters": [
-                                "Rifleman",
-                                "fireCooldown",
-                                ">",
-                                "0"
-                              ]
-                            },
-                            {
-                              "type": {
-                                "value": "NumberObjectVariable"
-                              },
-                              "parameters": [
-                                "Rifleman",
-                                "targetID",
-                                ">",
-                                "0"
-                              ]
-                            }
-                          ],
-                          "actions": [
-                            {
-                              "type": {
-                                "value": "SetNumberObjectVariable"
-                              },
-                              "parameters": [
-                                "Rifleman",
-                                "fireCooldown",
-                                "-",
-                                "TimeDelta()"
+                              "type": "BuiltinCommonInstructions::Standard",
+                              "conditions": [
+                                {
+                                  "type": {
+                                    "value": "NumberObjectVariable"
+                                  },
+                                  "parameters": [
+                                    "Rifleman",
+                                    "fireCooldown",
+                                    ">",
+                                    "0"
+                                  ]
+                                }
+                              ],
+                              "actions": [
+                                {
+                                  "type": {
+                                    "value": "SetNumberObjectVariable"
+                                  },
+                                  "parameters": [
+                                    "Rifleman",
+                                    "fireCooldown",
+                                    "-",
+                                    "TimeDelta()"
+                                  ]
+                                }
                               ]
                             }
                           ]
@@ -8467,6 +8644,10 @@
         {
           "name": "Text",
           "type": "TextContainerCapability::TextContainerBehavior"
+        },
+        {
+          "name": "Tween",
+          "type": "Tween::TweenBehavior"
         }
       ]
     }
