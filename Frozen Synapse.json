@@ -7956,6 +7956,16 @@
                                     "=",
                                     "Bullet.CenterY()"
                                   ]
+                                },
+                                {
+                                  "type": {
+                                    "value": "SetAngle"
+                                  },
+                                  "parameters": [
+                                    "Bullet",
+                                    "+",
+                                    "RandomFloatInRange(-2,2)"
+                                  ]
                                 }
                               ],
                               "events": [
