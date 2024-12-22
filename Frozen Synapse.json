@@ -315,6 +315,21 @@
       "name": "menuOpened",
       "type": "boolean",
       "value": false
+    },
+    {
+      "name": "Player1Color",
+      "type": "string",
+      "value": "0;255;0"
+    },
+    {
+      "name": "Player2Color",
+      "type": "string",
+      "value": "255;255;255"
+    },
+    {
+      "name": "Player2Color_alt",
+      "type": "string",
+      "value": "4;217;255"
     }
   ],
   "layouts": [
@@ -380,7 +395,13 @@
           "zOrder": 2,
           "numberProperties": [],
           "stringProperties": [],
-          "initialVariables": []
+          "initialVariables": [
+            {
+              "name": "playerID",
+              "type": "number",
+              "value": 1
+            }
+          ]
         },
         {
           "angle": 0,
@@ -528,6 +549,28 @@
           "numberProperties": [],
           "stringProperties": [],
           "initialVariables": []
+        },
+        {
+          "angle": 0,
+          "customSize": false,
+          "height": 0,
+          "keepRatio": true,
+          "layer": "",
+          "name": "Rifleman",
+          "persistentUuid": "78140339-f30f-4bb6-873b-e1e4738d42a7",
+          "width": 0,
+          "x": 1557,
+          "y": 607,
+          "zOrder": 11,
+          "numberProperties": [],
+          "stringProperties": [],
+          "initialVariables": [
+            {
+              "name": "playerID",
+              "type": "number",
+              "value": 2
+            }
+          ]
         }
       ],
       "objects": [
@@ -598,6 +641,11 @@
               "name": "ID",
               "type": "number",
               "value": 0
+            },
+            {
+              "name": "playerID",
+              "type": "number",
+              "value": 1
             }
           ],
           "effects": [
@@ -1960,7 +2008,19 @@
                 },
                 {
                   "type": "BuiltinCommonInstructions::Standard",
-                  "conditions": [],
+                  "conditions": [
+                    {
+                      "type": {
+                        "value": "NumberObjectVariable"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "playerID",
+                        "=",
+                        "1"
+                      ]
+                    }
+                  ],
                   "actions": [
                     {
                       "type": {
@@ -1968,7 +2028,7 @@
                       },
                       "parameters": [
                         "Rifleman",
-                        "\"0;255;0\""
+                        "Player1Color"
                       ]
                     },
                     {
@@ -1980,7 +2040,7 @@
                         "Effect",
                         "\"Glow\"",
                         "\"color\"",
-                        "\"0;255;0\""
+                        "Player1Color"
                       ]
                     },
                     {
@@ -1992,7 +2052,58 @@
                         "Effect",
                         "\"Outline\"",
                         "\"color\"",
-                        "\"0;255;0\""
+                        "Player1Color"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [
+                    {
+                      "type": {
+                        "value": "NumberObjectVariable"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "playerID",
+                        "=",
+                        "2"
+                      ]
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "ChangeColor"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "Player2Color"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "EffectCapability::EffectBehavior::SetEffectStringParameter"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "Effect",
+                        "\"Glow\"",
+                        "\"color\"",
+                        "Player2Color"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "EffectCapability::EffectBehavior::SetEffectStringParameter"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "Effect",
+                        "\"Outline\"",
+                        "\"color\"",
+                        "Player2Color"
                       ]
                     }
                   ]
