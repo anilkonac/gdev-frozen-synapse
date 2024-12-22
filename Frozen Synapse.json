@@ -330,6 +330,16 @@
       "name": "Player2Color_alt",
       "type": "string",
       "value": "4;217;255"
+    },
+    {
+      "name": "RiflemanLineOfSight",
+      "type": "number",
+      "value": 120
+    },
+    {
+      "name": "RiflemanFireCooldown",
+      "type": "number",
+      "value": 3
     }
   ],
   "layouts": [
@@ -387,22 +397,6 @@
         }
       ],
       "instances": [
-        {
-          "angle": 0,
-          "customSize": false,
-          "height": 0,
-          "keepRatio": true,
-          "layer": "",
-          "name": "Rifleman",
-          "persistentUuid": "79709fba-b9bc-44ea-a358-b81729622ef8",
-          "width": 0,
-          "x": 805,
-          "y": 336,
-          "zOrder": 1,
-          "numberProperties": [],
-          "stringProperties": [],
-          "initialVariables": []
-        },
         {
           "angle": 0,
           "customSize": true,
@@ -541,13 +535,29 @@
           "keepRatio": true,
           "layer": "",
           "name": "Rifleman",
-          "persistentUuid": "78140339-f30f-4bb6-873b-e1e4738d42a7",
+          "persistentUuid": "8f74bee5-68ca-47d8-a8ea-f7ac1e7287b4",
           "width": 0,
-          "x": 1521,
-          "y": 647,
+          "x": 915,
+          "y": 409,
           "zOrder": 11,
           "numberProperties": [],
           "stringProperties": [],
+          "initialVariables": []
+        },
+        {
+          "angle": 0,
+          "customSize": false,
+          "height": 0,
+          "keepRatio": true,
+          "layer": "",
+          "name": "Rifleman",
+          "persistentUuid": "d8dfac9e-13c8-48a5-9c06-ba8fbd101ebd",
+          "width": 0,
+          "x": 1256,
+          "y": 727,
+          "zOrder": 12,
+          "numberProperties": [],
+          "stringProperties": [],
           "initialVariables": [
             {
               "name": "playerID",
@@ -563,13 +573,29 @@
           "keepRatio": true,
           "layer": "",
           "name": "Rifleman",
-          "persistentUuid": "0f7aeebb-3a25-4e36-9466-1af6465824ab",
+          "persistentUuid": "fcdaaf83-d7af-4d54-801b-c81fdbf74262",
           "width": 0,
-          "x": 1374,
-          "y": 758,
+          "x": 855,
+          "y": 587,
           "zOrder": 13,
           "numberProperties": [],
           "stringProperties": [],
+          "initialVariables": []
+        },
+        {
+          "angle": 0,
+          "customSize": false,
+          "height": 0,
+          "keepRatio": true,
+          "layer": "",
+          "name": "Rifleman",
+          "persistentUuid": "90eb9b1a-1613-44bf-954e-53e6cbfb049f",
+          "width": 0,
+          "x": 1240,
+          "y": 575,
+          "zOrder": 14,
+          "numberProperties": [],
+          "stringProperties": [],
           "initialVariables": [
             {
               "name": "playerID",
@@ -577,38 +603,6 @@
               "value": 2
             }
           ]
-        },
-        {
-          "angle": 0,
-          "customSize": false,
-          "height": 0,
-          "keepRatio": true,
-          "layer": "",
-          "name": "Rifleman",
-          "persistentUuid": "0c576071-142a-4930-8353-6da229c844b8",
-          "width": 0,
-          "x": 964,
-          "y": 236,
-          "zOrder": 14,
-          "numberProperties": [],
-          "stringProperties": [],
-          "initialVariables": []
-        },
-        {
-          "angle": 0,
-          "customSize": false,
-          "height": 0,
-          "keepRatio": true,
-          "layer": "",
-          "name": "Rifleman",
-          "persistentUuid": "4c6df0c2-fd43-4b95-812a-6e2f4e11377c",
-          "width": 0,
-          "x": 890,
-          "y": 415,
-          "zOrder": 15,
-          "numberProperties": [],
-          "stringProperties": [],
-          "initialVariables": []
         }
       ],
       "objects": [
@@ -684,6 +678,16 @@
               "name": "playerID",
               "type": "number",
               "value": 1
+            },
+            {
+              "name": "targetID",
+              "type": "number",
+              "value": 0
+            },
+            {
+              "name": "fireCooldown",
+              "type": "number",
+              "value": 0
             }
           ],
           "effects": [
@@ -1280,83 +1284,6 @@
             "g": 255,
             "b": 0
           }
-        },
-        {
-          "adaptCollisionMaskAutomatically": true,
-          "assetStoreId": "",
-          "name": "PathCreator",
-          "type": "Sprite",
-          "updateIfNotVisible": false,
-          "variables": [],
-          "effects": [],
-          "behaviors": [
-            {
-              "name": "Pathfinding",
-              "type": "PathfindingBehavior::PathfindingBehavior",
-              "acceleration": 10000,
-              "angularMaxSpeed": 540,
-              "maxSpeed": 200,
-              "rotateObject": false,
-              "allowDiagonals": true,
-              "angleOffset": 0,
-              "cellHeight": 20,
-              "cellWidth": 20,
-              "extraBorder": 0,
-              "gridOffsetX": 0,
-              "gridOffsetY": 0,
-              "smoothingMaxCellGap": 1
-            }
-          ],
-          "animations": [
-            {
-              "name": "",
-              "useMultipleDirections": false,
-              "directions": [
-                {
-                  "looping": false,
-                  "timeBetweenFrames": 0.08,
-                  "sprites": [
-                    {
-                      "hasCustomCollisionMask": true,
-                      "image": "assets\\rifleman2.png",
-                      "points": [],
-                      "originPoint": {
-                        "name": "origine",
-                        "x": 0,
-                        "y": 0
-                      },
-                      "centerPoint": {
-                        "automatic": true,
-                        "name": "centre",
-                        "x": 0,
-                        "y": 0
-                      },
-                      "customCollisionMask": [
-                        [
-                          {
-                            "x": 8,
-                            "y": 17
-                          },
-                          {
-                            "x": 58,
-                            "y": 17
-                          },
-                          {
-                            "x": 58,
-                            "y": 48
-                          },
-                          {
-                            "x": 8,
-                            "y": 48
-                          }
-                        ]
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
         },
         {
           "assetStoreId": "5faf2b0415c271fa6e747283ed36297a95f04d2b6c477a7b011775fa6fb444ee",
@@ -1969,58 +1896,75 @@
         "folderName": "__ROOT",
         "children": [
           {
+            "folderName": "PlanningUI",
+            "children": [
+              {
+                "objectName": "NavArrows"
+              },
+              {
+                "objectName": "AimButton"
+              },
+              {
+                "objectName": "AimCrosshair"
+              },
+              {
+                "objectName": "CancelAimCrosshair"
+              }
+            ]
+          },
+          {
+            "folderName": "DebugTexts",
+            "children": [
+              {
+                "objectName": "DebugAngleText"
+              },
+              {
+                "objectName": "DebugRayText"
+              }
+            ]
+          },
+          {
+            "folderName": "Painters",
+            "children": [
+              {
+                "objectName": "PathPainter"
+              },
+              {
+                "objectName": "WaypointsPainter"
+              },
+              {
+                "objectName": "AimLinePainter"
+              }
+            ]
+          },
+          {
+            "folderName": "Buttons",
+            "children": [
+              {
+                "objectName": "PrimeButton"
+              },
+              {
+                "objectName": "AddWaypointButton"
+              },
+              {
+                "objectName": "DeleteWaypointButton"
+              },
+              {
+                "objectName": "CancelAimButton"
+              }
+            ]
+          },
+          {
             "objectName": "Rifleman"
           },
           {
-            "objectName": "PathPainter"
-          },
-          {
-            "objectName": "WaypointsPainter"
-          },
-          {
-            "objectName": "NavArrows"
-          },
-          {
             "objectName": "Wall"
-          },
-          {
-            "objectName": "PrimeButton"
-          },
-          {
-            "objectName": "AddWaypointButton"
-          },
-          {
-            "objectName": "DeleteWaypointButton"
-          },
-          {
-            "objectName": "CancelAimButton"
-          },
-          {
-            "objectName": "PathCreator"
           },
           {
             "objectName": "CopperRedBar"
           },
           {
             "objectName": "TurnTitle"
-          },
-          {
-            "objectName": "AimButton"
-          },
-          {
-            "objectName": "AimLinePainter"
-          },
-          {
-            "objectName": "DebugAngleText"
-          },
-          {
-            "objectName": "AimCrosshair"
-          },
-          {
-            "objectName": "CancelAimCrosshair"
-          },
-          {
-            "objectName": "DebugRayText"
           }
         ]
       },
@@ -4070,14 +4014,34 @@
                     },
                     {
                       "type": {
+                        "value": "PrimitiveDrawing::FillOpacity"
+                      },
+                      "parameters": [
+                        "AimLinePainter",
+                        "=",
+                        "255"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "PrimitiveDrawing::OutlineOpacity"
+                      },
+                      "parameters": [
+                        "AimLinePainter",
+                        "=",
+                        "255"
+                      ]
+                    },
+                    {
+                      "type": {
                         "value": "PrimitiveDrawing::LineV2"
                       },
                       "parameters": [
                         "AimLinePainter",
                         "nodeX",
                         "nodeY",
-                        "nodeX + 1000*cos(ToRad(angle-60))",
-                        "nodeY+ 1000*sin(ToRad(angle-60))",
+                        "nodeX + 1000*cos(ToRad(angle-RiflemanLineOfSight/2))",
+                        "nodeY+ 1000*sin(ToRad(angle-RiflemanLineOfSight/2))",
                         "1"
                       ]
                     },
@@ -4089,8 +4053,8 @@
                         "AimLinePainter",
                         "nodeX",
                         "nodeY",
-                        "nodeX + 1000*cos(ToRad(angle+60))",
-                        "nodeY+ 1000*sin(ToRad(angle+60))",
+                        "nodeX + 1000*cos(ToRad(angle+RiflemanLineOfSight/2))",
+                        "nodeY+ 1000*sin(ToRad(angle+RiflemanLineOfSight/2))",
                         "1"
                       ]
                     }
@@ -5816,6 +5780,7 @@
           "colorG": 176,
           "colorR": 74,
           "creationTime": 0,
+          "folded": true,
           "name": "Path and waypoint drawing",
           "source": "",
           "type": "BuiltinCommonInstructions::Group",
@@ -7014,6 +6979,18 @@
                           ]
                         },
                         {
+                          "type": "BuiltinCommonInstructions::Comment",
+                          "color": {
+                            "b": 109,
+                            "g": 230,
+                            "r": 255,
+                            "textB": 0,
+                            "textG": 0,
+                            "textR": 0
+                          },
+                          "comment": "Raycast"
+                        },
+                        {
                           "type": "BuiltinCommonInstructions::Standard",
                           "conditions": [],
                           "actions": [
@@ -7062,7 +7039,7 @@
                                 "value": "SetNumberVariable"
                               },
                               "parameters": [
-                                "rayAngle",
+                                "raySourceAngle",
                                 "=",
                                 "Rifleman.Angle()"
                               ]
@@ -7088,6 +7065,11 @@
                             }
                           ],
                           "events": [
+                            {
+                              "type": "BuiltinCommonInstructions::Standard",
+                              "conditions": [],
+                              "actions": []
+                            },
                             {
                               "type": "BuiltinCommonInstructions::ForEach",
                               "object": "Rifleman",
@@ -7122,6 +7104,23 @@
                               "actions": [],
                               "events": [
                                 {
+                                  "disabled": true,
+                                  "type": "BuiltinCommonInstructions::Standard",
+                                  "conditions": [],
+                                  "actions": [
+                                    {
+                                      "type": {
+                                        "value": "DebuggerTools::ConsoleLog"
+                                      },
+                                      "parameters": [
+                                        "\"Ray source id: \" + raySourceID + \" Player ID: \" + raySourcePlayerID + \" Enemy ID: \" + Rifleman.ID + \" Player ID : \" + Rifleman.playerID",
+                                        "\"info\"",
+                                        ""
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
                                   "type": "BuiltinCommonInstructions::Standard",
                                   "conditions": [
                                     {
@@ -7148,38 +7147,149 @@
                                   "actions": [
                                     {
                                       "type": {
-                                        "value": "DebuggerTools::ConsoleLog"
+                                        "value": "SetNumberVariable"
                                       },
                                       "parameters": [
-                                        "\"Ray source id: \" + raySourceID + \" Player ID: \" + raySourcePlayerID + \" Enemy ID: \" + Rifleman.ID + \" Player ID : \" + Rifleman.playerID",
-                                        "\"info\"",
-                                        ""
-                                      ]
-                                    },
-                                    {
-                                      "type": {
-                                        "value": "TextContainerCapability::TextContainerBehavior::SetValue"
-                                      },
-                                      "parameters": [
-                                        "DebugRayText",
-                                        "Text",
+                                        "angleBetween",
                                         "=",
-                                        "rayResultX + \", \" + rayResultY"
-                                      ]
-                                    },
-                                    {
-                                      "type": {
-                                        "value": "PrimitiveDrawing::LineV2"
-                                      },
-                                      "parameters": [
-                                        "AimLinePainter",
-                                        "raySourceX",
-                                        "raySourceY",
-                                        "Rifleman.CenterX()",
-                                        "Rifleman.CenterY()",
-                                        "4"
+                                        "abs(AngleDifference(raySourceAngle, AngleBetweenPositions(raySourceX, raySourceY, Rifleman.CenterX(), Rifleman.CenterY())))"
                                       ]
                                     }
+                                  ],
+                                  "events": [
+                                    {
+                                      "type": "BuiltinCommonInstructions::Standard",
+                                      "conditions": [
+                                        {
+                                          "type": {
+                                            "value": "NumberVariable"
+                                          },
+                                          "parameters": [
+                                            "angleBetween",
+                                            "<=",
+                                            "RiflemanLineOfSight/2"
+                                          ]
+                                        },
+                                        {
+                                          "type": {
+                                            "value": "NumberVariable"
+                                          },
+                                          "parameters": [
+                                            "angleBetween",
+                                            "<",
+                                            "minAngle"
+                                          ]
+                                        }
+                                      ],
+                                      "actions": [
+                                        {
+                                          "type": {
+                                            "value": "SetNumberVariable"
+                                          },
+                                          "parameters": [
+                                            "minAngle",
+                                            "=",
+                                            "angleBetween"
+                                          ]
+                                        },
+                                        {
+                                          "type": {
+                                            "value": "SetNumberVariable"
+                                          },
+                                          "parameters": [
+                                            "minAngleTargetID",
+                                            "=",
+                                            "Rifleman.ID"
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "BuiltinCommonInstructions::Standard",
+                              "conditions": [
+                                {
+                                  "type": {
+                                    "value": "NumberObjectVariable"
+                                  },
+                                  "parameters": [
+                                    "Rifleman",
+                                    "ID",
+                                    "=",
+                                    "minAngleTargetID"
+                                  ]
+                                }
+                              ],
+                              "actions": [
+                                {
+                                  "type": {
+                                    "value": "PrimitiveDrawing::LineV2"
+                                  },
+                                  "parameters": [
+                                    "AimLinePainter",
+                                    "raySourceX",
+                                    "raySourceY",
+                                    "Rifleman.CenterX()",
+                                    "Rifleman.CenterY()",
+                                    "3"
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "disabled": true,
+                              "type": "BuiltinCommonInstructions::Standard",
+                              "conditions": [],
+                              "actions": [
+                                {
+                                  "type": {
+                                    "value": "SetNumberObjectVariable"
+                                  },
+                                  "parameters": [
+                                    "Rifleman",
+                                    "targetID",
+                                    "=",
+                                    "minAngleTargetID"
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "BuiltinCommonInstructions::Standard",
+                              "conditions": [],
+                              "actions": []
+                            },
+                            {
+                              "disabled": true,
+                              "type": "BuiltinCommonInstructions::Standard",
+                              "conditions": [
+                                {
+                                  "type": {
+                                    "value": "NumberObjectVariable"
+                                  },
+                                  "parameters": [
+                                    "Rifleman",
+                                    "fireCooldown",
+                                    "<=",
+                                    "0"
+                                  ]
+                                }
+                              ],
+                              "actions": [
+                                {
+                                  "type": {
+                                    "value": "PrimitiveDrawing::LineV2"
+                                  },
+                                  "parameters": [
+                                    "AimLinePainter",
+                                    "raySourceX",
+                                    "raySourceY",
+                                    "Rifleman.CenterX()",
+                                    "Rifleman.CenterY()",
+                                    "3"
                                   ]
                                 }
                               ]
@@ -7207,7 +7317,178 @@
                               "value": 0
                             },
                             {
-                              "name": "rayAngle",
+                              "name": "raySourceAngle",
+                              "type": "number",
+                              "value": 0
+                            },
+                            {
+                              "name": "angleBetween",
+                              "type": "number",
+                              "value": 0
+                            },
+                            {
+                              "name": "minAngle",
+                              "type": "number",
+                              "value": 999999
+                            },
+                            {
+                              "name": "minAngleTargetID",
+                              "type": "number",
+                              "value": 0
+                            }
+                          ]
+                        },
+                        {
+                          "type": "BuiltinCommonInstructions::Comment",
+                          "color": {
+                            "b": 109,
+                            "g": 230,
+                            "r": 255,
+                            "textB": 0,
+                            "textG": 0,
+                            "textR": 0
+                          },
+                          "comment": "Fire"
+                        },
+                        {
+                          "disabled": true,
+                          "type": "BuiltinCommonInstructions::Standard",
+                          "conditions": [
+                            {
+                              "type": {
+                                "value": "NumberObjectVariable"
+                              },
+                              "parameters": [
+                                "Rifleman",
+                                "targetID",
+                                ">",
+                                "0"
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "NumberObjectVariable"
+                              },
+                              "parameters": [
+                                "Rifleman",
+                                "fireCooldown",
+                                "<=",
+                                "0"
+                              ]
+                            }
+                          ],
+                          "actions": [
+                            {
+                              "type": {
+                                "value": "SetNumberVariable"
+                              },
+                              "parameters": [
+                                "FireStartX",
+                                "=",
+                                "Rifleman.PointX(\"FireStart\")"
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "SetNumberVariable"
+                              },
+                              "parameters": [
+                                "FireStartY",
+                                "=",
+                                "Rifleman.PointY(\"FireStart\")"
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "SetNumberVariable"
+                              },
+                              "parameters": [
+                                "targetID",
+                                "=",
+                                "Rifleman.targetID"
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "SetNumberVariable"
+                              },
+                              "parameters": [
+                                "sourceID",
+                                "=",
+                                "Rifleman.ID"
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "AjoutObjConcern"
+                              },
+                              "parameters": [
+                                "",
+                                "Rifleman"
+                              ]
+                            }
+                          ],
+                          "events": [
+                            {
+                              "type": "BuiltinCommonInstructions::Standard",
+                              "conditions": [
+                                {
+                                  "type": {
+                                    "value": "NumberObjectVariable"
+                                  },
+                                  "parameters": [
+                                    "Rifleman",
+                                    "targetID",
+                                    "=",
+                                    "targetID"
+                                  ]
+                                }
+                              ],
+                              "actions": [
+                                {
+                                  "type": {
+                                    "value": "PrimitiveDrawing::LineV2"
+                                  },
+                                  "parameters": [
+                                    "AimLinePainter",
+                                    "FireStartX",
+                                    "FireStartY",
+                                    "Rifleman.CenterX()",
+                                    "Rifleman.CenterY()",
+                                    "3"
+                                  ]
+                                },
+                                {
+                                  "type": {
+                                    "value": "DebuggerTools::ConsoleLog"
+                                  },
+                                  "parameters": [
+                                    "\"Fire from id: \" + sourceID + \" to id: \" + Rifleman.ID",
+                                    "\"info\"",
+                                    ""
+                                  ]
+                                }
+                              ]
+                            }
+                          ],
+                          "variables": [
+                            {
+                              "name": "FireStartX",
+                              "type": "number",
+                              "value": 0
+                            },
+                            {
+                              "name": "FireStartY",
+                              "type": "number",
+                              "value": 0
+                            },
+                            {
+                              "name": "targetID",
+                              "type": "number",
+                              "value": 0
+                            },
+                            {
+                              "name": "sourceID",
                               "type": "number",
                               "value": 0
                             }
@@ -7230,6 +7511,7 @@
                   "comment": "When Turn finished\n"
                 },
                 {
+                  "folded": true,
                   "type": "BuiltinCommonInstructions::Standard",
                   "conditions": [
                     {
