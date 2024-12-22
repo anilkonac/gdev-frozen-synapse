@@ -304,7 +304,7 @@
     {
       "name": "CancelAimLineAngle",
       "type": "string",
-      "value": "135"
+      "value": "45"
     },
     {
       "name": "CancelAimLineLength",
@@ -562,22 +562,6 @@
           "height": 0,
           "keepRatio": true,
           "layer": "",
-          "name": "DebugRayText",
-          "persistentUuid": "672b4256-53a0-4e6d-82bc-2c7574db3f08",
-          "width": 0,
-          "x": 958,
-          "y": 531,
-          "zOrder": 12,
-          "numberProperties": [],
-          "stringProperties": [],
-          "initialVariables": []
-        },
-        {
-          "angle": 0,
-          "customSize": false,
-          "height": 0,
-          "keepRatio": true,
-          "layer": "",
           "name": "Rifleman",
           "persistentUuid": "0f7aeebb-3a25-4e36-9466-1af6465824ab",
           "width": 0,
@@ -593,6 +577,38 @@
               "value": 2
             }
           ]
+        },
+        {
+          "angle": 0,
+          "customSize": false,
+          "height": 0,
+          "keepRatio": true,
+          "layer": "",
+          "name": "Rifleman",
+          "persistentUuid": "0c576071-142a-4930-8353-6da229c844b8",
+          "width": 0,
+          "x": 964,
+          "y": 236,
+          "zOrder": 14,
+          "numberProperties": [],
+          "stringProperties": [],
+          "initialVariables": []
+        },
+        {
+          "angle": 0,
+          "customSize": false,
+          "height": 0,
+          "keepRatio": true,
+          "layer": "",
+          "name": "Rifleman",
+          "persistentUuid": "4c6df0c2-fd43-4b95-812a-6e2f4e11377c",
+          "width": 0,
+          "x": 890,
+          "y": 415,
+          "zOrder": 15,
+          "numberProperties": [],
+          "stringProperties": [],
+          "initialVariables": []
         }
       ],
       "objects": [
@@ -2010,7 +2026,6 @@
       },
       "events": [
         {
-          "folded": true,
           "type": "BuiltinCommonInstructions::Standard",
           "conditions": [
             {
@@ -2667,7 +2682,6 @@
           "colorG": 176,
           "colorR": 74,
           "creationTime": 0,
-          "folded": true,
           "name": "Planning",
           "source": "",
           "type": "BuiltinCommonInstructions::Group",
@@ -5802,7 +5816,6 @@
           "colorG": 176,
           "colorR": 74,
           "creationTime": 0,
-          "folded": true,
           "name": "Path and waypoint drawing",
           "source": "",
           "type": "BuiltinCommonInstructions::Group",
@@ -5812,12 +5825,11 @@
               "conditions": [
                 {
                   "type": {
-                    "value": "BooleanObjectVariable"
+                    "value": "BooleanVariable"
                   },
                   "parameters": [
-                    "Rifleman",
-                    "selected",
-                    "True",
+                    "isTurnExecuting",
+                    "=",
                     ""
                   ]
                 }
@@ -5825,384 +5837,710 @@
               "actions": [],
               "events": [
                 {
-                  "infiniteLoopWarning": true,
-                  "type": "BuiltinCommonInstructions::While",
-                  "whileConditions": [
-                    {
-                      "type": {
-                        "value": "NumberVariable"
-                      },
-                      "parameters": [
-                        "pathNodeIndex",
-                        "<",
-                        "Rifleman.PathNodesCount"
-                      ]
-                    }
-                  ],
+                  "type": "BuiltinCommonInstructions::ForEach",
+                  "object": "Rifleman",
                   "conditions": [],
-                  "actions": [
-                    {
-                      "type": {
-                        "value": "SetNumberVariable"
-                      },
-                      "parameters": [
-                        "PrevNode.X",
-                        "=",
-                        "Rifleman.PathNodes[pathNodeIndex- 1].X"
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "SetNumberVariable"
-                      },
-                      "parameters": [
-                        "PrevNode.Y",
-                        "=",
-                        "Rifleman.PathNodes[pathNodeIndex - 1].Y"
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "SetNumberVariable"
-                      },
-                      "parameters": [
-                        "CurNode.X",
-                        "=",
-                        "Rifleman.PathNodes[pathNodeIndex].X"
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "SetNumberVariable"
-                      },
-                      "parameters": [
-                        "CurNode.Y",
-                        "=",
-                        "Rifleman.PathNodes[pathNodeIndex].Y"
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "PrimitiveDrawing::LineV2"
-                      },
-                      "parameters": [
-                        "PathPainter",
-                        "PrevNode.X",
-                        "PrevNode.Y",
-                        "CurNode.X",
-                        "CurNode.Y",
-                        "4"
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "PrimitiveDrawing::Rectangle"
-                      },
-                      "parameters": [
-                        "WaypointsPainter",
-                        "CurNode.X-WaypointSquareRadius",
-                        "CurNode.Y-WaypointSquareRadius",
-                        "CurNode.X+WaypointSquareRadius",
-                        "CurNode.Y+WaypointSquareRadius"
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "SetNumberVariable"
-                      },
-                      "parameters": [
-                        "pathNodeIndex",
-                        "+",
-                        "1"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "BuiltinCommonInstructions::Standard",
-                  "conditions": [],
-                  "actions": [
-                    {
-                      "type": {
-                        "value": "SetNumberVariable"
-                      },
-                      "parameters": [
-                        "pathNodeIndex",
-                        "=",
-                        "0"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "infiniteLoopWarning": true,
-                  "type": "BuiltinCommonInstructions::While",
-                  "whileConditions": [
-                    {
-                      "type": {
-                        "value": "NumberVariable"
-                      },
-                      "parameters": [
-                        "pathNodeIndex",
-                        "<",
-                        "Rifleman.PathNodesCount"
-                      ]
-                    }
-                  ],
-                  "conditions": [],
-                  "actions": [
-                    {
-                      "type": {
-                        "value": "SetNumberVariable"
-                      },
-                      "parameters": [
-                        "CurNode.X",
-                        "=",
-                        "Rifleman.PathNodes[pathNodeIndex].X"
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "SetNumberVariable"
-                      },
-                      "parameters": [
-                        "CurNode.Y",
-                        "=",
-                        "Rifleman.PathNodes[pathNodeIndex].Y"
-                      ]
-                    }
-                  ],
+                  "actions": [],
                   "events": [
-                    {
-                      "type": "BuiltinCommonInstructions::Comment",
-                      "color": {
-                        "b": 109,
-                        "g": 230,
-                        "r": 255,
-                        "textB": 0,
-                        "textG": 0,
-                        "textR": 0
-                      },
-                      "comment": "Draw Aim Line"
-                    },
-                    {
-                      "type": "BuiltinCommonInstructions::Standard",
-                      "conditions": [
-                        {
-                          "type": {
-                            "value": "BooleanObjectVariable"
-                          },
-                          "parameters": [
-                            "Rifleman",
-                            "PathNodes[pathNodeIndex].angleSetted",
-                            "True",
-                            ""
-                          ]
-                        }
-                      ],
-                      "actions": [
-                        {
-                          "type": {
-                            "value": "SetNumberVariable"
-                          },
-                          "parameters": [
-                            "angle",
-                            "=",
-                            "Rifleman.PathNodes[pathNodeIndex].angle"
-                          ]
-                        },
-                        {
-                          "type": {
-                            "value": "PrimitiveDrawing::LineV2"
-                          },
-                          "parameters": [
-                            "AimLinePainter",
-                            "CurNode.X",
-                            "CurNode.Y",
-                            "CurNode.X + RotationLineLength*cos(ToRad(angle))",
-                            "CurNode.Y + RotationLineLength*sin(ToRad(angle))",
-                            "2"
-                          ]
-                        }
-                      ],
-                      "events": [
-                        {
-                          "type": "BuiltinCommonInstructions::Comment",
-                          "color": {
-                            "b": 109,
-                            "g": 230,
-                            "r": 255,
-                            "textB": 0,
-                            "textG": 0,
-                            "textR": 0
-                          },
-                          "comment": "Put Aim Crosshair\n"
-                        },
-                        {
-                          "type": "BuiltinCommonInstructions::Standard",
-                          "conditions": [
-                            {
-                              "type": {
-                                "value": "LinkedObjects::PickObjectsLinkedTo"
-                              },
-                              "parameters": [
-                                "",
-                                "AimCrosshair",
-                                "Rifleman",
-                                ""
-                              ]
-                            },
-                            {
-                              "type": {
-                                "value": "NumberObjectVariable"
-                              },
-                              "parameters": [
-                                "AimCrosshair",
-                                "nodeIndex",
-                                "=",
-                                "pathNodeIndex"
-                              ]
-                            },
-                            {
-                              "type": {
-                                "inverted": true,
-                                "value": "Visible"
-                              },
-                              "parameters": [
-                                "AimCrosshair"
-                              ]
-                            }
-                          ],
-                          "actions": [
-                            {
-                              "type": {
-                                "value": "SetCenter"
-                              },
-                              "parameters": [
-                                "AimCrosshair",
-                                "=",
-                                "CurNode.X + 100*cos(ToRad(angle))",
-                                "=",
-                                "CurNode.Y + 100*sin(ToRad(angle))"
-                              ]
-                            },
-                            {
-                              "type": {
-                                "value": "Montre"
-                              },
-                              "parameters": [
-                                "AimCrosshair",
-                                ""
-                              ]
-                            }
-                          ]
-                        }
-                      ]
-                    },
-                    {
-                      "type": "BuiltinCommonInstructions::Comment",
-                      "color": {
-                        "b": 109,
-                        "g": 230,
-                        "r": 255,
-                        "textB": 0,
-                        "textG": 0,
-                        "textR": 0
-                      },
-                      "comment": "Draw Cancel Aim Line"
-                    },
-                    {
-                      "type": "BuiltinCommonInstructions::Standard",
-                      "conditions": [
-                        {
-                          "type": {
-                            "value": "BooleanObjectVariable"
-                          },
-                          "parameters": [
-                            "Rifleman",
-                            "PathNodes[pathNodeIndex].cancelAim",
-                            "True",
-                            ""
-                          ]
-                        }
-                      ],
-                      "actions": [
-                        {
-                          "type": {
-                            "value": "PrimitiveDrawing::LineV2"
-                          },
-                          "parameters": [
-                            "AimLinePainter",
-                            "CurNode.X",
-                            "CurNode.Y",
-                            "CurNode.X + CancelAimLineLength* cos(ToRad(CancelAimLineAngle))",
-                            "CurNode.Y + CancelAimLineLength* sin(ToRad(CancelAimLineAngle))",
-                            "2"
-                          ]
-                        }
-                      ]
-                    },
                     {
                       "type": "BuiltinCommonInstructions::Standard",
                       "conditions": [],
-                      "actions": [
+                      "actions": [],
+                      "events": [
                         {
-                          "type": {
-                            "value": "SetNumberVariable"
-                          },
-                          "parameters": [
-                            "pathNodeIndex",
-                            "+",
-                            "1"
+                          "colorB": 228,
+                          "colorG": 176,
+                          "colorR": 74,
+                          "creationTime": 0,
+                          "name": "Setup Opacity",
+                          "source": "",
+                          "type": "BuiltinCommonInstructions::Group",
+                          "events": [
+                            {
+                              "type": "BuiltinCommonInstructions::Standard",
+                              "conditions": [
+                                {
+                                  "type": {
+                                    "value": "BooleanObjectVariable"
+                                  },
+                                  "parameters": [
+                                    "Rifleman",
+                                    "selected",
+                                    "True",
+                                    ""
+                                  ]
+                                }
+                              ],
+                              "actions": [
+                                {
+                                  "type": {
+                                    "value": "PrimitiveDrawing::FillOpacity"
+                                  },
+                                  "parameters": [
+                                    "PathPainter",
+                                    "=",
+                                    "OpacitySelected"
+                                  ]
+                                },
+                                {
+                                  "type": {
+                                    "value": "PrimitiveDrawing::OutlineOpacity"
+                                  },
+                                  "parameters": [
+                                    "PathPainter",
+                                    "=",
+                                    "OpacitySelected"
+                                  ]
+                                },
+                                {
+                                  "type": {
+                                    "value": "PrimitiveDrawing::FillOpacity"
+                                  },
+                                  "parameters": [
+                                    "AimLinePainter",
+                                    "=",
+                                    "OpacitySelected"
+                                  ]
+                                },
+                                {
+                                  "type": {
+                                    "value": "PrimitiveDrawing::OutlineOpacity"
+                                  },
+                                  "parameters": [
+                                    "AimLinePainter",
+                                    "=",
+                                    "OpacitySelected"
+                                  ]
+                                },
+                                {
+                                  "type": {
+                                    "value": "PrimitiveDrawing::FillOpacity"
+                                  },
+                                  "parameters": [
+                                    "WaypointsPainter",
+                                    "=",
+                                    "OpacitySelected"
+                                  ]
+                                },
+                                {
+                                  "type": {
+                                    "value": "PrimitiveDrawing::OutlineOpacity"
+                                  },
+                                  "parameters": [
+                                    "WaypointsPainter",
+                                    "=",
+                                    "OpacitySelected"
+                                  ]
+                                }
+                              ],
+                              "events": [
+                                {
+                                  "type": "BuiltinCommonInstructions::Standard",
+                                  "conditions": [
+                                    {
+                                      "type": {
+                                        "value": "LinkedObjects::PickObjectsLinkedTo"
+                                      },
+                                      "parameters": [
+                                        "",
+                                        "AimCrosshair",
+                                        "Rifleman",
+                                        ""
+                                      ]
+                                    }
+                                  ],
+                                  "actions": [
+                                    {
+                                      "type": {
+                                        "value": "OpacityCapability::OpacityBehavior::SetValue"
+                                      },
+                                      "parameters": [
+                                        "AimCrosshair",
+                                        "Opacity",
+                                        "=",
+                                        "OpacitySelected"
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "BuiltinCommonInstructions::Standard",
+                                  "conditions": [
+                                    {
+                                      "type": {
+                                        "value": "LinkedObjects::PickObjectsLinkedTo"
+                                      },
+                                      "parameters": [
+                                        "",
+                                        "CancelAimCrosshair",
+                                        "Rifleman",
+                                        ""
+                                      ]
+                                    }
+                                  ],
+                                  "actions": [
+                                    {
+                                      "type": {
+                                        "value": "OpacityCapability::OpacityBehavior::SetValue"
+                                      },
+                                      "parameters": [
+                                        "CancelAimCrosshair",
+                                        "Opacity",
+                                        "=",
+                                        "OpacitySelected"
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "BuiltinCommonInstructions::Standard",
+                              "conditions": [
+                                {
+                                  "type": {
+                                    "inverted": true,
+                                    "value": "BooleanObjectVariable"
+                                  },
+                                  "parameters": [
+                                    "Rifleman",
+                                    "selected",
+                                    "True",
+                                    ""
+                                  ]
+                                }
+                              ],
+                              "actions": [
+                                {
+                                  "type": {
+                                    "value": "PrimitiveDrawing::FillOpacity"
+                                  },
+                                  "parameters": [
+                                    "PathPainter",
+                                    "=",
+                                    "OpacityNotSelected"
+                                  ]
+                                },
+                                {
+                                  "type": {
+                                    "value": "PrimitiveDrawing::OutlineOpacity"
+                                  },
+                                  "parameters": [
+                                    "PathPainter",
+                                    "=",
+                                    "OpacityNotSelected"
+                                  ]
+                                },
+                                {
+                                  "type": {
+                                    "value": "PrimitiveDrawing::FillOpacity"
+                                  },
+                                  "parameters": [
+                                    "AimLinePainter",
+                                    "=",
+                                    "OpacityNotSelected"
+                                  ]
+                                },
+                                {
+                                  "type": {
+                                    "value": "PrimitiveDrawing::OutlineOpacity"
+                                  },
+                                  "parameters": [
+                                    "AimLinePainter",
+                                    "=",
+                                    "OpacityNotSelected"
+                                  ]
+                                },
+                                {
+                                  "type": {
+                                    "value": "PrimitiveDrawing::FillOpacity"
+                                  },
+                                  "parameters": [
+                                    "WaypointsPainter",
+                                    "=",
+                                    "OpacityNotSelected"
+                                  ]
+                                },
+                                {
+                                  "type": {
+                                    "value": "PrimitiveDrawing::OutlineOpacity"
+                                  },
+                                  "parameters": [
+                                    "WaypointsPainter",
+                                    "=",
+                                    "OpacityNotSelected"
+                                  ]
+                                }
+                              ],
+                              "events": [
+                                {
+                                  "type": "BuiltinCommonInstructions::Standard",
+                                  "conditions": [
+                                    {
+                                      "type": {
+                                        "value": "LinkedObjects::PickObjectsLinkedTo"
+                                      },
+                                      "parameters": [
+                                        "",
+                                        "AimCrosshair",
+                                        "Rifleman",
+                                        ""
+                                      ]
+                                    }
+                                  ],
+                                  "actions": [
+                                    {
+                                      "type": {
+                                        "value": "OpacityCapability::OpacityBehavior::SetValue"
+                                      },
+                                      "parameters": [
+                                        "AimCrosshair",
+                                        "Opacity",
+                                        "=",
+                                        "OpacityNotSelected"
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "BuiltinCommonInstructions::Standard",
+                                  "conditions": [
+                                    {
+                                      "type": {
+                                        "value": "LinkedObjects::PickObjectsLinkedTo"
+                                      },
+                                      "parameters": [
+                                        "",
+                                        "CancelAimCrosshair",
+                                        "Rifleman",
+                                        ""
+                                      ]
+                                    }
+                                  ],
+                                  "actions": [
+                                    {
+                                      "type": {
+                                        "value": "OpacityCapability::OpacityBehavior::SetValue"
+                                      },
+                                      "parameters": [
+                                        "CancelAimCrosshair",
+                                        "Opacity",
+                                        "=",
+                                        "OpacityNotSelected"
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ],
+                          "parameters": []
+                        },
+                        {
+                          "colorB": 228,
+                          "colorG": 176,
+                          "colorR": 74,
+                          "creationTime": 0,
+                          "name": "Draw",
+                          "source": "",
+                          "type": "BuiltinCommonInstructions::Group",
+                          "events": [
+                            {
+                              "infiniteLoopWarning": true,
+                              "type": "BuiltinCommonInstructions::While",
+                              "whileConditions": [
+                                {
+                                  "type": {
+                                    "value": "NumberVariable"
+                                  },
+                                  "parameters": [
+                                    "pathNodeIndex",
+                                    "<",
+                                    "Rifleman.PathNodesCount"
+                                  ]
+                                }
+                              ],
+                              "conditions": [],
+                              "actions": [
+                                {
+                                  "type": {
+                                    "value": "SetNumberVariable"
+                                  },
+                                  "parameters": [
+                                    "PrevNode.X",
+                                    "=",
+                                    "Rifleman.PathNodes[pathNodeIndex- 1].X"
+                                  ]
+                                },
+                                {
+                                  "type": {
+                                    "value": "SetNumberVariable"
+                                  },
+                                  "parameters": [
+                                    "PrevNode.Y",
+                                    "=",
+                                    "Rifleman.PathNodes[pathNodeIndex - 1].Y"
+                                  ]
+                                },
+                                {
+                                  "type": {
+                                    "value": "SetNumberVariable"
+                                  },
+                                  "parameters": [
+                                    "CurNode.X",
+                                    "=",
+                                    "Rifleman.PathNodes[pathNodeIndex].X"
+                                  ]
+                                },
+                                {
+                                  "type": {
+                                    "value": "SetNumberVariable"
+                                  },
+                                  "parameters": [
+                                    "CurNode.Y",
+                                    "=",
+                                    "Rifleman.PathNodes[pathNodeIndex].Y"
+                                  ]
+                                },
+                                {
+                                  "type": {
+                                    "value": "PrimitiveDrawing::LineV2"
+                                  },
+                                  "parameters": [
+                                    "PathPainter",
+                                    "PrevNode.X",
+                                    "PrevNode.Y",
+                                    "CurNode.X",
+                                    "CurNode.Y",
+                                    "4"
+                                  ]
+                                },
+                                {
+                                  "type": {
+                                    "value": "PrimitiveDrawing::Rectangle"
+                                  },
+                                  "parameters": [
+                                    "WaypointsPainter",
+                                    "CurNode.X-WaypointSquareRadius",
+                                    "CurNode.Y-WaypointSquareRadius",
+                                    "CurNode.X+WaypointSquareRadius",
+                                    "CurNode.Y+WaypointSquareRadius"
+                                  ]
+                                },
+                                {
+                                  "type": {
+                                    "value": "SetNumberVariable"
+                                  },
+                                  "parameters": [
+                                    "pathNodeIndex",
+                                    "+",
+                                    "1"
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "BuiltinCommonInstructions::Standard",
+                              "conditions": [],
+                              "actions": [
+                                {
+                                  "type": {
+                                    "value": "SetNumberVariable"
+                                  },
+                                  "parameters": [
+                                    "pathNodeIndex",
+                                    "=",
+                                    "0"
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "infiniteLoopWarning": true,
+                              "type": "BuiltinCommonInstructions::While",
+                              "whileConditions": [
+                                {
+                                  "type": {
+                                    "value": "NumberVariable"
+                                  },
+                                  "parameters": [
+                                    "pathNodeIndex",
+                                    "<",
+                                    "Rifleman.PathNodesCount"
+                                  ]
+                                }
+                              ],
+                              "conditions": [],
+                              "actions": [
+                                {
+                                  "type": {
+                                    "value": "SetNumberVariable"
+                                  },
+                                  "parameters": [
+                                    "CurNode.X",
+                                    "=",
+                                    "Rifleman.PathNodes[pathNodeIndex].X"
+                                  ]
+                                },
+                                {
+                                  "type": {
+                                    "value": "SetNumberVariable"
+                                  },
+                                  "parameters": [
+                                    "CurNode.Y",
+                                    "=",
+                                    "Rifleman.PathNodes[pathNodeIndex].Y"
+                                  ]
+                                }
+                              ],
+                              "events": [
+                                {
+                                  "type": "BuiltinCommonInstructions::Comment",
+                                  "color": {
+                                    "b": 109,
+                                    "g": 230,
+                                    "r": 255,
+                                    "textB": 0,
+                                    "textG": 0,
+                                    "textR": 0
+                                  },
+                                  "comment": "Draw Aim Line"
+                                },
+                                {
+                                  "type": "BuiltinCommonInstructions::Standard",
+                                  "conditions": [
+                                    {
+                                      "type": {
+                                        "value": "BooleanObjectVariable"
+                                      },
+                                      "parameters": [
+                                        "Rifleman",
+                                        "PathNodes[pathNodeIndex].angleSetted",
+                                        "True",
+                                        ""
+                                      ]
+                                    }
+                                  ],
+                                  "actions": [
+                                    {
+                                      "type": {
+                                        "value": "SetNumberVariable"
+                                      },
+                                      "parameters": [
+                                        "angle",
+                                        "=",
+                                        "Rifleman.PathNodes[pathNodeIndex].angle"
+                                      ]
+                                    },
+                                    {
+                                      "type": {
+                                        "value": "PrimitiveDrawing::LineV2"
+                                      },
+                                      "parameters": [
+                                        "AimLinePainter",
+                                        "CurNode.X",
+                                        "CurNode.Y",
+                                        "CurNode.X + RotationLineLength*cos(ToRad(angle))",
+                                        "CurNode.Y + RotationLineLength*sin(ToRad(angle))",
+                                        "2"
+                                      ]
+                                    }
+                                  ],
+                                  "events": [
+                                    {
+                                      "type": "BuiltinCommonInstructions::Comment",
+                                      "color": {
+                                        "b": 109,
+                                        "g": 230,
+                                        "r": 255,
+                                        "textB": 0,
+                                        "textG": 0,
+                                        "textR": 0
+                                      },
+                                      "comment": "Put Aim Crosshair\n"
+                                    },
+                                    {
+                                      "type": "BuiltinCommonInstructions::Standard",
+                                      "conditions": [
+                                        {
+                                          "type": {
+                                            "value": "LinkedObjects::PickObjectsLinkedTo"
+                                          },
+                                          "parameters": [
+                                            "",
+                                            "AimCrosshair",
+                                            "Rifleman",
+                                            ""
+                                          ]
+                                        },
+                                        {
+                                          "type": {
+                                            "value": "NumberObjectVariable"
+                                          },
+                                          "parameters": [
+                                            "AimCrosshair",
+                                            "nodeIndex",
+                                            "=",
+                                            "pathNodeIndex"
+                                          ]
+                                        },
+                                        {
+                                          "type": {
+                                            "inverted": true,
+                                            "value": "Visible"
+                                          },
+                                          "parameters": [
+                                            "AimCrosshair"
+                                          ]
+                                        }
+                                      ],
+                                      "actions": [
+                                        {
+                                          "type": {
+                                            "value": "SetCenter"
+                                          },
+                                          "parameters": [
+                                            "AimCrosshair",
+                                            "=",
+                                            "CurNode.X + 100*cos(ToRad(angle))",
+                                            "=",
+                                            "CurNode.Y + 100*sin(ToRad(angle))"
+                                          ]
+                                        },
+                                        {
+                                          "type": {
+                                            "value": "Montre"
+                                          },
+                                          "parameters": [
+                                            "AimCrosshair",
+                                            ""
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "BuiltinCommonInstructions::Comment",
+                                  "color": {
+                                    "b": 109,
+                                    "g": 230,
+                                    "r": 255,
+                                    "textB": 0,
+                                    "textG": 0,
+                                    "textR": 0
+                                  },
+                                  "comment": "Draw Cancel Aim Line"
+                                },
+                                {
+                                  "type": "BuiltinCommonInstructions::Standard",
+                                  "conditions": [
+                                    {
+                                      "type": {
+                                        "value": "BooleanObjectVariable"
+                                      },
+                                      "parameters": [
+                                        "Rifleman",
+                                        "PathNodes[pathNodeIndex].cancelAim",
+                                        "True",
+                                        ""
+                                      ]
+                                    }
+                                  ],
+                                  "actions": [
+                                    {
+                                      "type": {
+                                        "value": "PrimitiveDrawing::LineV2"
+                                      },
+                                      "parameters": [
+                                        "AimLinePainter",
+                                        "CurNode.X",
+                                        "CurNode.Y",
+                                        "CurNode.X + CancelAimLineLength* cos(ToRad(CancelAimLineAngle))",
+                                        "CurNode.Y + CancelAimLineLength* sin(ToRad(CancelAimLineAngle))",
+                                        "2"
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "BuiltinCommonInstructions::Standard",
+                                  "conditions": [],
+                                  "actions": [
+                                    {
+                                      "type": {
+                                        "value": "SetNumberVariable"
+                                      },
+                                      "parameters": [
+                                        "pathNodeIndex",
+                                        "+",
+                                        "1"
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ],
+                          "parameters": []
+                        }
+                      ],
+                      "variables": [
+                        {
+                          "name": "pathNodeIndex",
+                          "type": "number",
+                          "value": 1
+                        },
+                        {
+                          "name": "PrevNode",
+                          "type": "structure",
+                          "children": [
+                            {
+                              "name": "X",
+                              "type": "number",
+                              "value": 0
+                            },
+                            {
+                              "name": "Y",
+                              "type": "number",
+                              "value": 0
+                            }
                           ]
+                        },
+                        {
+                          "name": "CurNode",
+                          "type": "structure",
+                          "children": [
+                            {
+                              "name": "X",
+                              "type": "number",
+                              "value": 0
+                            },
+                            {
+                              "name": "Y",
+                              "type": "number",
+                              "value": 0
+                            }
+                          ]
+                        },
+                        {
+                          "name": "angle",
+                          "type": "number",
+                          "value": 0
+                        },
+                        {
+                          "name": "OpacitySelected",
+                          "type": "number",
+                          "value": 255
+                        },
+                        {
+                          "name": "OpacityNotSelected",
+                          "type": "number",
+                          "value": 63
                         }
                       ]
                     }
                   ]
-                }
-              ],
-              "variables": [
-                {
-                  "name": "pathNodeIndex",
-                  "type": "number",
-                  "value": 1
-                },
-                {
-                  "name": "PrevNode",
-                  "type": "structure",
-                  "children": [
-                    {
-                      "name": "X",
-                      "type": "number",
-                      "value": 0
-                    },
-                    {
-                      "name": "Y",
-                      "type": "number",
-                      "value": 0
-                    }
-                  ]
-                },
-                {
-                  "name": "CurNode",
-                  "type": "structure",
-                  "children": [
-                    {
-                      "name": "X",
-                      "type": "number",
-                      "value": 0
-                    },
-                    {
-                      "name": "Y",
-                      "type": "number",
-                      "value": 0
-                    }
-                  ]
-                },
-                {
-                  "name": "angle",
-                  "type": "number",
-                  "value": 0
                 }
               ]
             }
