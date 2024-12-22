@@ -152,14 +152,6 @@
         }
       },
       {
-        "file": "assets/rifleman2.png",
-        "kind": "image",
-        "metadata": "",
-        "name": "assets\\rifleman2.png",
-        "smoothed": true,
-        "userAdded": false
-      },
-      {
         "file": "assets/Copper Bar Border.png",
         "kind": "image",
         "metadata": "",
@@ -204,6 +196,14 @@
         "kind": "image",
         "metadata": "{\"extension\":\".png\"}",
         "name": "cancel_aim",
+        "smoothed": true,
+        "userAdded": false
+      },
+      {
+        "file": "assets/NewSprite3.png",
+        "kind": "image",
+        "metadata": "{\"extension\":\".png\"}",
+        "name": "NewSprite3",
         "smoothed": true,
         "userAdded": false
       }
@@ -1890,6 +1890,67 @@
             "characterSize": 20,
             "color": "255;255;255"
           }
+        },
+        {
+          "adaptCollisionMaskAutomatically": true,
+          "assetStoreId": "",
+          "name": "NewSprite",
+          "type": "Sprite",
+          "updateIfNotVisible": false,
+          "variables": [],
+          "effects": [],
+          "behaviors": [],
+          "animations": [
+            {
+              "name": "NewSprite",
+              "useMultipleDirections": false,
+              "directions": [
+                {
+                  "looping": false,
+                  "metadata": "{\"pskl\":{}}",
+                  "timeBetweenFrames": 0.08,
+                  "sprites": [
+                    {
+                      "hasCustomCollisionMask": true,
+                      "image": "NewSprite3",
+                      "points": [],
+                      "originPoint": {
+                        "name": "origine",
+                        "x": 0,
+                        "y": 0
+                      },
+                      "centerPoint": {
+                        "automatic": true,
+                        "name": "centre",
+                        "x": 0,
+                        "y": 0
+                      },
+                      "customCollisionMask": [
+                        [
+                          {
+                            "x": 0,
+                            "y": 0
+                          },
+                          {
+                            "x": 4,
+                            "y": 0
+                          },
+                          {
+                            "x": 4,
+                            "y": 4
+                          },
+                          {
+                            "x": 0,
+                            "y": 4
+                          }
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ],
       "objectsFolderStructure": {
@@ -1965,6 +2026,9 @@
           },
           {
             "objectName": "TurnTitle"
+          },
+          {
+            "objectName": "NewSprite"
           }
         ]
       },
@@ -7399,6 +7463,27 @@
                             },
                             {
                               "type": {
+                                "value": "SetNumberVariable"
+                              },
+                              "parameters": [
+                                "fireAngle",
+                                "=",
+                                "Rifleman.Angle()"
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "SetNumberObjectVariable"
+                              },
+                              "parameters": [
+                                "Rifleman",
+                                "fireCooldown",
+                                "=",
+                                "0.5"
+                              ]
+                            },
+                            {
+                              "type": {
                                 "value": "AjoutObjConcern"
                               },
                               "parameters": [
@@ -7423,6 +7508,36 @@
                                   ]
                                 }
                               ],
+                              "actions": [
+                                {
+                                  "type": {
+                                    "value": "Create"
+                                  },
+                                  "parameters": [
+                                    "",
+                                    "NewSprite",
+                                    "fireStartX",
+                                    "fireStartY",
+                                    ""
+                                  ]
+                                },
+                                {
+                                  "type": {
+                                    "value": "AddForceAL"
+                                  },
+                                  "parameters": [
+                                    "NewSprite",
+                                    "fireAngle",
+                                    "100",
+                                    "1"
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "disabled": true,
+                              "type": "BuiltinCommonInstructions::Standard",
+                              "conditions": [],
                               "actions": [
                                 {
                                   "type": {
@@ -7452,6 +7567,11 @@
                               "value": 0
                             },
                             {
+                              "name": "fireAngle",
+                              "type": "number",
+                              "value": 0
+                            },
+                            {
                               "name": "targetID",
                               "type": "number",
                               "value": 0
@@ -7459,19 +7579,6 @@
                           ]
                         },
                         {
-                          "type": "BuiltinCommonInstructions::Comment",
-                          "color": {
-                            "b": 109,
-                            "g": 230,
-                            "r": 255,
-                            "textB": 0,
-                            "textG": 0,
-                            "textR": 0
-                          },
-                          "comment": "Fire"
-                        },
-                        {
-                          "disabled": true,
                           "type": "BuiltinCommonInstructions::Standard",
                           "conditions": [
                             {
@@ -7480,7 +7587,7 @@
                               },
                               "parameters": [
                                 "Rifleman",
-                                "targetID",
+                                "fireCooldown",
                                 ">",
                                 "0"
                               ]
@@ -7491,8 +7598,8 @@
                               },
                               "parameters": [
                                 "Rifleman",
-                                "fireCooldown",
-                                "<=",
+                                "targetID",
+                                ">",
                                 "0"
                               ]
                             }
@@ -7500,117 +7607,14 @@
                           "actions": [
                             {
                               "type": {
-                                "value": "SetNumberVariable"
+                                "value": "SetNumberObjectVariable"
                               },
                               "parameters": [
-                                "FireStartX",
-                                "=",
-                                "Rifleman.PointX(\"FireStart\")"
+                                "Rifleman",
+                                "fireCooldown",
+                                "-",
+                                "TimeDelta()"
                               ]
-                            },
-                            {
-                              "type": {
-                                "value": "SetNumberVariable"
-                              },
-                              "parameters": [
-                                "FireStartY",
-                                "=",
-                                "Rifleman.PointY(\"FireStart\")"
-                              ]
-                            },
-                            {
-                              "type": {
-                                "value": "SetNumberVariable"
-                              },
-                              "parameters": [
-                                "targetID",
-                                "=",
-                                "Rifleman.targetID"
-                              ]
-                            },
-                            {
-                              "type": {
-                                "value": "SetNumberVariable"
-                              },
-                              "parameters": [
-                                "sourceID",
-                                "=",
-                                "Rifleman.ID"
-                              ]
-                            },
-                            {
-                              "type": {
-                                "value": "AjoutObjConcern"
-                              },
-                              "parameters": [
-                                "",
-                                "Rifleman"
-                              ]
-                            }
-                          ],
-                          "events": [
-                            {
-                              "type": "BuiltinCommonInstructions::Standard",
-                              "conditions": [
-                                {
-                                  "type": {
-                                    "value": "NumberObjectVariable"
-                                  },
-                                  "parameters": [
-                                    "Rifleman",
-                                    "targetID",
-                                    "=",
-                                    "targetID"
-                                  ]
-                                }
-                              ],
-                              "actions": [
-                                {
-                                  "type": {
-                                    "value": "PrimitiveDrawing::LineV2"
-                                  },
-                                  "parameters": [
-                                    "AimLinePainter",
-                                    "FireStartX",
-                                    "FireStartY",
-                                    "Rifleman.CenterX()",
-                                    "Rifleman.CenterY()",
-                                    "3"
-                                  ]
-                                },
-                                {
-                                  "type": {
-                                    "value": "DebuggerTools::ConsoleLog"
-                                  },
-                                  "parameters": [
-                                    "\"Fire from id: \" + sourceID + \" to id: \" + Rifleman.ID",
-                                    "\"info\"",
-                                    ""
-                                  ]
-                                }
-                              ]
-                            }
-                          ],
-                          "variables": [
-                            {
-                              "name": "FireStartX",
-                              "type": "number",
-                              "value": 0
-                            },
-                            {
-                              "name": "FireStartY",
-                              "type": "number",
-                              "value": 0
-                            },
-                            {
-                              "name": "targetID",
-                              "type": "number",
-                              "value": 0
-                            },
-                            {
-                              "name": "sourceID",
-                              "type": "number",
-                              "value": 0
                             }
                           ]
                         }
