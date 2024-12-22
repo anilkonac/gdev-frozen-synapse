@@ -182,6 +182,30 @@
           "identifier": "https://asset-resources.gdevelop.io/public-resources/Resource bars/pixel art/ed31faa46e5c04883605d72470e0f3bfe1c2e679dc6a4a632ab03e105866ff8b_Framed Pixel Red Fill Bar.png",
           "name": "Framed Pixel Red Fill Bar.png"
         }
+      },
+      {
+        "file": "assets/crosshair076.png",
+        "kind": "image",
+        "metadata": "{\"extension\":\".png\"}",
+        "name": "crosshair076",
+        "smoothed": true,
+        "userAdded": false
+      },
+      {
+        "file": "assets/crosshair029.png",
+        "kind": "image",
+        "metadata": "{\"extension\":\".png\"}",
+        "name": "crosshair029",
+        "smoothed": true,
+        "userAdded": false
+      },
+      {
+        "file": "assets/cancel_aim.png",
+        "kind": "image",
+        "metadata": "{\"extension\":\".png\"}",
+        "name": "cancel_aim",
+        "smoothed": true,
+        "userAdded": false
       }
     ],
     "resourceFolders": []
@@ -255,7 +279,42 @@
     {
       "name": "EdgeScrollMargin",
       "type": "number",
-      "value": 125
+      "value": 100
+    },
+    {
+      "name": "orderingRotation",
+      "type": "boolean",
+      "value": false
+    },
+    {
+      "name": "RotationLineLength",
+      "type": "number",
+      "value": 100
+    },
+    {
+      "name": "RiflemanWalkSpeed",
+      "type": "number",
+      "value": 200
+    },
+    {
+      "name": "RiflemanWalkAimSpeed",
+      "type": "number",
+      "value": 100
+    },
+    {
+      "name": "CancelAimLineAngle",
+      "type": "string",
+      "value": "135"
+    },
+    {
+      "name": "CancelAimLineLength",
+      "type": "number",
+      "value": 100
+    },
+    {
+      "name": "menuOpened",
+      "type": "boolean",
+      "value": false
     }
   ],
   "layouts": [
@@ -279,7 +338,7 @@
         "gridColor": 10401023,
         "gridAlpha": 0.8,
         "snap": false,
-        "zoomFactor": 0.4303403802207658,
+        "zoomFactor": 0.6846283916654055,
         "windowMask": false
       },
       "objectsGroups": [],
@@ -453,6 +512,22 @@
           "numberProperties": [],
           "stringProperties": [],
           "initialVariables": []
+        },
+        {
+          "angle": 0,
+          "customSize": false,
+          "height": 0,
+          "keepRatio": true,
+          "layer": "",
+          "name": "RotationLinePainter",
+          "persistentUuid": "aefcf5f6-2f4e-4770-84d9-2a251e7e729c",
+          "width": 0,
+          "x": 1253,
+          "y": 591,
+          "zOrder": 10,
+          "numberProperties": [],
+          "stringProperties": [],
+          "initialVariables": []
         }
       ],
       "objects": [
@@ -471,17 +546,43 @@
             {
               "name": "PathNodes",
               "type": "array",
-              "children": []
+              "children": [
+                {
+                  "type": "structure",
+                  "children": [
+                    {
+                      "name": "X",
+                      "type": "number",
+                      "value": 0
+                    },
+                    {
+                      "name": "Y",
+                      "type": "number",
+                      "value": 0
+                    },
+                    {
+                      "name": "angle",
+                      "type": "number",
+                      "value": 0
+                    },
+                    {
+                      "name": "angleSetted",
+                      "type": "boolean",
+                      "value": false
+                    },
+                    {
+                      "name": "cancelAim",
+                      "type": "boolean",
+                      "value": false
+                    }
+                  ]
+                }
+              ]
             },
             {
               "name": "PathNodesCount",
               "type": "number",
               "value": 0
-            },
-            {
-              "name": "drawPath",
-              "type": "boolean",
-              "value": false
             },
             {
               "name": "nextNodeIndex",
@@ -490,6 +591,11 @@
             },
             {
               "name": "selectedNodeIndex",
+              "type": "number",
+              "value": 0
+            },
+            {
+              "name": "ID",
               "type": "number",
               "value": 0
             }
@@ -1292,6 +1398,357 @@
             "characterSize": 42,
             "color": "255;255;255"
           }
+        },
+        {
+          "adaptCollisionMaskAutomatically": true,
+          "assetStoreId": "",
+          "name": "AimButton",
+          "type": "Sprite",
+          "updateIfNotVisible": false,
+          "variables": [],
+          "effects": [],
+          "behaviors": [],
+          "animations": [
+            {
+              "name": "crosshair075",
+              "useMultipleDirections": false,
+              "directions": [
+                {
+                  "looping": false,
+                  "metadata": "{\"pskl\":{}}",
+                  "timeBetweenFrames": 0.08,
+                  "sprites": [
+                    {
+                      "hasCustomCollisionMask": true,
+                      "image": "crosshair076",
+                      "points": [],
+                      "originPoint": {
+                        "name": "origine",
+                        "x": 0,
+                        "y": 0
+                      },
+                      "centerPoint": {
+                        "automatic": true,
+                        "name": "centre",
+                        "x": 0,
+                        "y": 0
+                      },
+                      "customCollisionMask": [
+                        [
+                          {
+                            "x": 0,
+                            "y": 0
+                          },
+                          {
+                            "x": 24,
+                            "y": 0
+                          },
+                          {
+                            "x": 24,
+                            "y": 24
+                          },
+                          {
+                            "x": 0,
+                            "y": 24
+                          }
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "assetStoreId": "",
+          "name": "RotationLinePainter",
+          "type": "PrimitiveDrawing::Drawer",
+          "variables": [],
+          "effects": [],
+          "behaviors": [],
+          "fillOpacity": 255,
+          "outlineSize": 1,
+          "outlineOpacity": 255,
+          "absoluteCoordinates": true,
+          "clearBetweenFrames": true,
+          "antialiasing": "medium",
+          "fillColor": {
+            "r": 255,
+            "g": 255,
+            "b": 255
+          },
+          "outlineColor": {
+            "r": 255,
+            "g": 255,
+            "b": 255
+          }
+        },
+        {
+          "assetStoreId": "",
+          "bold": false,
+          "italic": false,
+          "name": "DebugAngleText",
+          "smoothed": true,
+          "type": "TextObject::Text",
+          "underlined": false,
+          "variables": [],
+          "effects": [],
+          "behaviors": [],
+          "string": "Text",
+          "font": "",
+          "textAlignment": "left",
+          "characterSize": 20,
+          "color": {
+            "b": 255,
+            "g": 255,
+            "r": 255
+          },
+          "content": {
+            "bold": false,
+            "isOutlineEnabled": false,
+            "isShadowEnabled": false,
+            "italic": false,
+            "outlineColor": "255;255;255",
+            "outlineThickness": 2,
+            "shadowAngle": 90,
+            "shadowBlurRadius": 2,
+            "shadowColor": "0;0;0",
+            "shadowDistance": 4,
+            "shadowOpacity": 127,
+            "smoothed": true,
+            "underlined": false,
+            "text": "Text",
+            "font": "",
+            "textAlignment": "left",
+            "verticalTextAlignment": "top",
+            "characterSize": 20,
+            "color": "255;255;255"
+          }
+        },
+        {
+          "adaptCollisionMaskAutomatically": true,
+          "assetStoreId": "",
+          "name": "AimCrosshair",
+          "type": "Sprite",
+          "updateIfNotVisible": false,
+          "variables": [
+            {
+              "name": "nodeIndex",
+              "type": "number",
+              "value": 0
+            }
+          ],
+          "effects": [],
+          "behaviors": [],
+          "animations": [
+            {
+              "name": "crosshair029",
+              "useMultipleDirections": false,
+              "directions": [
+                {
+                  "looping": false,
+                  "metadata": "{\"pskl\":{}}",
+                  "timeBetweenFrames": 0.08,
+                  "sprites": [
+                    {
+                      "hasCustomCollisionMask": true,
+                      "image": "crosshair029",
+                      "points": [],
+                      "originPoint": {
+                        "name": "origine",
+                        "x": 0,
+                        "y": 0
+                      },
+                      "centerPoint": {
+                        "automatic": true,
+                        "name": "centre",
+                        "x": 0,
+                        "y": 0
+                      },
+                      "customCollisionMask": [
+                        [
+                          {
+                            "x": 0,
+                            "y": 0
+                          },
+                          {
+                            "x": 32,
+                            "y": 0
+                          },
+                          {
+                            "x": 32,
+                            "y": 32
+                          },
+                          {
+                            "x": 0,
+                            "y": 32
+                          }
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "assetStoreId": "5faf2b0415c271fa6e747283ed36297a95f04d2b6c477a7b011775fa6fb444ee",
+          "name": "CancelAimButton",
+          "type": "PanelSpriteButton::PanelSpriteButton",
+          "variables": [
+            {
+              "name": "isDelete",
+              "type": "boolean",
+              "value": false
+            }
+          ],
+          "effects": [],
+          "behaviors": [],
+          "content": {
+            "LeftPadding": 16,
+            "RightPadding": 16,
+            "PressedLabelOffsetY": 3,
+            "BottomPadding": 32,
+            "TopPadding": 32,
+            "HoveredFadeOutDuration": 0.25
+          },
+          "childrenContent": {
+            "Hovered": {
+              "bottomMargin": 16,
+              "height": 48,
+              "leftMargin": 16,
+              "rightMargin": 16,
+              "texture": "Red Button With Shadow_Hovered.png",
+              "tiled": true,
+              "topMargin": 16,
+              "width": 168
+            },
+            "Idle": {
+              "bottomMargin": 16,
+              "height": 48,
+              "leftMargin": 16,
+              "rightMargin": 16,
+              "texture": "Red Button With Shadow_Idle.png",
+              "tiled": true,
+              "topMargin": 16,
+              "width": 168
+            },
+            "Label": {
+              "bold": false,
+              "italic": false,
+              "smoothed": true,
+              "underlined": false,
+              "string": "Cancel Aim",
+              "font": "CantoraOne-Regular.ttf",
+              "textAlignment": "center",
+              "characterSize": 18,
+              "color": {
+                "b": 255,
+                "g": 255,
+                "r": 255
+              },
+              "content": {
+                "bold": false,
+                "isOutlineEnabled": false,
+                "isShadowEnabled": false,
+                "italic": false,
+                "outlineColor": "255;255;255",
+                "outlineThickness": 2,
+                "shadowAngle": 90,
+                "shadowBlurRadius": 2,
+                "shadowColor": "0;0;0",
+                "shadowDistance": 4,
+                "shadowOpacity": 127,
+                "smoothed": true,
+                "underlined": false,
+                "text": "Cancel Aim",
+                "font": "CantoraOne-Regular.ttf",
+                "textAlignment": "center",
+                "verticalTextAlignment": "top",
+                "characterSize": 18,
+                "color": "255;255;255"
+              }
+            },
+            "Pressed": {
+              "bottomMargin": 16,
+              "height": 48,
+              "leftMargin": 16,
+              "rightMargin": 16,
+              "texture": "Red Button With Shadow_Pressed.png",
+              "tiled": true,
+              "topMargin": 16,
+              "width": 168
+            }
+          }
+        },
+        {
+          "adaptCollisionMaskAutomatically": true,
+          "assetStoreId": "",
+          "name": "CancelAimCrosshair",
+          "type": "Sprite",
+          "updateIfNotVisible": false,
+          "variables": [
+            {
+              "name": "nodeIndex",
+              "type": "number",
+              "value": 0
+            }
+          ],
+          "effects": [],
+          "behaviors": [],
+          "animations": [
+            {
+              "name": "cancel_aim",
+              "useMultipleDirections": false,
+              "directions": [
+                {
+                  "looping": false,
+                  "metadata": "{\"pskl\":{}}",
+                  "timeBetweenFrames": 0.08,
+                  "sprites": [
+                    {
+                      "hasCustomCollisionMask": true,
+                      "image": "cancel_aim",
+                      "points": [],
+                      "originPoint": {
+                        "name": "origine",
+                        "x": 0,
+                        "y": 0
+                      },
+                      "centerPoint": {
+                        "automatic": true,
+                        "name": "centre",
+                        "x": 0,
+                        "y": 0
+                      },
+                      "customCollisionMask": [
+                        [
+                          {
+                            "x": 0,
+                            "y": 0
+                          },
+                          {
+                            "x": 32,
+                            "y": 0
+                          },
+                          {
+                            "x": 32,
+                            "y": 32
+                          },
+                          {
+                            "x": 0,
+                            "y": 32
+                          }
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ],
       "objectsFolderStructure": {
@@ -1322,6 +1779,9 @@
             "objectName": "DeleteWaypointButton"
           },
           {
+            "objectName": "CancelAimButton"
+          },
+          {
             "objectName": "PathCreator"
           },
           {
@@ -1329,12 +1789,26 @@
           },
           {
             "objectName": "TurnTitle"
+          },
+          {
+            "objectName": "AimButton"
+          },
+          {
+            "objectName": "RotationLinePainter"
+          },
+          {
+            "objectName": "DebugAngleText"
+          },
+          {
+            "objectName": "AimCrosshair"
+          },
+          {
+            "objectName": "CancelAimCrosshair"
           }
         ]
       },
       "events": [
         {
-          "folded": true,
           "type": "BuiltinCommonInstructions::Standard",
           "conditions": [
             {
@@ -1364,7 +1838,7 @@
               },
               "parameters": [
                 "",
-                "0.20",
+                "0.15",
                 ""
               ]
             },
@@ -1406,55 +1880,207 @@
           ],
           "events": [
             {
-              "type": "BuiltinCommonInstructions::Comment",
-              "color": {
-                "b": 109,
-                "g": 230,
-                "r": 255,
-                "textB": 0,
-                "textG": 0,
-                "textR": 0
-              },
-              "comment": "Initialize appearance of the Rifleman\n"
-            },
-            {
-              "type": "BuiltinCommonInstructions::Standard",
-              "conditions": [],
-              "actions": [
+              "colorB": 228,
+              "colorG": 176,
+              "colorR": 74,
+              "creationTime": 0,
+              "name": "Initialize Rifleman",
+              "source": "",
+              "type": "BuiltinCommonInstructions::Group",
+              "events": [
                 {
-                  "type": {
-                    "value": "ChangeColor"
-                  },
-                  "parameters": [
-                    "Rifleman",
-                    "\"0;255;0\""
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "numRifleman",
+                        "=",
+                        "SceneInstancesCount(Rifleman)"
+                      ]
+                    }
+                  ],
+                  "events": [
+                    {
+                      "type": "BuiltinCommonInstructions::ForEach",
+                      "object": "Rifleman",
+                      "conditions": [],
+                      "actions": [
+                        {
+                          "type": {
+                            "value": "SetNumberObjectVariable"
+                          },
+                          "parameters": [
+                            "Rifleman",
+                            "ID",
+                            "=",
+                            "indexRifleman+1"
+                          ]
+                        },
+                        {
+                          "type": {
+                            "value": "SetNumberVariable"
+                          },
+                          "parameters": [
+                            "indexRifleman",
+                            "+",
+                            "1"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "variables": [
+                    {
+                      "name": "numRifleman",
+                      "type": "number",
+                      "value": 0
+                    },
+                    {
+                      "name": "indexRifleman",
+                      "type": "number",
+                      "value": 0
+                    }
                   ]
                 },
                 {
-                  "type": {
-                    "value": "EffectCapability::EffectBehavior::SetEffectStringParameter"
+                  "type": "BuiltinCommonInstructions::Comment",
+                  "color": {
+                    "b": 109,
+                    "g": 230,
+                    "r": 255,
+                    "textB": 0,
+                    "textG": 0,
+                    "textR": 0
                   },
-                  "parameters": [
-                    "Rifleman",
-                    "Effect",
-                    "\"Glow\"",
-                    "\"color\"",
-                    "\"0;255;0\""
+                  "comment": "Initialize appearance of the Rifleman\n"
+                },
+                {
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "ChangeColor"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "\"0;255;0\""
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "EffectCapability::EffectBehavior::SetEffectStringParameter"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "Effect",
+                        "\"Glow\"",
+                        "\"color\"",
+                        "\"0;255;0\""
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "EffectCapability::EffectBehavior::SetEffectStringParameter"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "Effect",
+                        "\"Outline\"",
+                        "\"color\"",
+                        "\"0;255;0\""
+                      ]
+                    }
                   ]
                 },
                 {
-                  "type": {
-                    "value": "EffectCapability::EffectBehavior::SetEffectStringParameter"
+                  "type": "BuiltinCommonInstructions::Comment",
+                  "color": {
+                    "b": 109,
+                    "g": 230,
+                    "r": 255,
+                    "textB": 0,
+                    "textG": 0,
+                    "textR": 0
                   },
-                  "parameters": [
-                    "Rifleman",
-                    "Effect",
-                    "\"Outline\"",
-                    "\"color\"",
-                    "\"0;255;0\""
+                  "comment": "Add initial position to PathNodes\n"
+                },
+                {
+                  "type": "BuiltinCommonInstructions::ForEach",
+                  "object": "Rifleman",
+                  "conditions": [],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "SetNumberObjectVariable"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "PathNodes[0].X",
+                        "=",
+                        "Rifleman.CenterX()"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberObjectVariable"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "PathNodes[0].Y",
+                        "=",
+                        "Rifleman.CenterY()"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberObjectVariable"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "PathNodesCount",
+                        "+",
+                        "1"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "Create"
+                      },
+                      "parameters": [
+                        "",
+                        "AimCrosshair",
+                        "0",
+                        "0",
+                        ""
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "LinkedObjects::LinkObjects"
+                      },
+                      "parameters": [
+                        "",
+                        "Rifleman",
+                        "AimCrosshair"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "Cache"
+                      },
+                      "parameters": [
+                        "AimCrosshair"
+                      ]
+                    }
                   ]
                 }
-              ]
+              ],
+              "parameters": []
             },
             {
               "type": "BuiltinCommonInstructions::Comment",
@@ -1490,6 +2116,18 @@
                   },
                   "parameters": [
                     "",
+                    "AimButton",
+                    "0",
+                    "0",
+                    ""
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "Create"
+                  },
+                  "parameters": [
+                    "",
                     "AddWaypointButton",
                     "0",
                     "0",
@@ -1503,6 +2141,18 @@
                   "parameters": [
                     "",
                     "DeleteWaypointButton",
+                    "0",
+                    "0",
+                    ""
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "Create"
+                  },
+                  "parameters": [
+                    "",
+                    "CancelAimButton",
                     "0",
                     "0",
                     ""
@@ -1531,6 +2181,22 @@
                   "parameters": [
                     "DeleteWaypointButton"
                   ]
+                },
+                {
+                  "type": {
+                    "value": "Cache"
+                  },
+                  "parameters": [
+                    "AimButton"
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "Cache"
+                  },
+                  "parameters": [
+                    "CancelAimButton"
+                  ]
                 }
               ]
             }
@@ -1541,7 +2207,6 @@
           "colorG": 176,
           "colorR": 74,
           "creationTime": 0,
-          "folded": true,
           "name": "Rifleman selection",
           "source": "",
           "type": "BuiltinCommonInstructions::Group",
@@ -1592,6 +2257,20 @@
                   "events": [
                     {
                       "type": "BuiltinCommonInstructions::Standard",
+                      "conditions": [],
+                      "actions": [
+                        {
+                          "type": {
+                            "value": "Cache"
+                          },
+                          "parameters": [
+                            "AimCrosshair"
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "BuiltinCommonInstructions::Standard",
                       "conditions": [
                         {
                           "type": {
@@ -1625,17 +2304,6 @@
                             "\"Glow\"",
                             "no"
                           ]
-                        },
-                        {
-                          "type": {
-                            "value": "SetBooleanObjectVariable"
-                          },
-                          "parameters": [
-                            "Rifleman",
-                            "drawPath",
-                            "False",
-                            ""
-                          ]
                         }
                       ]
                     },
@@ -1663,17 +2331,6 @@
                             "Effect",
                             "\"Glow\"",
                             "yes"
-                          ]
-                        },
-                        {
-                          "type": {
-                            "value": "SetBooleanObjectVariable"
-                          },
-                          "parameters": [
-                            "Rifleman",
-                            "drawPath",
-                            "True",
-                            ""
                           ]
                         }
                       ]
@@ -1731,7 +2388,6 @@
           "colorG": 176,
           "colorR": 74,
           "creationTime": 0,
-          "folded": true,
           "name": "Planning",
           "source": "",
           "type": "BuiltinCommonInstructions::Group",
@@ -1820,27 +2476,6 @@
                     "CursorX()",
                     "CursorY()"
                   ]
-                },
-                {
-                  "type": {
-                    "value": "SetBooleanVariable"
-                  },
-                  "parameters": [
-                    "drawNavPaths",
-                    "True",
-                    ""
-                  ]
-                },
-                {
-                  "type": {
-                    "value": "SetBooleanObjectVariable"
-                  },
-                  "parameters": [
-                    "Rifleman",
-                    "drawPath",
-                    "True",
-                    ""
-                  ]
                 }
               ],
               "events": [
@@ -1918,6 +2553,47 @@
                                 "Rifleman",
                                 "PathNodes",
                                 "NodePosition"
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "Create"
+                              },
+                              "parameters": [
+                                "",
+                                "AimCrosshair",
+                                "0",
+                                "0",
+                                ""
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "SetNumberObjectVariable"
+                              },
+                              "parameters": [
+                                "AimCrosshair",
+                                "nodeIndex",
+                                "=",
+                                "LoopIndex+1"
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "LinkedObjects::LinkObjects"
+                              },
+                              "parameters": [
+                                "",
+                                "Rifleman",
+                                "AimCrosshair"
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "Cache"
+                              },
+                              "parameters": [
+                                "AimCrosshair"
                               ]
                             },
                             {
@@ -2253,17 +2929,6 @@
                 },
                 {
                   "type": {
-                    "value": "BooleanObjectVariable"
-                  },
-                  "parameters": [
-                    "Rifleman",
-                    "drawPath",
-                    "True",
-                    ""
-                  ]
-                },
-                {
-                  "type": {
                     "value": "NumberObjectVariable"
                   },
                   "parameters": [
@@ -2404,6 +3069,76 @@
                             "CursorX()"
                           ]
                         }
+                      ],
+                      "events": [
+                        {
+                          "type": "BuiltinCommonInstructions::Standard",
+                          "conditions": [
+                            {
+                              "type": {
+                                "value": "LinkedObjects::PickObjectsLinkedTo"
+                              },
+                              "parameters": [
+                                "",
+                                "AimCrosshair",
+                                "Rifleman",
+                                ""
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "NumberObjectVariable"
+                              },
+                              "parameters": [
+                                "AimCrosshair",
+                                "nodeIndex",
+                                "=",
+                                "Rifleman.selectedNodeIndex"
+                              ]
+                            }
+                          ],
+                          "actions": [
+                            {
+                              "type": {
+                                "value": "SetNumberVariable"
+                              },
+                              "parameters": [
+                                "angle",
+                                "=",
+                                "Rifleman.PathNodes[Rifleman.selectedNodeIndex].angle"
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "SetCenter"
+                              },
+                              "parameters": [
+                                "AimCrosshair",
+                                "=",
+                                "CursorX() + RotationLineLength*cos(ToRad(angle))",
+                                "=",
+                                "CursorY() + RotationLineLength*sin(ToRad(angle))"
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "DebuggerTools::ConsoleLog"
+                              },
+                              "parameters": [
+                                "\"moving rotation crosshair with angle: \" + angle",
+                                "\"info\"",
+                                ""
+                              ]
+                            }
+                          ],
+                          "variables": [
+                            {
+                              "name": "angle",
+                              "type": "number",
+                              "value": 0
+                            }
+                          ]
+                        }
                       ]
                     },
                     {
@@ -2503,6 +3238,76 @@
                                 "PathNodes[Rifleman.selectedNodeIndex].X",
                                 "=",
                                 "CursorX()"
+                              ]
+                            }
+                          ],
+                          "events": [
+                            {
+                              "type": "BuiltinCommonInstructions::Standard",
+                              "conditions": [
+                                {
+                                  "type": {
+                                    "value": "LinkedObjects::PickObjectsLinkedTo"
+                                  },
+                                  "parameters": [
+                                    "",
+                                    "AimCrosshair",
+                                    "Rifleman",
+                                    ""
+                                  ]
+                                },
+                                {
+                                  "type": {
+                                    "value": "NumberObjectVariable"
+                                  },
+                                  "parameters": [
+                                    "AimCrosshair",
+                                    "nodeIndex",
+                                    "=",
+                                    "Rifleman.selectedNodeIndex"
+                                  ]
+                                }
+                              ],
+                              "actions": [
+                                {
+                                  "type": {
+                                    "value": "SetNumberVariable"
+                                  },
+                                  "parameters": [
+                                    "angle",
+                                    "=",
+                                    "Rifleman.PathNodes[Rifleman.selectedNodeIndex].angle"
+                                  ]
+                                },
+                                {
+                                  "type": {
+                                    "value": "SetCenter"
+                                  },
+                                  "parameters": [
+                                    "AimCrosshair",
+                                    "=",
+                                    "CursorX() + RotationLineLength*cos(ToRad(angle))",
+                                    "=",
+                                    "CursorY() + RotationLineLength*sin(ToRad(angle))"
+                                  ]
+                                },
+                                {
+                                  "type": {
+                                    "value": "DebuggerTools::ConsoleLog"
+                                  },
+                                  "parameters": [
+                                    "\"moving rotation crosshair with angle: \" + angle",
+                                    "\"info\"",
+                                    ""
+                                  ]
+                                }
+                              ],
+                              "variables": [
+                                {
+                                  "name": "angle",
+                                  "type": "number",
+                                  "value": 0
+                                }
                               ]
                             }
                           ]
@@ -2741,17 +3546,6 @@
                     "True",
                     ""
                   ]
-                },
-                {
-                  "type": {
-                    "value": "BooleanObjectVariable"
-                  },
-                  "parameters": [
-                    "Rifleman",
-                    "drawPath",
-                    "True",
-                    ""
-                  ]
                 }
               ],
               "actions": [
@@ -2763,6 +3557,27 @@
                     "NavArrows",
                     ""
                   ]
+                },
+                {
+                  "type": {
+                    "value": "Montre"
+                  },
+                  "parameters": [
+                    "AimButton",
+                    ""
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "SetCenter"
+                  },
+                  "parameters": [
+                    "NavArrows",
+                    "=",
+                    "Rifleman.PathNodes[Rifleman.selectedNodeIndex].X",
+                    "=",
+                    "Rifleman.PathNodes[Rifleman.selectedNodeIndex].Y"
+                  ]
                 }
               ],
               "events": [
@@ -2771,13 +3586,12 @@
                   "conditions": [
                     {
                       "type": {
-                        "value": "NumberObjectVariable"
+                        "value": "BooleanVariable"
                       },
                       "parameters": [
-                        "Rifleman",
-                        "selectedNodeIndex",
-                        ">",
-                        "0"
+                        "orderingRotation",
+                        "False",
+                        ""
                       ]
                     }
                   ],
@@ -2787,41 +3601,11 @@
                         "value": "SetCenter"
                       },
                       "parameters": [
-                        "NavArrows",
+                        "AimButton",
                         "=",
-                        "Rifleman.PathNodes[Rifleman.selectedNodeIndex].X",
+                        "Rifleman.PathNodes[Rifleman.selectedNodeIndex].X-rotationButtonPosDiff",
                         "=",
-                        "Rifleman.PathNodes[Rifleman.selectedNodeIndex].Y"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "BuiltinCommonInstructions::Standard",
-                  "conditions": [
-                    {
-                      "type": {
-                        "value": "NumberObjectVariable"
-                      },
-                      "parameters": [
-                        "Rifleman",
-                        "selectedNodeIndex",
-                        "=",
-                        "0"
-                      ]
-                    }
-                  ],
-                  "actions": [
-                    {
-                      "type": {
-                        "value": "SetCenter"
-                      },
-                      "parameters": [
-                        "NavArrows",
-                        "=",
-                        "Rifleman.CenterX()",
-                        "=",
-                        "Rifleman.CenterY()"
+                        "Rifleman.PathNodes[Rifleman.selectedNodeIndex].Y-rotationButtonPosDiff"
                       ]
                     }
                   ]
@@ -2843,7 +3627,414 @@
                     }
                   ]
                 }
+              ],
+              "variables": [
+                {
+                  "name": "rotationButtonPosDiff",
+                  "type": "number",
+                  "value": 35
+                }
               ]
+            },
+            {
+              "colorB": 228,
+              "colorG": 176,
+              "colorR": 74,
+              "creationTime": 0,
+              "name": "Aim Button",
+              "source": "",
+              "type": "BuiltinCommonInstructions::Group",
+              "events": [
+                {
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [
+                    {
+                      "type": {
+                        "value": "SourisSurObjet"
+                      },
+                      "parameters": [
+                        "AimButton",
+                        "",
+                        "yes",
+                        ""
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "MouseButtonPressed"
+                      },
+                      "parameters": [
+                        "",
+                        "Left"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "BooleanObjectVariable"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "selected",
+                        "True",
+                        ""
+                      ]
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "SetBooleanVariable"
+                      },
+                      "parameters": [
+                        "orderingRotation",
+                        "True",
+                        ""
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [
+                    {
+                      "type": {
+                        "value": "BooleanVariable"
+                      },
+                      "parameters": [
+                        "orderingRotation",
+                        "True",
+                        ""
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "BooleanObjectVariable"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "selected",
+                        "True",
+                        ""
+                      ]
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "SetCenter"
+                      },
+                      "parameters": [
+                        "AimButton",
+                        "=",
+                        "CursorX()",
+                        "=",
+                        "CursorY()"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "nodeX",
+                        "=",
+                        "Rifleman.PathNodes[Rifleman.selectedNodeIndex].X"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "nodeY",
+                        "=",
+                        "Rifleman.PathNodes[Rifleman.selectedNodeIndex].Y"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "PrimitiveDrawing::LineV2"
+                      },
+                      "parameters": [
+                        "RotationLinePainter",
+                        "nodeX",
+                        "nodeY",
+                        "AimButton.CenterX()",
+                        "AimButton.CenterY()",
+                        "2"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "angle",
+                        "=",
+                        "AngleBetweenPositions(nodeX, nodeY, CursorX(), CursorY())"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "PrimitiveDrawing::LineV2"
+                      },
+                      "parameters": [
+                        "RotationLinePainter",
+                        "nodeX",
+                        "nodeY",
+                        "nodeX + 1000*cos(ToRad(angle-60))",
+                        "nodeY+ 1000*sin(ToRad(angle-60))",
+                        "1"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "PrimitiveDrawing::LineV2"
+                      },
+                      "parameters": [
+                        "RotationLinePainter",
+                        "nodeX",
+                        "nodeY",
+                        "nodeX + 1000*cos(ToRad(angle+60))",
+                        "nodeY+ 1000*sin(ToRad(angle+60))",
+                        "1"
+                      ]
+                    }
+                  ],
+                  "variables": [
+                    {
+                      "name": "angle",
+                      "type": "number",
+                      "value": 0
+                    },
+                    {
+                      "name": "nodeX",
+                      "type": "number",
+                      "value": 0
+                    },
+                    {
+                      "name": "nodeY",
+                      "type": "number",
+                      "value": 0
+                    }
+                  ]
+                },
+                {
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [
+                    {
+                      "type": {
+                        "value": "BooleanObjectVariable"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "selected",
+                        "True",
+                        ""
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "BooleanVariable"
+                      },
+                      "parameters": [
+                        "orderingRotation",
+                        "True",
+                        ""
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "MouseButtonReleased"
+                      },
+                      "parameters": [
+                        "",
+                        "Left"
+                      ]
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "SetBooleanVariable"
+                      },
+                      "parameters": [
+                        "orderingRotation",
+                        "False",
+                        ""
+                      ]
+                    }
+                  ],
+                  "events": [
+                    {
+                      "type": "BuiltinCommonInstructions::Comment",
+                      "color": {
+                        "b": 109,
+                        "g": 230,
+                        "r": 255,
+                        "textB": 0,
+                        "textG": 0,
+                        "textR": 0
+                      },
+                      "comment": "Calculate Rotation\n"
+                    },
+                    {
+                      "type": "BuiltinCommonInstructions::Standard",
+                      "conditions": [],
+                      "actions": [
+                        {
+                          "type": {
+                            "value": "SetNumberVariable"
+                          },
+                          "parameters": [
+                            "angle",
+                            "=",
+                            "AngleBetweenPositions(Rifleman.PathNodes[Rifleman.selectedNodeIndex].X, Rifleman.PathNodes[Rifleman.selectedNodeIndex].Y, CursorX(), CursorY())"
+                          ]
+                        },
+                        {
+                          "type": {
+                            "value": "SetNumberObjectVariable"
+                          },
+                          "parameters": [
+                            "Rifleman",
+                            "PathNodes[Rifleman.selectedNodeIndex].angle",
+                            "=",
+                            "angle"
+                          ]
+                        },
+                        {
+                          "type": {
+                            "value": "DebuggerTools::ConsoleLog"
+                          },
+                          "parameters": [
+                            "\"Angle: \" + ToString(angle)",
+                            "\"info\"",
+                            ""
+                          ]
+                        },
+                        {
+                          "type": {
+                            "value": "TextContainerCapability::TextContainerBehavior::SetValue"
+                          },
+                          "parameters": [
+                            "DebugAngleText",
+                            "Text",
+                            "=",
+                            "ToString(angle)"
+                          ]
+                        },
+                        {
+                          "type": {
+                            "value": "SetBooleanObjectVariable"
+                          },
+                          "parameters": [
+                            "Rifleman",
+                            "PathNodes[Rifleman.selectedNodeIndex].angleSetted",
+                            "True",
+                            "angle"
+                          ]
+                        },
+                        {
+                          "type": {
+                            "value": "SetBooleanObjectVariable"
+                          },
+                          "parameters": [
+                            "Rifleman",
+                            "PathNodes[Rifleman.selectedNodeIndex].cancelAim",
+                            "False",
+                            "angle"
+                          ]
+                        }
+                      ],
+                      "events": [
+                        {
+                          "type": "BuiltinCommonInstructions::Standard",
+                          "conditions": [
+                            {
+                              "type": {
+                                "value": "LinkedObjects::PickObjectsLinkedTo"
+                              },
+                              "parameters": [
+                                "",
+                                "AimCrosshair",
+                                "Rifleman",
+                                ""
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "NumberObjectVariable"
+                              },
+                              "parameters": [
+                                "AimCrosshair",
+                                "nodeIndex",
+                                "=",
+                                "Rifleman.selectedNodeIndex"
+                              ]
+                            }
+                          ],
+                          "actions": [
+                            {
+                              "type": {
+                                "value": "Cache"
+                              },
+                              "parameters": [
+                                "AimCrosshair"
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "BuiltinCommonInstructions::Standard",
+                          "conditions": [
+                            {
+                              "type": {
+                                "value": "LinkedObjects::PickObjectsLinkedTo"
+                              },
+                              "parameters": [
+                                "",
+                                "CancelAimCrosshair",
+                                "Rifleman",
+                                ""
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "NumberObjectVariable"
+                              },
+                              "parameters": [
+                                "CancelAimCrosshair",
+                                "nodeIndex",
+                                "=",
+                                "Rifleman.selectedNodeIndex"
+                              ]
+                            }
+                          ],
+                          "actions": [
+                            {
+                              "type": {
+                                "value": "Cache"
+                              },
+                              "parameters": [
+                                "CancelAimCrosshair"
+                              ]
+                            }
+                          ]
+                        }
+                      ],
+                      "variables": [
+                        {
+                          "name": "angle",
+                          "type": "number",
+                          "value": 0
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "parameters": []
             },
             {
               "type": "BuiltinCommonInstructions::Comment",
@@ -2855,7 +4046,12 @@
                 "textG": 0,
                 "textR": 0
               },
-              "comment": "Hide NavArrows"
+              "comment": "Hide NavArrows and RotationButton\n"
+            },
+            {
+              "type": "BuiltinCommonInstructions::Standard",
+              "conditions": [],
+              "actions": []
             },
             {
               "type": "BuiltinCommonInstructions::Standard",
@@ -2912,6 +4108,14 @@
                       },
                       "parameters": [
                         "NavArrows"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "Cache"
+                      },
+                      "parameters": [
+                        "AimButton"
                       ]
                     }
                   ],
@@ -2983,22 +4187,11 @@
               "actions": [
                 {
                   "type": {
-                    "value": "MettreXY"
+                    "value": "SetBooleanVariable"
                   },
                   "parameters": [
-                    "AddWaypointButton",
-                    "=",
-                    "CursorX()",
-                    "=",
-                    "CursorY()"
-                  ]
-                },
-                {
-                  "type": {
-                    "value": "Montre"
-                  },
-                  "parameters": [
-                    "AddWaypointButton",
+                    "menuOpened",
+                    "True",
                     ""
                   ]
                 },
@@ -3013,6 +4206,7 @@
               ],
               "events": [
                 {
+                  "folded": true,
                   "type": "BuiltinCommonInstructions::Standard",
                   "conditions": [
                     {
@@ -3266,6 +4460,166 @@
                           ]
                         }
                       ]
+                    },
+                    {
+                      "type": "BuiltinCommonInstructions::Comment",
+                      "color": {
+                        "b": 109,
+                        "g": 230,
+                        "r": 255,
+                        "textB": 0,
+                        "textG": 0,
+                        "textR": 0
+                      },
+                      "comment": "Show Cancel Aim Button"
+                    },
+                    {
+                      "type": "BuiltinCommonInstructions::Standard",
+                      "conditions": [],
+                      "actions": [
+                        {
+                          "type": {
+                            "value": "MettreXY"
+                          },
+                          "parameters": [
+                            "CancelAimButton",
+                            "=",
+                            "CursorX()",
+                            "=",
+                            "CursorY() + AddWaypointButton.Height() +  DeleteWaypointButton.Height() + 10"
+                          ]
+                        },
+                        {
+                          "type": {
+                            "value": "Montre"
+                          },
+                          "parameters": [
+                            "CancelAimButton",
+                            ""
+                          ]
+                        }
+                      ],
+                      "events": [
+                        {
+                          "type": "BuiltinCommonInstructions::Standard",
+                          "conditions": [
+                            {
+                              "type": {
+                                "value": "BooleanObjectVariable"
+                              },
+                              "parameters": [
+                                "Rifleman",
+                                "PathNodes[Rifleman.selectedNodeIndex].angleSetted",
+                                "True",
+                                ""
+                              ]
+                            }
+                          ],
+                          "actions": [
+                            {
+                              "type": {
+                                "value": "PanelSpriteButton::PanelSpriteButton::SetLabelText"
+                              },
+                              "parameters": [
+                                "CancelAimButton",
+                                "\"Delete Aim\"",
+                                ""
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "SetBooleanObjectVariable"
+                              },
+                              "parameters": [
+                                "CancelAimButton",
+                                "isDelete",
+                                "True",
+                                ""
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "BuiltinCommonInstructions::Standard",
+                          "conditions": [
+                            {
+                              "type": {
+                                "inverted": true,
+                                "value": "BooleanObjectVariable"
+                              },
+                              "parameters": [
+                                "Rifleman",
+                                "PathNodes[Rifleman.selectedNodeIndex].angleSetted",
+                                "True",
+                                ""
+                              ]
+                            }
+                          ],
+                          "actions": [
+                            {
+                              "type": {
+                                "value": "PanelSpriteButton::PanelSpriteButton::SetLabelText"
+                              },
+                              "parameters": [
+                                "CancelAimButton",
+                                "\"Cancel Aim\"",
+                                ""
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "SetBooleanObjectVariable"
+                              },
+                              "parameters": [
+                                "CancelAimButton",
+                                "isDelete",
+                                "False",
+                                ""
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [
+                    {
+                      "type": {
+                        "inverted": true,
+                        "value": "SourisSurObjet"
+                      },
+                      "parameters": [
+                        "NavArrows",
+                        "",
+                        "",
+                        ""
+                      ]
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "MettreXY"
+                      },
+                      "parameters": [
+                        "AddWaypointButton",
+                        "=",
+                        "CursorX()",
+                        "=",
+                        "CursorY()"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "Montre"
+                      },
+                      "parameters": [
+                        "AddWaypointButton",
+                        ""
+                      ]
                     }
                   ]
                 }
@@ -3310,17 +4664,6 @@
               "actions": [
                 {
                   "type": {
-                    "value": "SetBooleanObjectVariable"
-                  },
-                  "parameters": [
-                    "Rifleman",
-                    "drawPath",
-                    "True",
-                    ""
-                  ]
-                },
-                {
-                  "type": {
                     "value": "Cache"
                   },
                   "parameters": [
@@ -3329,65 +4672,6 @@
                 }
               ],
               "events": [
-                {
-                  "type": "BuiltinCommonInstructions::Standard",
-                  "conditions": [
-                    {
-                      "type": {
-                        "value": "ObjectVariableChildCount"
-                      },
-                      "parameters": [
-                        "Rifleman",
-                        "PathNodes",
-                        "=",
-                        "0"
-                      ]
-                    }
-                  ],
-                  "actions": [
-                    {
-                      "type": {
-                        "value": "SetNumberVariable"
-                      },
-                      "parameters": [
-                        "NewNode.X",
-                        "=",
-                        "Rifleman.CenterX()"
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "SetNumberVariable"
-                      },
-                      "parameters": [
-                        "NewNode.Y",
-                        "=",
-                        "Rifleman.CenterY()"
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "ObjectVariablePush2"
-                      },
-                      "parameters": [
-                        "Rifleman",
-                        "PathNodes",
-                        "NewNode"
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "SetNumberObjectVariable"
-                      },
-                      "parameters": [
-                        "Rifleman",
-                        "PathNodesCount",
-                        "+",
-                        "1"
-                      ]
-                    }
-                  ]
-                },
                 {
                   "type": "BuiltinCommonInstructions::Standard",
                   "conditions": [],
@@ -3453,17 +4737,6 @@
                         }
                       ],
                       "actions": [
-                        {
-                          "type": {
-                            "value": "SetNumberObjectVariable"
-                          },
-                          "parameters": [
-                            "Rifleman",
-                            "PathNodesCount",
-                            "+",
-                            "Rifleman.Pathfinding::NodeCount()-1"
-                          ]
-                        },
                         {
                           "type": {
                             "value": "DebuggerTools::ConsoleLog"
@@ -3535,12 +4808,70 @@
                             },
                             {
                               "type": {
+                                "value": "Create"
+                              },
+                              "parameters": [
+                                "",
+                                "AimCrosshair",
+                                "0",
+                                "0",
+                                ""
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "SetNumberObjectVariable"
+                              },
+                              "parameters": [
+                                "AimCrosshair",
+                                "nodeIndex",
+                                "=",
+                                "Rifleman.PathNodesCount-1 + LoopIndex"
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "LinkedObjects::LinkObjects"
+                              },
+                              "parameters": [
+                                "",
+                                "Rifleman",
+                                "AimCrosshair"
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "Cache"
+                              },
+                              "parameters": [
+                                "AimCrosshair"
+                              ]
+                            },
+                            {
+                              "type": {
                                 "value": "SetNumberVariable"
                               },
                               "parameters": [
                                 "LoopIndex",
                                 "+",
                                 "1"
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "BuiltinCommonInstructions::Standard",
+                          "conditions": [],
+                          "actions": [
+                            {
+                              "type": {
+                                "value": "SetNumberObjectVariable"
+                              },
+                              "parameters": [
+                                "Rifleman",
+                                "PathNodesCount",
+                                "+",
+                                "Rifleman.Pathfinding::NodeCount()-1"
                               ]
                             }
                           ]
@@ -3675,23 +5006,323 @@
                   },
                   "parameters": [
                     "Rifleman",
-                    "selectedNodeIndex",
-                    "-",
-                    "1"
-                  ]
-                },
-                {
-                  "type": {
-                    "value": "SetNumberObjectVariable"
-                  },
-                  "parameters": [
-                    "Rifleman",
                     "PathNodesCount",
                     "-",
                     "1"
                   ]
                 }
+              ],
+              "events": [
+                {
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [
+                    {
+                      "type": {
+                        "value": "BooleanObjectVariable"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "selected",
+                        "True",
+                        ""
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "LinkedObjects::PickObjectsLinkedTo"
+                      },
+                      "parameters": [
+                        "",
+                        "AimCrosshair",
+                        "Rifleman",
+                        ""
+                      ]
+                    }
+                  ],
+                  "actions": [],
+                  "events": [
+                    {
+                      "type": "BuiltinCommonInstructions::Standard",
+                      "conditions": [
+                        {
+                          "type": {
+                            "value": "NumberObjectVariable"
+                          },
+                          "parameters": [
+                            "AimCrosshair",
+                            "nodeIndex",
+                            "=",
+                            "Rifleman.selectedNodeIndex"
+                          ]
+                        }
+                      ],
+                      "actions": [
+                        {
+                          "type": {
+                            "value": "Delete"
+                          },
+                          "parameters": [
+                            "AimCrosshair",
+                            ""
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "BuiltinCommonInstructions::Standard",
+                      "conditions": [
+                        {
+                          "type": {
+                            "value": "NumberObjectVariable"
+                          },
+                          "parameters": [
+                            "AimCrosshair",
+                            "nodeIndex",
+                            ">",
+                            "Rifleman.selectedNodeIndex"
+                          ]
+                        }
+                      ],
+                      "actions": [
+                        {
+                          "type": {
+                            "value": "SetNumberObjectVariable"
+                          },
+                          "parameters": [
+                            "AimCrosshair",
+                            "nodeIndex",
+                            "-",
+                            "1"
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "SetNumberObjectVariable"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "selectedNodeIndex",
+                        "-",
+                        "1"
+                      ]
+                    }
+                  ]
+                }
               ]
+            },
+            {
+              "type": "BuiltinCommonInstructions::Comment",
+              "color": {
+                "b": 109,
+                "g": 230,
+                "r": 255,
+                "textB": 0,
+                "textG": 0,
+                "textR": 0
+              },
+              "comment": "Cancel Aim Button\n"
+            },
+            {
+              "type": "BuiltinCommonInstructions::Standard",
+              "conditions": [
+                {
+                  "type": {
+                    "value": "PanelSpriteButton::PanelSpriteButton::IsClicked"
+                  },
+                  "parameters": [
+                    "CancelAimButton",
+                    ""
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "BooleanObjectVariable"
+                  },
+                  "parameters": [
+                    "Rifleman",
+                    "selected",
+                    "True",
+                    ""
+                  ]
+                }
+              ],
+              "actions": [],
+              "events": [
+                {
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [
+                    {
+                      "type": {
+                        "value": "BooleanObjectVariable"
+                      },
+                      "parameters": [
+                        "CancelAimButton",
+                        "isDelete",
+                        "True",
+                        ""
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "LinkedObjects::PickObjectsLinkedTo"
+                      },
+                      "parameters": [
+                        "",
+                        "AimCrosshair",
+                        "Rifleman",
+                        ""
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "NumberObjectVariable"
+                      },
+                      "parameters": [
+                        "AimCrosshair",
+                        "nodeIndex",
+                        "=",
+                        "Rifleman.selectedNodeIndex"
+                      ]
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "SetBooleanObjectVariable"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "PathNodes[Rifleman.selectedNodeIndex].angleSetted",
+                        "False",
+                        ""
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "Cache"
+                      },
+                      "parameters": [
+                        "AimCrosshair"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [
+                    {
+                      "type": {
+                        "value": "BooleanObjectVariable"
+                      },
+                      "parameters": [
+                        "CancelAimButton",
+                        "isDelete",
+                        "False",
+                        ""
+                      ]
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "SetBooleanObjectVariable"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "PathNodes[Rifleman.selectedNodeIndex].cancelAim",
+                        "True",
+                        ""
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "Create"
+                      },
+                      "parameters": [
+                        "",
+                        "CancelAimCrosshair",
+                        "0",
+                        "0",
+                        ""
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetCenter"
+                      },
+                      "parameters": [
+                        "CancelAimCrosshair",
+                        "=",
+                        "Rifleman.PathNodes[Rifleman.selectedNodeIndex].X + CancelAimLineLength * cos(ToRad(CancelAimLineAngle))",
+                        "=",
+                        "Rifleman.PathNodes[Rifleman.selectedNodeIndex].Y + CancelAimLineLength * sin(ToRad(CancelAimLineAngle))"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "DebuggerTools::ConsoleLog"
+                      },
+                      "parameters": [
+                        "\"Created cancel aim crosshair\"",
+                        "\"info\"",
+                        ""
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "LinkedObjects::LinkObjects"
+                      },
+                      "parameters": [
+                        "",
+                        "Rifleman",
+                        "CancelAimCrosshair"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "Cache"
+                      },
+                      "parameters": [
+                        "CancelAimButton"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "Cache"
+                      },
+                      "parameters": [
+                        "DeleteWaypointButton"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "BuiltinCommonInstructions::Comment",
+              "color": {
+                "b": 109,
+                "g": 230,
+                "r": 255,
+                "textB": 0,
+                "textG": 0,
+                "textR": 0
+              },
+              "comment": "Escape key\n"
             },
             {
               "type": "BuiltinCommonInstructions::Standard",
@@ -3753,17 +5384,6 @@
                         "False",
                         ""
                       ]
-                    },
-                    {
-                      "type": {
-                        "value": "SetBooleanObjectVariable"
-                      },
-                      "parameters": [
-                        "Rifleman",
-                        "drawPath",
-                        "False",
-                        ""
-                      ]
                     }
                   ]
                 },
@@ -3805,10 +5425,12 @@
               "conditions": [
                 {
                   "type": {
-                    "value": "Visible"
+                    "value": "BooleanVariable"
                   },
                   "parameters": [
-                    "AddWaypointButton"
+                    "menuOpened",
+                    "True",
+                    ""
                   ]
                 },
                 {
@@ -3818,6 +5440,50 @@
                   "parameters": [
                     "",
                     "Left"
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "BuiltinCommonInstructions::And"
+                  },
+                  "parameters": [],
+                  "subInstructions": [
+                    {
+                      "type": {
+                        "inverted": true,
+                        "value": "SourisSurObjet"
+                      },
+                      "parameters": [
+                        "AddWaypointButton",
+                        "",
+                        "",
+                        ""
+                      ]
+                    },
+                    {
+                      "type": {
+                        "inverted": true,
+                        "value": "SourisSurObjet"
+                      },
+                      "parameters": [
+                        "DeleteWaypointButton",
+                        "",
+                        "",
+                        ""
+                      ]
+                    },
+                    {
+                      "type": {
+                        "inverted": true,
+                        "value": "SourisSurObjet"
+                      },
+                      "parameters": [
+                        "CancelAimButton",
+                        "",
+                        "",
+                        ""
+                      ]
+                    }
                   ]
                 }
               ],
@@ -3837,6 +5503,14 @@
                   "parameters": [
                     "DeleteWaypointButton"
                   ]
+                },
+                {
+                  "type": {
+                    "value": "Cache"
+                  },
+                  "parameters": [
+                    "CancelAimButton"
+                  ]
                 }
               ]
             }
@@ -3848,7 +5522,6 @@
           "colorG": 176,
           "colorR": 74,
           "creationTime": 0,
-          "folded": true,
           "name": "Path and waypoint drawing",
           "source": "",
           "type": "BuiltinCommonInstructions::Group",
@@ -3862,7 +5535,7 @@
                   },
                   "parameters": [
                     "Rifleman",
-                    "drawPath",
+                    "selected",
                     "True",
                     ""
                   ]
@@ -3879,7 +5552,7 @@
                         "value": "NumberVariable"
                       },
                       "parameters": [
-                        "nodeIndex",
+                        "pathNodeIndex",
                         "<",
                         "Rifleman.PathNodesCount"
                       ]
@@ -3894,7 +5567,7 @@
                       "parameters": [
                         "PrevNode.X",
                         "=",
-                        "Rifleman.PathNodes[nodeIndex - 1].X"
+                        "Rifleman.PathNodes[pathNodeIndex- 1].X"
                       ]
                     },
                     {
@@ -3904,7 +5577,7 @@
                       "parameters": [
                         "PrevNode.Y",
                         "=",
-                        "Rifleman.PathNodes[nodeIndex - 1].Y"
+                        "Rifleman.PathNodes[pathNodeIndex - 1].Y"
                       ]
                     },
                     {
@@ -3914,7 +5587,7 @@
                       "parameters": [
                         "CurNode.X",
                         "=",
-                        "Rifleman.PathNodes[nodeIndex].X"
+                        "Rifleman.PathNodes[pathNodeIndex].X"
                       ]
                     },
                     {
@@ -3924,7 +5597,7 @@
                       "parameters": [
                         "CurNode.Y",
                         "=",
-                        "Rifleman.PathNodes[nodeIndex].Y"
+                        "Rifleman.PathNodes[pathNodeIndex].Y"
                       ]
                     },
                     {
@@ -3957,9 +5630,251 @@
                         "value": "SetNumberVariable"
                       },
                       "parameters": [
-                        "nodeIndex",
+                        "pathNodeIndex",
                         "+",
                         "1"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "pathNodeIndex",
+                        "=",
+                        "0"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "infiniteLoopWarning": true,
+                  "type": "BuiltinCommonInstructions::While",
+                  "whileConditions": [
+                    {
+                      "type": {
+                        "value": "NumberVariable"
+                      },
+                      "parameters": [
+                        "pathNodeIndex",
+                        "<",
+                        "Rifleman.PathNodesCount"
+                      ]
+                    }
+                  ],
+                  "conditions": [],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "CurNode.X",
+                        "=",
+                        "Rifleman.PathNodes[pathNodeIndex].X"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "CurNode.Y",
+                        "=",
+                        "Rifleman.PathNodes[pathNodeIndex].Y"
+                      ]
+                    }
+                  ],
+                  "events": [
+                    {
+                      "type": "BuiltinCommonInstructions::Comment",
+                      "color": {
+                        "b": 109,
+                        "g": 230,
+                        "r": 255,
+                        "textB": 0,
+                        "textG": 0,
+                        "textR": 0
+                      },
+                      "comment": "Draw Aim Line"
+                    },
+                    {
+                      "type": "BuiltinCommonInstructions::Standard",
+                      "conditions": [
+                        {
+                          "type": {
+                            "value": "BooleanObjectVariable"
+                          },
+                          "parameters": [
+                            "Rifleman",
+                            "PathNodes[pathNodeIndex].angleSetted",
+                            "True",
+                            ""
+                          ]
+                        }
+                      ],
+                      "actions": [
+                        {
+                          "type": {
+                            "value": "SetNumberVariable"
+                          },
+                          "parameters": [
+                            "angle",
+                            "=",
+                            "Rifleman.PathNodes[pathNodeIndex].angle"
+                          ]
+                        },
+                        {
+                          "type": {
+                            "value": "PrimitiveDrawing::LineV2"
+                          },
+                          "parameters": [
+                            "RotationLinePainter",
+                            "CurNode.X",
+                            "CurNode.Y",
+                            "CurNode.X + RotationLineLength*cos(ToRad(angle))",
+                            "CurNode.Y + RotationLineLength*sin(ToRad(angle))",
+                            "2"
+                          ]
+                        }
+                      ],
+                      "events": [
+                        {
+                          "type": "BuiltinCommonInstructions::Comment",
+                          "color": {
+                            "b": 109,
+                            "g": 230,
+                            "r": 255,
+                            "textB": 0,
+                            "textG": 0,
+                            "textR": 0
+                          },
+                          "comment": "Put Aim Crosshair\n"
+                        },
+                        {
+                          "type": "BuiltinCommonInstructions::Standard",
+                          "conditions": [
+                            {
+                              "type": {
+                                "value": "LinkedObjects::PickObjectsLinkedTo"
+                              },
+                              "parameters": [
+                                "",
+                                "AimCrosshair",
+                                "Rifleman",
+                                ""
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "NumberObjectVariable"
+                              },
+                              "parameters": [
+                                "AimCrosshair",
+                                "nodeIndex",
+                                "=",
+                                "pathNodeIndex"
+                              ]
+                            },
+                            {
+                              "type": {
+                                "inverted": true,
+                                "value": "Visible"
+                              },
+                              "parameters": [
+                                "AimCrosshair"
+                              ]
+                            }
+                          ],
+                          "actions": [
+                            {
+                              "type": {
+                                "value": "SetCenter"
+                              },
+                              "parameters": [
+                                "AimCrosshair",
+                                "=",
+                                "CurNode.X + 100*cos(ToRad(angle))",
+                                "=",
+                                "CurNode.Y + 100*sin(ToRad(angle))"
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "Montre"
+                              },
+                              "parameters": [
+                                "AimCrosshair",
+                                ""
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "BuiltinCommonInstructions::Comment",
+                      "color": {
+                        "b": 109,
+                        "g": 230,
+                        "r": 255,
+                        "textB": 0,
+                        "textG": 0,
+                        "textR": 0
+                      },
+                      "comment": "Draw Cancel Aim Line"
+                    },
+                    {
+                      "type": "BuiltinCommonInstructions::Standard",
+                      "conditions": [
+                        {
+                          "type": {
+                            "value": "BooleanObjectVariable"
+                          },
+                          "parameters": [
+                            "Rifleman",
+                            "PathNodes[pathNodeIndex].cancelAim",
+                            "True",
+                            ""
+                          ]
+                        }
+                      ],
+                      "actions": [
+                        {
+                          "type": {
+                            "value": "PrimitiveDrawing::LineV2"
+                          },
+                          "parameters": [
+                            "RotationLinePainter",
+                            "CurNode.X",
+                            "CurNode.Y",
+                            "CurNode.X + CancelAimLineLength* cos(ToRad(CancelAimLineAngle))",
+                            "CurNode.Y + CancelAimLineLength* sin(ToRad(CancelAimLineAngle))",
+                            "2"
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "BuiltinCommonInstructions::Standard",
+                      "conditions": [],
+                      "actions": [
+                        {
+                          "type": {
+                            "value": "SetNumberVariable"
+                          },
+                          "parameters": [
+                            "pathNodeIndex",
+                            "+",
+                            "1"
+                          ]
+                        }
                       ]
                     }
                   ]
@@ -3967,7 +5882,7 @@
               ],
               "variables": [
                 {
-                  "name": "nodeIndex",
+                  "name": "pathNodeIndex",
                   "type": "number",
                   "value": 1
                 },
@@ -4002,6 +5917,11 @@
                       "value": 0
                     }
                   ]
+                },
+                {
+                  "name": "angle",
+                  "type": "number",
+                  "value": 0
                 }
               ]
             }
@@ -4013,7 +5933,6 @@
           "colorG": 176,
           "colorR": 74,
           "creationTime": 0,
-          "folded": true,
           "name": "Turn Execution",
           "source": "",
           "type": "BuiltinCommonInstructions::Group",
@@ -4050,7 +5969,7 @@
                     "Rifleman",
                     "Pathfinding",
                     "=",
-                    "200"
+                    "RiflemanWalkSpeed"
                   ]
                 },
                 {
@@ -4076,17 +5995,6 @@
                 },
                 {
                   "type": {
-                    "value": "SetBooleanObjectVariable"
-                  },
-                  "parameters": [
-                    "Rifleman",
-                    "drawPath",
-                    "False",
-                    ""
-                  ]
-                },
-                {
-                  "type": {
                     "value": "PathfindingBehavior::SetDestination"
                   },
                   "parameters": [
@@ -4107,6 +6015,22 @@
                     "False",
                     ""
                   ]
+                },
+                {
+                  "type": {
+                    "value": "Cache"
+                  },
+                  "parameters": [
+                    "AimCrosshair"
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "Cache"
+                  },
+                  "parameters": [
+                    "CancelAimCrosshair"
+                  ]
                 }
               ]
             },
@@ -4124,35 +6048,30 @@
                   ]
                 }
               ],
-              "actions": [],
-              "events": [
+              "actions": [
                 {
-                  "type": "BuiltinCommonInstructions::Standard",
-                  "conditions": [],
-                  "actions": [
-                    {
-                      "type": {
-                        "value": "SetNumberVariable"
-                      },
-                      "parameters": [
-                        "turnTimePassed",
-                        "+",
-                        "TimeDelta()"
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "PanelSpriteContinuousBar::PanelSpriteContinuousBar::SetValue"
-                      },
-                      "parameters": [
-                        "CopperRedBar",
-                        "=",
-                        "turnTimePassed",
-                        ""
-                      ]
-                    }
+                  "type": {
+                    "value": "SetNumberVariable"
+                  },
+                  "parameters": [
+                    "turnTimePassed",
+                    "+",
+                    "TimeDelta()"
                   ]
                 },
+                {
+                  "type": {
+                    "value": "PanelSpriteContinuousBar::PanelSpriteContinuousBar::SetValue"
+                  },
+                  "parameters": [
+                    "CopperRedBar",
+                    "=",
+                    "turnTimePassed",
+                    ""
+                  ]
+                }
+              ],
+              "events": [
                 {
                   "type": "BuiltinCommonInstructions::Standard",
                   "conditions": [
@@ -4195,7 +6114,18 @@
                           ]
                         }
                       ],
-                      "actions": [],
+                      "actions": [
+                        {
+                          "type": {
+                            "value": "DebuggerTools::ConsoleLog"
+                          },
+                          "parameters": [
+                            "\"Rifleman: \" + Rifleman.ID + \" reached its destination, nextNodeIndex: \" + Rifleman.nextNodeIndex",
+                            "\"info\"",
+                            ""
+                          ]
+                        }
+                      ],
                       "events": [
                         {
                           "type": "BuiltinCommonInstructions::Standard",
@@ -4218,19 +6148,9 @@
                                 "value": "SetNumberVariable"
                               },
                               "parameters": [
-                                "nextNodeIndex",
-                                "=",
-                                "Rifleman.nextNodeIndex"
-                              ]
-                            },
-                            {
-                              "type": {
-                                "value": "SetNumberVariable"
-                              },
-                              "parameters": [
                                 "NextNode.X",
                                 "=",
-                                "Rifleman.PathNodes[nextNodeIndex].X"
+                                "Rifleman.PathNodes[Rifleman.nextNodeIndex].X"
                               ]
                             },
                             {
@@ -4240,7 +6160,7 @@
                               "parameters": [
                                 "NextNode.Y",
                                 "=",
-                                "Rifleman.PathNodes[nextNodeIndex].Y"
+                                "Rifleman.PathNodes[Rifleman.nextNodeIndex].Y"
                               ]
                             },
                             {
@@ -4260,11 +6180,176 @@
                                 "value": "DebuggerTools::ConsoleLog"
                               },
                               "parameters": [
-                                "\"NextNodeIndex: \" + nextNodeIndex + \" Location: \" + NextNode.X + \", \" + NextNode.Y",
+                                "\"NextNodeIndex: \" + Rifleman.nextNodeIndex + \" Location: \" + NextNode.X + \", \" + NextNode.Y",
                                 "\"info\"",
                                 ""
                               ]
+                            }
+                          ],
+                          "events": [
+                            {
+                              "type": "BuiltinCommonInstructions::Standard",
+                              "conditions": [
+                                {
+                                  "type": {
+                                    "value": "BooleanObjectVariable"
+                                  },
+                                  "parameters": [
+                                    "Rifleman",
+                                    "PathNodes[Rifleman.nextNodeIndex-1].cancelAim",
+                                    "True",
+                                    ""
+                                  ]
+                                }
+                              ],
+                              "actions": [
+                                {
+                                  "type": {
+                                    "value": "PathfindingBehavior::MaxSpeed"
+                                  },
+                                  "parameters": [
+                                    "Rifleman",
+                                    "Pathfinding",
+                                    "=",
+                                    "RiflemanWalkSpeed"
+                                  ]
+                                },
+                                {
+                                  "type": {
+                                    "value": "PathfindingBehavior::RotateObject"
+                                  },
+                                  "parameters": [
+                                    "Rifleman",
+                                    "Pathfinding",
+                                    "yes"
+                                  ]
+                                }
+                              ]
                             },
+                            {
+                              "type": "BuiltinCommonInstructions::Standard",
+                              "conditions": [
+                                {
+                                  "type": {
+                                    "value": "BooleanObjectVariable"
+                                  },
+                                  "parameters": [
+                                    "Rifleman",
+                                    "PathNodes[Rifleman.nextNodeIndex-1].angleSetted",
+                                    "True",
+                                    ""
+                                  ]
+                                }
+                              ],
+                              "actions": [
+                                {
+                                  "type": {
+                                    "value": "PathfindingBehavior::RotateObject"
+                                  },
+                                  "parameters": [
+                                    "Rifleman",
+                                    "Pathfinding",
+                                    ""
+                                  ]
+                                },
+                                {
+                                  "type": {
+                                    "value": "SetAngle"
+                                  },
+                                  "parameters": [
+                                    "Rifleman",
+                                    "=",
+                                    "Rifleman.PathNodes[Rifleman.nextNodeIndex-1].angle"
+                                  ]
+                                },
+                                {
+                                  "type": {
+                                    "value": "DebuggerTools::ConsoleLog"
+                                  },
+                                  "parameters": [
+                                    "\"Rotate to angle: \" + Rifleman.PathNodes[Rifleman.nextNodeIndex-1].angle",
+                                    "\"info\"",
+                                    ""
+                                  ]
+                                },
+                                {
+                                  "type": {
+                                    "value": "PathfindingBehavior::MaxSpeed"
+                                  },
+                                  "parameters": [
+                                    "Rifleman",
+                                    "Pathfinding",
+                                    "=",
+                                    "RiflemanWalkAimSpeed"
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "BuiltinCommonInstructions::Standard",
+                          "conditions": [
+                            {
+                              "type": {
+                                "value": "NumberObjectVariable"
+                              },
+                              "parameters": [
+                                "Rifleman",
+                                "nextNodeIndex",
+                                "=",
+                                "Rifleman.PathNodesCount"
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "BooleanObjectVariable"
+                              },
+                              "parameters": [
+                                "Rifleman",
+                                "PathNodes[Rifleman.nextNodeIndex-1].angleSetted",
+                                "True",
+                                ""
+                              ]
+                            }
+                          ],
+                          "actions": [
+                            {
+                              "type": {
+                                "value": "PathfindingBehavior::RotateObject"
+                              },
+                              "parameters": [
+                                "Rifleman",
+                                "Pathfinding",
+                                ""
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "SetAngle"
+                              },
+                              "parameters": [
+                                "Rifleman",
+                                "=",
+                                "Rifleman.PathNodes[Rifleman.nextNodeIndex-1].angle"
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "DebuggerTools::ConsoleLog"
+                              },
+                              "parameters": [
+                                "\"Rotate to angle: \" + Rifleman.PathNodes[Rifleman.nextNodeIndex-1].angle",
+                                "\"info\"",
+                                ""
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "BuiltinCommonInstructions::Standard",
+                          "conditions": [],
+                          "actions": [
                             {
                               "type": {
                                 "value": "SetNumberObjectVariable"
@@ -4281,6 +6366,18 @@
                       ]
                     }
                   ]
+                },
+                {
+                  "type": "BuiltinCommonInstructions::Comment",
+                  "color": {
+                    "b": 109,
+                    "g": 230,
+                    "r": 255,
+                    "textB": 0,
+                    "textG": 0,
+                    "textR": 0
+                  },
+                  "comment": "When Turn finished\n"
                 },
                 {
                   "type": "BuiltinCommonInstructions::Standard",
@@ -4309,6 +6406,26 @@
                     },
                     {
                       "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "turnNum",
+                        "+",
+                        "1"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "turnTimePassed",
+                        "=",
+                        "0"
+                      ]
+                    },
+                    {
+                      "type": {
                         "value": "PathfindingBehavior::MaxSpeed"
                       },
                       "parameters": [
@@ -4330,16 +6447,6 @@
                     },
                     {
                       "type": {
-                        "value": "SetNumberVariable"
-                      },
-                      "parameters": [
-                        "turnNum",
-                        "+",
-                        "1"
-                      ]
-                    },
-                    {
-                      "type": {
                         "value": "TextContainerCapability::TextContainerBehavior::SetValue"
                       },
                       "parameters": [
@@ -4347,16 +6454,6 @@
                         "Text",
                         "=",
                         "\"Turn: \" + turnNum"
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "SetNumberVariable"
-                      },
-                      "parameters": [
-                        "turnTimePassed",
-                        "=",
-                        "0"
                       ]
                     },
                     {
@@ -4377,6 +6474,24 @@
                       "parameters": [
                         "\"Turn: \" + turnNum",
                         "\"info\"",
+                        ""
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "Delete"
+                      },
+                      "parameters": [
+                        "AimCrosshair",
+                        ""
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "Delete"
+                      },
+                      "parameters": [
+                        "CancelAimCrosshair",
                         ""
                       ]
                     }
@@ -4439,6 +6554,121 @@
                             "=",
                             "0"
                           ]
+                        },
+                        {
+                          "type": {
+                            "value": "Delete"
+                          },
+                          "parameters": [
+                            "AimCrosshair",
+                            ""
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "BuiltinCommonInstructions::ForEach",
+                      "object": "Rifleman",
+                      "conditions": [],
+                      "actions": [
+                        {
+                          "type": {
+                            "value": "SetNumberVariable"
+                          },
+                          "parameters": [
+                            "initialNode.X",
+                            "=",
+                            "Rifleman.CenterX()"
+                          ]
+                        },
+                        {
+                          "type": {
+                            "value": "SetNumberVariable"
+                          },
+                          "parameters": [
+                            "initialNode.Y",
+                            "=",
+                            "Rifleman.CenterY()"
+                          ]
+                        },
+                        {
+                          "type": {
+                            "value": "ObjectVariablePush2"
+                          },
+                          "parameters": [
+                            "Rifleman",
+                            "PathNodes",
+                            "initialNode"
+                          ]
+                        },
+                        {
+                          "type": {
+                            "value": "SetNumberObjectVariable"
+                          },
+                          "parameters": [
+                            "Rifleman",
+                            "PathNodesCount",
+                            "+",
+                            "1"
+                          ]
+                        },
+                        {
+                          "type": {
+                            "value": "Create"
+                          },
+                          "parameters": [
+                            "",
+                            "AimCrosshair",
+                            "0",
+                            "0",
+                            ""
+                          ]
+                        },
+                        {
+                          "type": {
+                            "value": "LinkedObjects::LinkObjects"
+                          },
+                          "parameters": [
+                            "",
+                            "Rifleman",
+                            "AimCrosshair"
+                          ]
+                        },
+                        {
+                          "type": {
+                            "value": "Cache"
+                          },
+                          "parameters": [
+                            "AimCrosshair"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "variables": [
+                    {
+                      "name": "initialNode",
+                      "type": "structure",
+                      "children": [
+                        {
+                          "name": "X",
+                          "type": "number",
+                          "value": 0
+                        },
+                        {
+                          "name": "Y",
+                          "type": "number",
+                          "value": 0
+                        },
+                        {
+                          "name": "angle",
+                          "type": "number",
+                          "value": 0
+                        },
+                        {
+                          "name": "angleSetted",
+                          "type": "boolean",
+                          "value": false
                         }
                       ]
                     }
@@ -4446,11 +6676,6 @@
                 }
               ],
               "variables": [
-                {
-                  "name": "nextNodeIndex",
-                  "type": "number",
-                  "value": 0
-                },
                 {
                   "name": "Variable",
                   "type": "number",
@@ -4981,10 +7206,6 @@
         {
           "name": "Scale",
           "type": "ScalableCapability::ScalableBehavior"
-        },
-        {
-          "name": "SmoothCamera",
-          "type": "SmoothCamera::SmoothCamera"
         },
         {
           "name": "Text",
@@ -14484,352 +16705,6 @@
           "instances": []
         }
       ]
-    },
-    {
-      "author": "Entropy",
-      "category": "Advanced",
-      "extensionNamespace": "",
-      "fullName": "Pathfinding painter",
-      "helpPath": "",
-      "iconUrl": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0ibWRpLXJlc2lzdG9yLW5vZGVzIiB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTIsMTFIMy42N0M0LjA4LDkuODMgNS4xOSw5IDYuNSw5QTMsMyAwIDAsMSA5LjUsMTJDOS41LDEyLjY1IDkuMjksMTMuMjUgOC45NCwxMy43NEwxMC4wNywxNS4zNUwxMy4xMSw0TDE0LjYxLDYuMTNMMTYuNyw5LjExTDE3LjUsOUMxOC44MSw5IDE5LjkyLDkuODMgMjAuMzMsMTFIMjJWMTNIMjAuMzNDMTkuOTIsMTQuMTcgMTguODEsMTUgMTcuNSwxNUEzLDMgMCAwLDEgMTQuNSwxMkMxNC41LDExLjM1IDE0LjcxLDEwLjc1IDE1LjA2LDEwLjI2TDEzLjkzLDguNjVMMTAuODksMjBMNy4zLDE0Ljg5QzcuMDUsMTQuOTYgNi43OCwxNSA2LjUsMTVDNS4xOSwxNSA0LjA4LDE0LjE3IDMuNjcsMTNIMlYxMU0xNy41LDEwLjVBMS41LDEuNSAwIDAsMCAxNiwxMkExLjUsMS41IDAgMCwwIDE3LjUsMTMuNUExLjUsMS41IDAgMCwwIDE5LDEyQTEuNSwxLjUgMCAwLDAgMTcuNSwxMC41TTYuNSwxMC41QTEuNSwxLjUgMCAwLDAgNSwxMkExLjUsMS41IDAgMCwwIDYuNSwxMy41QTEuNSwxLjUgMCAwLDAgOCwxMkExLjUsMS41IDAgMCwwIDYuNSwxMC41WiIgLz48L3N2Zz4=",
-      "name": "DrawPathfinding",
-      "previewIconUrl": "https://resources.gdevelop-app.com/assets/Icons/resistor-nodes.svg",
-      "shortDescription": "Draw the pathfinding of an object using a shape painter.",
-      "version": "0.1.4",
-      "description": "Draw the path followed by an object using a shape painter.",
-      "origin": {
-        "identifier": "DrawPathfinding",
-        "name": "gdevelop-extension-store"
-      },
-      "tags": [
-        "pathfinding",
-        "debug",
-        "shape painter",
-        "draw"
-      ],
-      "authorIds": [
-        "q8ubdigLvIRXLxsJDDTaokO41mc2"
-      ],
-      "dependencies": [],
-      "globalVariables": [],
-      "sceneVariables": [],
-      "eventsFunctions": [],
-      "eventsBasedBehaviors": [
-        {
-          "description": "Draw the path followed by the object using a shape painter.",
-          "fullName": "Pathfinding painter",
-          "name": "DrawPathfinding",
-          "objectType": "",
-          "eventsFunctions": [
-            {
-              "description": "Draw the path followed by the object using a shape painter. It automatically creates an instance of the shape painter object if there is none.",
-              "fullName": "Draw pathfinding",
-              "functionType": "Action",
-              "name": "DrawPathfinding",
-              "sentence": "Draw the path followed by _PARAM0_ using _PARAM3_",
-              "events": [
-                {
-                  "type": "BuiltinCommonInstructions::Comment",
-                  "color": {
-                    "b": 109,
-                    "g": 230,
-                    "r": 255,
-                    "textB": 0,
-                    "textG": 0,
-                    "textR": 0
-                  },
-                  "comment": "Create the shape painter if one doesn't exist"
-                },
-                {
-                  "type": "BuiltinCommonInstructions::Standard",
-                  "conditions": [
-                    {
-                      "type": {
-                        "value": "NbObjet"
-                      },
-                      "parameters": [
-                        "ShapePainterObject",
-                        "=",
-                        "0"
-                      ]
-                    }
-                  ],
-                  "actions": [
-                    {
-                      "type": {
-                        "value": "Create"
-                      },
-                      "parameters": [
-                        "",
-                        "ShapePainterObject",
-                        "0",
-                        "0",
-                        "Object.Layer()"
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "ChangePlan"
-                      },
-                      "parameters": [
-                        "ShapePainterObject",
-                        "=",
-                        "Object.ZOrder()-1"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "BuiltinCommonInstructions::Comment",
-                  "color": {
-                    "b": 109,
-                    "g": 230,
-                    "r": 255,
-                    "textB": 0,
-                    "textG": 0,
-                    "textR": 0
-                  },
-                  "comment": "Enforce absolute coordinates"
-                },
-                {
-                  "type": "BuiltinCommonInstructions::Standard",
-                  "conditions": [
-                    {
-                      "type": {
-                        "value": "PrimitiveDrawing::AreCoordinatesRelative"
-                      },
-                      "parameters": [
-                        "ShapePainterObject"
-                      ]
-                    }
-                  ],
-                  "actions": [
-                    {
-                      "type": {
-                        "value": "PrimitiveDrawing::UseRelativeCoordinates"
-                      },
-                      "parameters": [
-                        "ShapePainterObject",
-                        "no"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "BuiltinCommonInstructions::Comment",
-                  "color": {
-                    "b": 109,
-                    "g": 230,
-                    "r": 255,
-                    "textB": 0,
-                    "textG": 0,
-                    "textR": 0
-                  },
-                  "comment": "Reset counter"
-                },
-                {
-                  "type": "BuiltinCommonInstructions::Standard",
-                  "conditions": [],
-                  "actions": [
-                    {
-                      "type": {
-                        "value": "DrawPathfinding::DrawPathfinding::SetPropertyLoopIndex"
-                      },
-                      "parameters": [
-                        "Object",
-                        "Behavior",
-                        "=",
-                        "0"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "BuiltinCommonInstructions::Comment",
-                  "color": {
-                    "b": 109,
-                    "g": 230,
-                    "r": 255,
-                    "textB": 0,
-                    "textG": 0,
-                    "textR": 0
-                  },
-                  "comment": "Draw path"
-                },
-                {
-                  "type": "BuiltinCommonInstructions::Repeat",
-                  "repeatExpression": "Object.PathfindingBehavior::NodeCount()",
-                  "conditions": [],
-                  "actions": [],
-                  "events": [
-                    {
-                      "type": "BuiltinCommonInstructions::Comment",
-                      "color": {
-                        "b": 109,
-                        "g": 230,
-                        "r": 255,
-                        "textB": 0,
-                        "textG": 0,
-                        "textR": 0
-                      },
-                      "comment": "Draw circles on each node"
-                    },
-                    {
-                      "type": "BuiltinCommonInstructions::Standard",
-                      "conditions": [
-                        {
-                          "type": {
-                            "value": "DrawPathfinding::DrawPathfinding::PropertyLoopIndex"
-                          },
-                          "parameters": [
-                            "Object",
-                            "Behavior",
-                            "<=",
-                            "Object.PathfindingBehavior::NodeCount()-1"
-                          ]
-                        }
-                      ],
-                      "actions": [
-                        {
-                          "type": {
-                            "value": "PrimitiveDrawing::Circle"
-                          },
-                          "parameters": [
-                            "ShapePainterObject",
-                            "Object.PathfindingBehavior::GetNodeX(LoopIndex)",
-                            "Object.PathfindingBehavior::GetNodeY(LoopIndex)",
-                            "3"
-                          ]
-                        }
-                      ]
-                    },
-                    {
-                      "type": "BuiltinCommonInstructions::Comment",
-                      "color": {
-                        "b": 109,
-                        "g": 230,
-                        "r": 255,
-                        "textB": 0,
-                        "textG": 0,
-                        "textR": 0
-                      },
-                      "comment": "Draw lines between nodes"
-                    },
-                    {
-                      "type": "BuiltinCommonInstructions::Standard",
-                      "conditions": [
-                        {
-                          "type": {
-                            "value": "DrawPathfinding::DrawPathfinding::PropertyLoopIndex"
-                          },
-                          "parameters": [
-                            "Object",
-                            "Behavior",
-                            "<",
-                            "Object.PathfindingBehavior::NodeCount()-1"
-                          ]
-                        }
-                      ],
-                      "actions": [
-                        {
-                          "type": {
-                            "value": "PrimitiveDrawing::LineV2"
-                          },
-                          "parameters": [
-                            "ShapePainterObject",
-                            "Object.PathfindingBehavior::GetNodeX(LoopIndex)",
-                            "Object.PathfindingBehavior::GetNodeY(LoopIndex)",
-                            "Object.PathfindingBehavior::GetNodeX(LoopIndex +1)",
-                            "Object.PathfindingBehavior::GetNodeY(LoopIndex+1)",
-                            "3"
-                          ]
-                        }
-                      ]
-                    },
-                    {
-                      "type": "BuiltinCommonInstructions::Standard",
-                      "conditions": [],
-                      "actions": [
-                        {
-                          "type": {
-                            "value": "DrawPathfinding::DrawPathfinding::SetPropertyLoopIndex"
-                          },
-                          "parameters": [
-                            "Object",
-                            "Behavior",
-                            "+",
-                            "1"
-                          ]
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ],
-              "parameters": [
-                {
-                  "description": "Object",
-                  "name": "Object",
-                  "type": "object"
-                },
-                {
-                  "description": "Behavior",
-                  "name": "Behavior",
-                  "supplementaryInformation": "DrawPathfinding::DrawPathfinding",
-                  "type": "behavior"
-                },
-                {
-                  "description": "Pathfinding behavior",
-                  "name": "PathfindingBehavior",
-                  "supplementaryInformation": "PathfindingBehavior::PathfindingBehavior",
-                  "type": "behavior"
-                },
-                {
-                  "description": "Shape painter used to draw the path",
-                  "name": "ShapePainterObject",
-                  "supplementaryInformation": "PrimitiveDrawing::Drawer",
-                  "type": "objectList"
-                }
-              ],
-              "objectGroups": []
-            }
-          ],
-          "propertyDescriptors": [
-            {
-              "value": "0",
-              "type": "Number",
-              "label": "LoopIndex",
-              "description": "",
-              "group": "",
-              "extraInformation": [],
-              "hidden": true,
-              "name": "LoopIndex"
-            },
-            {
-              "value": "",
-              "type": "Number",
-              "label": "",
-              "description": "",
-              "group": "",
-              "extraInformation": [],
-              "hidden": true,
-              "name": "CorrectionX"
-            },
-            {
-              "value": "",
-              "type": "Number",
-              "label": "",
-              "description": "",
-              "group": "",
-              "extraInformation": [],
-              "hidden": true,
-              "name": "CorrectionY"
-            }
-          ],
-          "sharedPropertyDescriptors": []
-        }
-      ],
-      "eventsBasedObjects": []
     }
   ],
   "externalLayouts": [],
