@@ -11,7 +11,7 @@
     "antialiasingMode": "MSAA",
     "antialisingEnabledOnMobile": false,
     "folderProject": false,
-    "orientation": "default",
+    "orientation": "landscape",
     "packageName": "com.example.gamename",
     "pixelsRounding": false,
     "projectUuid": "eee3b414-6fa5-4b31-afe1-aa1924a8f946",
@@ -20,8 +20,8 @@
     "templateSlug": "",
     "useExternalSourceFiles": false,
     "version": "1.0.0",
-    "name": "Frozen Synapse",
-    "description": "",
+    "name": "Melted Dendrite",
+    "description": "A turn-based tactical strategy game where players draw paths to command their soldiers. Both players' orders are executed simultaneously.\n\nThis is a remake/clone of Frozen Synapse. \n\nIt was developed in one week to be submitted as the final project for the Web-Based Game Development course (BCO654) in Hacettepe University's Master’s program in Computer Animation and Game Technologies.\n\nPlease play in full-screen.\n\nGreen soldiers -> Player 1\nWhite soldiers -> Player 2\nSelect soldiers by clicking on them.\n\nControls: \nDouble click - Add waypoints from scratch\nRight click - Open order menu\nPressing and moving crosshair on the top left of a waypoint - aim in that direction\nMouse Wheel - Zoom in/out\nMiddle mouse - move camera",
     "author": "",
     "windowWidth": 1920,
     "windowHeight": 1080,
@@ -29,7 +29,35 @@
     "maxFPS": 60,
     "minFPS": 20,
     "verticalSync": false,
-    "platformSpecificAssets": {},
+    "platformSpecificAssets": {
+      "android-icon-144": "",
+      "android-icon-192": "",
+      "android-icon-36": "",
+      "android-icon-48": "",
+      "android-icon-72": "",
+      "android-icon-96": "",
+      "android-windowSplashScreenAnimatedIcon": "",
+      "desktop-icon-512": "",
+      "ios-icon-100": "",
+      "ios-icon-1024": "",
+      "ios-icon-114": "",
+      "ios-icon-120": "",
+      "ios-icon-144": "",
+      "ios-icon-152": "",
+      "ios-icon-167": "",
+      "ios-icon-180": "",
+      "ios-icon-20": "",
+      "ios-icon-29": "",
+      "ios-icon-40": "",
+      "ios-icon-50": "",
+      "ios-icon-57": "",
+      "ios-icon-58": "",
+      "ios-icon-60": "",
+      "ios-icon-72": "",
+      "ios-icon-76": "",
+      "ios-icon-80": "",
+      "ios-icon-87": ""
+    },
     "loadingScreen": {
       "backgroundColor": 0,
       "backgroundFadeInDuration": 0.2,
@@ -50,9 +78,15 @@
       "placement": "bottom-left",
       "showWatermark": true
     },
-    "authorIds": [],
-    "authorUsernames": [],
-    "categories": [],
+    "authorIds": [
+      "SzfRqcxkOYfzRRnj11h9mJEsDxx2"
+    ],
+    "authorUsernames": [
+      "anilkonac"
+    ],
+    "categories": [
+      "strategy"
+    ],
     "playableDevices": [],
     "extensionProperties": [],
     "platforms": [
@@ -2311,10 +2345,10 @@
               "CorrectionY": 2.0247e-320
             },
             {
-              "cellHeight": 6,
-              "cellWidth": 6,
               "name": "Pathfinding",
               "type": "PathfindingBehavior::PathfindingBehavior",
+              "cellHeight": 6,
+              "cellWidth": 6,
               "allowDiagonals": true,
               "smoothingMaxCellGap": 1,
               "acceleration": 10000,
