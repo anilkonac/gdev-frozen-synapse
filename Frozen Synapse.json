@@ -622,7 +622,13 @@
           "zOrder": 24,
           "numberProperties": [],
           "stringProperties": [],
-          "initialVariables": []
+          "initialVariables": [
+            {
+              "name": "playerID",
+              "type": "number",
+              "value": 2
+            }
+          ]
         },
         {
           "angle": 0,
