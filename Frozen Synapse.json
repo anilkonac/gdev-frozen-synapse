@@ -6209,7 +6209,6 @@
           "colorG": 176,
           "colorR": 74,
           "creationTime": 0,
-          "folded": true,
           "name": "Path and waypoint drawing",
           "source": "",
           "type": "BuiltinCommonInstructions::Group",
@@ -6233,7 +6232,18 @@
                 {
                   "type": "BuiltinCommonInstructions::ForEach",
                   "object": "Rifleman",
-                  "conditions": [],
+                  "conditions": [
+                    {
+                      "type": {
+                        "value": "NumberVariable"
+                      },
+                      "parameters": [
+                        "turnPhase",
+                        "=",
+                        "Rifleman.playerID"
+                      ]
+                    }
+                  ],
                   "actions": [],
                   "events": [
                     {
@@ -6966,56 +6976,12 @@
               "actions": [
                 {
                   "type": {
-                    "value": "SetBooleanVariable"
+                    "value": "SetNumberVariable"
                   },
                   "parameters": [
-                    "isTurnExecuting",
-                    "True",
-                    ""
-                  ]
-                },
-                {
-                  "type": {
-                    "value": "PathfindingBehavior::MaxSpeed"
-                  },
-                  "parameters": [
-                    "Rifleman",
-                    "Pathfinding",
-                    "=",
-                    "RiflemanWalkSpeed"
-                  ]
-                },
-                {
-                  "type": {
-                    "value": "PathfindingBehavior::RotateObject"
-                  },
-                  "parameters": [
-                    "Rifleman",
-                    "Pathfinding",
-                    "yes"
-                  ]
-                },
-                {
-                  "type": {
-                    "value": "EffectCapability::EffectBehavior::EnableEffect"
-                  },
-                  "parameters": [
-                    "Rifleman",
-                    "Effect",
-                    "\"Glow\"",
-                    "no"
-                  ]
-                },
-                {
-                  "type": {
-                    "value": "PathfindingBehavior::SetDestination"
-                  },
-                  "parameters": [
-                    "Rifleman",
-                    "Pathfinding",
-                    "",
-                    "Rifleman.CenterX()",
-                    "Rifleman.CenterY()"
+                    "turnPhase",
+                    "+",
+                    "1"
                   ]
                 },
                 {
@@ -7034,7 +7000,7 @@
                     "value": "Cache"
                   },
                   "parameters": [
-                    "AimCrosshair"
+                    "CancelAimCrosshair"
                   ]
                 },
                 {
@@ -7042,15 +7008,119 @@
                     "value": "Cache"
                   },
                   "parameters": [
-                    "CancelAimCrosshair"
+                    "AimCrosshair"
                   ]
                 }
               ],
               "events": [
                 {
+                  "disabled": true,
                   "type": "BuiltinCommonInstructions::Standard",
-                  "conditions": [],
-                  "actions": []
+                  "conditions": [
+                    {
+                      "type": {
+                        "value": "NumberVariable"
+                      },
+                      "parameters": [
+                        "turnPhase",
+                        ">",
+                        "3"
+                      ]
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "turnPhase",
+                        "=",
+                        "1"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [
+                    {
+                      "type": {
+                        "value": "NumberVariable"
+                      },
+                      "parameters": [
+                        "turnPhase",
+                        "=",
+                        "3"
+                      ]
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "SetBooleanVariable"
+                      },
+                      "parameters": [
+                        "isTurnExecuting",
+                        "True",
+                        ""
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "PathfindingBehavior::SetDestination"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "Pathfinding",
+                        "",
+                        "Rifleman.CenterX()",
+                        "Rifleman.CenterY()"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "PathfindingBehavior::MaxSpeed"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "Pathfinding",
+                        "=",
+                        "RiflemanWalkSpeed"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "PathfindingBehavior::RotateObject"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "Pathfinding",
+                        "yes"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "EffectCapability::EffectBehavior::EnableEffect"
+                      },
+                      "parameters": [
+                        "Rifleman",
+                        "Effect",
+                        "\"Glow\"",
+                        "no"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "turnPhase",
+                        "=",
+                        "1"
+                      ]
+                    }
+                  ]
                 }
               ]
             },
@@ -7139,7 +7209,6 @@
                           "comment": "Move and Aim"
                         },
                         {
-                          "folded": true,
                           "type": "BuiltinCommonInstructions::Standard",
                           "conditions": [
                             {
@@ -8548,6 +8617,17 @@
                             "Rifleman",
                             "",
                             "",
+                            ""
+                          ]
+                        },
+                        {
+                          "type": {
+                            "value": "BooleanObjectVariable"
+                          },
+                          "parameters": [
+                            "Rifleman",
+                            "isAlive",
+                            "True",
                             ""
                           ]
                         }
