@@ -368,6 +368,11 @@
       "name": "BulletTrailLength",
       "type": "number",
       "value": 400
+    },
+    {
+      "name": "turnPhase",
+      "type": "number",
+      "value": 1
     }
   ],
   "layouts": [
@@ -391,7 +396,7 @@
         "gridColor": 10401023,
         "gridAlpha": 0.8,
         "snap": false,
-        "zoomFactor": 0.6846283916654055,
+        "zoomFactor": 0.47535850871269403,
         "windowMask": false
       },
       "objectsGroups": [
@@ -685,6 +690,22 @@
               "value": 2
             }
           ]
+        },
+        {
+          "angle": 0,
+          "customSize": false,
+          "height": 0,
+          "keepRatio": true,
+          "layer": "UI Layer",
+          "name": "TextPlanningPhase",
+          "persistentUuid": "08316c6c-f928-4a85-8310-dfd3acd809fb",
+          "width": 0,
+          "x": 303,
+          "y": 103,
+          "zOrder": 18,
+          "numberProperties": [],
+          "stringProperties": [],
+          "initialVariables": []
         }
       ],
       "objects": [
@@ -2152,6 +2173,53 @@
             "g": 255,
             "b": 255
           }
+        },
+        {
+          "assetStoreId": "",
+          "bold": false,
+          "italic": false,
+          "name": "TextPlanningPhase",
+          "smoothed": true,
+          "type": "TextObject::Text",
+          "underlined": false,
+          "variables": [],
+          "effects": [],
+          "behaviors": [
+            {
+              "name": "Tween",
+              "type": "Tween::TweenBehavior"
+            }
+          ],
+          "string": "Player 1\nPLANNING\nPHASE",
+          "font": "",
+          "textAlignment": "center",
+          "characterSize": 256,
+          "color": {
+            "b": 255,
+            "g": 255,
+            "r": 255
+          },
+          "content": {
+            "bold": false,
+            "isOutlineEnabled": false,
+            "isShadowEnabled": false,
+            "italic": false,
+            "outlineColor": "255;255;255",
+            "outlineThickness": 2,
+            "shadowAngle": 90,
+            "shadowBlurRadius": 2,
+            "shadowColor": "0;0;0",
+            "shadowDistance": 4,
+            "shadowOpacity": 127,
+            "smoothed": true,
+            "underlined": false,
+            "text": "Player 1\nPLANNING\nPHASE",
+            "font": "",
+            "textAlignment": "center",
+            "verticalTextAlignment": "top",
+            "characterSize": 256,
+            "color": "255;255;255"
+          }
         }
       ],
       "objectsFolderStructure": {
@@ -2233,6 +2301,9 @@
           },
           {
             "objectName": "Bullet"
+          },
+          {
+            "objectName": "TextPlanningPhase"
           }
         ]
       },
@@ -2317,6 +2388,15 @@
                 "no",
                 "yes",
                 "yes"
+              ]
+            },
+            {
+              "type": {
+                "value": "ResetTimer"
+              },
+              "parameters": [
+                "",
+                "\"PhaseTextTimer\""
               ]
             }
           ],
@@ -2709,11 +2789,42 @@
           ]
         },
         {
+          "type": "BuiltinCommonInstructions::Standard",
+          "conditions": [
+            {
+              "type": {
+                "value": "CompareTimer"
+              },
+              "parameters": [
+                "",
+                "\"PhaseTextTimer\"",
+                ">=",
+                "1"
+              ]
+            }
+          ],
+          "actions": [
+            {
+              "type": {
+                "value": "Tween::TweenBehavior::AddObjectOpacityTween2"
+              },
+              "parameters": [
+                "TextPlanningPhase",
+                "Tween",
+                "\"Hide\"",
+                "0",
+                "\"linear\"",
+                "0.5",
+                "yes"
+              ]
+            }
+          ]
+        },
+        {
           "colorB": 228,
           "colorG": 176,
           "colorR": 74,
           "creationTime": 0,
-          "folded": true,
           "name": "Rifleman selection",
           "source": "",
           "type": "BuiltinCommonInstructions::Group",
@@ -2730,6 +2841,26 @@
                     "",
                     "",
                     ""
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "BooleanVariable"
+                  },
+                  "parameters": [
+                    "isTurnExecuting",
+                    "=",
+                    ""
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "NumberVariable"
+                  },
+                  "parameters": [
+                    "turnPhase",
+                    "=",
+                    "Rifleman.playerID"
                   ]
                 }
               ],
@@ -2895,6 +3026,7 @@
           "colorG": 176,
           "colorR": 74,
           "creationTime": 0,
+          "folded": true,
           "name": "Planning",
           "source": "",
           "type": "BuiltinCommonInstructions::Group",
@@ -6912,6 +7044,13 @@
                   "parameters": [
                     "CancelAimCrosshair"
                   ]
+                }
+              ],
+              "events": [
+                {
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [],
+                  "actions": []
                 }
               ]
             },
