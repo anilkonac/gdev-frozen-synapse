@@ -10706,63 +10706,6 @@
                       ]
                     },
                     {
-                      "type": "BuiltinCommonInstructions::Standard",
-                      "conditions": [
-                        {
-                          "type": {
-                            "value": "NumberVariable"
-                          },
-                          "parameters": [
-                            "turnPhase",
-                            "=",
-                            "1"
-                          ]
-                        }
-                      ],
-                      "actions": [
-                        {
-                          "type": {
-                            "value": "ResetTimer"
-                          },
-                          "parameters": [
-                            "",
-                            "\"PhaseTextTimer\""
-                          ]
-                        },
-                        {
-                          "type": {
-                            "value": "OpacityCapability::OpacityBehavior::SetValue"
-                          },
-                          "parameters": [
-                            "TextTurnPhase",
-                            "Opacity",
-                            "=",
-                            "255"
-                          ]
-                        },
-                        {
-                          "type": {
-                            "value": "UnPauseTimer"
-                          },
-                          "parameters": [
-                            "",
-                            "\"PhaseTextTimer\""
-                          ]
-                        },
-                        {
-                          "type": {
-                            "value": "TextContainerCapability::TextContainerBehavior::SetValue"
-                          },
-                          "parameters": [
-                            "TextTurnPhase",
-                            "Text",
-                            "=",
-                            "\"PLAYER \" + turnPhase + \"\nPLANNING\nPHASE\""
-                          ]
-                        }
-                      ]
-                    },
-                    {
                       "type": "BuiltinCommonInstructions::Comment",
                       "color": {
                         "b": 109,
@@ -11119,6 +11062,46 @@
                                 "turnPhase",
                                 "=",
                                 "1"
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "ResetTimer"
+                              },
+                              "parameters": [
+                                "",
+                                "\"PhaseTextTimer\""
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "OpacityCapability::OpacityBehavior::SetValue"
+                              },
+                              "parameters": [
+                                "TextTurnPhase",
+                                "Opacity",
+                                "=",
+                                "255"
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "UnPauseTimer"
+                              },
+                              "parameters": [
+                                "",
+                                "\"PhaseTextTimer\""
+                              ]
+                            },
+                            {
+                              "type": {
+                                "value": "TextContainerCapability::TextContainerBehavior::SetValue"
+                              },
+                              "parameters": [
+                                "TextTurnPhase",
+                                "Text",
+                                "=",
+                                "\"PLAYER \" + turnPhase + \"\nPLANNING\nPHASE\""
                               ]
                             }
                           ]
