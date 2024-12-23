@@ -2313,8 +2313,8 @@
             {
               "name": "Pathfinding",
               "type": "PathfindingBehavior::PathfindingBehavior",
-              "cellHeight": 12,
-              "cellWidth": 12,
+              "cellHeight": 6,
+              "cellWidth": 6,
               "allowDiagonals": true,
               "smoothingMaxCellGap": 1,
               "acceleration": 10000,
@@ -7280,6 +7280,17 @@
                   },
                   "parameters": [
                     "DeleteWaypointButton",
+                    ""
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "BooleanObjectVariable"
+                  },
+                  "parameters": [
+                    "Rifleman",
+                    "selected",
+                    "True",
                     ""
                   ]
                 }
