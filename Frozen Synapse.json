@@ -239,7 +239,7 @@
     {
       "name": "TurnDuration",
       "type": "number",
-      "value": 3
+      "value": 5
     },
     {
       "name": "turnTimePassed",
@@ -355,6 +355,11 @@
       "name": "BulletSpeed_pix_sec",
       "type": "number",
       "value": 400
+    },
+    {
+      "name": "BulletTrailLength",
+      "type": "number",
+      "value": 400
     }
   ],
   "layouts": [
@@ -439,8 +444,8 @@
           "name": "Wall",
           "persistentUuid": "7bb50725-e42d-4a3d-b5a3-bae138f2ed50",
           "width": 25,
-          "x": 1104,
-          "y": 284,
+          "x": 1105,
+          "y": 280,
           "zOrder": 4,
           "numberProperties": [],
           "stringProperties": [],
@@ -549,12 +554,12 @@
           "height": 0,
           "keepRatio": true,
           "layer": "",
-          "name": "Rifleman",
-          "persistentUuid": "fcdaaf83-d7af-4d54-801b-c81fdbf74262",
+          "name": "BulletTrailPainter",
+          "persistentUuid": "8a59b437-c18b-42c2-95b4-928cae813866",
           "width": 0,
-          "x": 592,
-          "y": 369,
-          "zOrder": 13,
+          "x": 1634,
+          "y": 535,
+          "zOrder": 15,
           "numberProperties": [],
           "stringProperties": [],
           "initialVariables": []
@@ -566,11 +571,59 @@
           "keepRatio": true,
           "layer": "",
           "name": "Rifleman",
-          "persistentUuid": "90eb9b1a-1613-44bf-954e-53e6cbfb049f",
+          "persistentUuid": "81377e55-99ec-408f-9f69-2497a8a3f72c",
           "width": 0,
-          "x": 1240,
-          "y": 575,
-          "zOrder": 14,
+          "x": 634,
+          "y": 296,
+          "zOrder": 16,
+          "numberProperties": [],
+          "stringProperties": [],
+          "initialVariables": []
+        },
+        {
+          "angle": 0,
+          "customSize": false,
+          "height": 0,
+          "keepRatio": true,
+          "layer": "",
+          "name": "Rifleman",
+          "persistentUuid": "0664600a-1645-4584-88ea-0f4e13dfdb1a",
+          "width": 0,
+          "x": 875,
+          "y": 320,
+          "zOrder": 17,
+          "numberProperties": [],
+          "stringProperties": [],
+          "initialVariables": []
+        },
+        {
+          "angle": 0,
+          "customSize": false,
+          "height": 0,
+          "keepRatio": true,
+          "layer": "",
+          "name": "Rifleman",
+          "persistentUuid": "0412da04-efb8-43eb-9179-17cefd6a99e8",
+          "width": 0,
+          "x": 755,
+          "y": 419,
+          "zOrder": 18,
+          "numberProperties": [],
+          "stringProperties": [],
+          "initialVariables": []
+        },
+        {
+          "angle": 0,
+          "customSize": false,
+          "height": 0,
+          "keepRatio": true,
+          "layer": "",
+          "name": "Rifleman",
+          "persistentUuid": "e8fdd93f-b91d-4ec5-9125-8842e210f7fc",
+          "width": 0,
+          "x": 1582,
+          "y": 321,
+          "zOrder": 19,
           "numberProperties": [],
           "stringProperties": [],
           "initialVariables": [
@@ -587,15 +640,43 @@
           "height": 0,
           "keepRatio": true,
           "layer": "",
-          "name": "BulletTrailPainter",
-          "persistentUuid": "8a59b437-c18b-42c2-95b4-928cae813866",
+          "name": "Rifleman",
+          "persistentUuid": "cd76f6fd-ef1a-4543-9134-3da60ecda130",
           "width": 0,
-          "x": 1634,
-          "y": 535,
-          "zOrder": 15,
+          "x": 1555,
+          "y": 576,
+          "zOrder": 20,
           "numberProperties": [],
           "stringProperties": [],
-          "initialVariables": []
+          "initialVariables": [
+            {
+              "name": "playerID",
+              "type": "number",
+              "value": 2
+            }
+          ]
+        },
+        {
+          "angle": 0,
+          "customSize": false,
+          "height": 0,
+          "keepRatio": true,
+          "layer": "",
+          "name": "Rifleman",
+          "persistentUuid": "7ed96453-07b3-4717-9e0e-bcff6bd2de82",
+          "width": 0,
+          "x": 1338,
+          "y": 773,
+          "zOrder": 21,
+          "numberProperties": [],
+          "stringProperties": [],
+          "initialVariables": [
+            {
+              "name": "playerID",
+              "type": "number",
+              "value": 2
+            }
+          ]
         }
       ],
       "objects": [
@@ -2140,7 +2221,7 @@
               },
               "parameters": [
                 "",
-                "yes",
+                "no",
                 ""
               ]
             },
@@ -6851,7 +6932,6 @@
                           "comment": "Move and Aim"
                         },
                         {
-                          "folded": true,
                           "type": "BuiltinCommonInstructions::Standard",
                           "conditions": [
                             {
@@ -7312,7 +7392,6 @@
                           "comment": "Raycast"
                         },
                         {
-                          "folded": true,
                           "type": "BuiltinCommonInstructions::Standard",
                           "conditions": [],
                           "actions": [
@@ -7812,7 +7891,7 @@
                                           "parameters": [
                                             "Rifleman",
                                             "Tween",
-                                            "\"Rotate\""
+                                            "\"AimEnemy\""
                                           ]
                                         }
                                       ],
@@ -7824,7 +7903,7 @@
                                           "parameters": [
                                             "Rifleman",
                                             "Tween",
-                                            "\"Rotate\"",
+                                            "\"AimEnemy\"",
                                             "currentAngle - angleDifference",
                                             "\"linear\"",
                                             "RiflemanRotateInSec",
@@ -7970,6 +8049,28 @@
                                     "Bullet",
                                     "+",
                                     "RandomFloatInRange(-2,2)"
+                                  ]
+                                },
+                                {
+                                  "type": {
+                                    "value": "Tween::StopTween"
+                                  },
+                                  "parameters": [
+                                    "Rifleman",
+                                    "Tween",
+                                    "\"Rotate\"",
+                                    "yes"
+                                  ]
+                                },
+                                {
+                                  "type": {
+                                    "value": "Tween::StopTween"
+                                  },
+                                  "parameters": [
+                                    "Rifleman",
+                                    "Tween",
+                                    "\"AimEnemy\"",
+                                    "yes"
                                   ]
                                 }
                               ],
@@ -8783,51 +8884,134 @@
           "parameters": []
         },
         {
-          "type": "BuiltinCommonInstructions::ForEach",
-          "object": "Bullet",
+          "type": "BuiltinCommonInstructions::Comment",
+          "color": {
+            "b": 109,
+            "g": 230,
+            "r": 255,
+            "textB": 0,
+            "textG": 0,
+            "textR": 0
+          },
+          "comment": "Draw Bullet Trail\n"
+        },
+        {
+          "type": "BuiltinCommonInstructions::Standard",
           "conditions": [],
-          "actions": [
-            {
-              "type": {
-                "value": "PrimitiveDrawing::LineV2"
-              },
-              "parameters": [
-                "BulletTrailPainter",
-                "Bullet.spawnPosX",
-                "Bullet.spawnPosY",
-                "Bullet.CenterX()",
-                "Bullet.CenterY()",
-                "3"
-              ]
-            },
-            {
-              "type": {
-                "value": "DebuggerTools::ConsoleLog"
-              },
-              "parameters": [
-                "\"Bullet Spawn:\" + Bullet.spawnPosX + \", \" + Bullet.spawnPosY",
-                "\"info\"",
-                ""
-              ]
-            }
-          ],
+          "actions": [],
           "events": [
             {
-              "disabled": true,
-              "type": "BuiltinCommonInstructions::Standard",
+              "type": "BuiltinCommonInstructions::ForEach",
+              "object": "Bullet",
               "conditions": [],
               "actions": [
                 {
                   "type": {
-                    "value": "DebuggerTools::ConsoleLog"
+                    "value": "SetNumberVariable"
                   },
                   "parameters": [
-                    "\"Trail çizsene be adam\"",
-                    "\"info\"",
-                    ""
+                    "distanceToSpawnPoint",
+                    "=",
+                    "DistanceBetweenPositions(Bullet.spawnPosX, Bullet.spawnPosY, Bullet.CenterX(), Bullet.CenterY())"
+                  ]
+                }
+              ],
+              "events": [
+                {
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [
+                    {
+                      "type": {
+                        "value": "NumberVariable"
+                      },
+                      "parameters": [
+                        "distanceToSpawnPoint",
+                        "<",
+                        "BulletTrailLength"
+                      ]
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "PrimitiveDrawing::LineV2"
+                      },
+                      "parameters": [
+                        "BulletTrailPainter",
+                        "Bullet.spawnPosX",
+                        "Bullet.spawnPosY",
+                        "Bullet.CenterX()",
+                        "Bullet.CenterY()",
+                        "3"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [
+                    {
+                      "type": {
+                        "value": "NumberVariable"
+                      },
+                      "parameters": [
+                        "distanceToSpawnPoint",
+                        ">=",
+                        "BulletTrailLength"
+                      ]
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "PrimitiveDrawing::LineV2"
+                      },
+                      "parameters": [
+                        "BulletTrailPainter",
+                        "Bullet.CenterX() - BulletTrailLength*cos(ToRad(Bullet.Angle()))",
+                        "Bullet.CenterY() - BulletTrailLength*sin(ToRad(Bullet.Angle()))",
+                        "Bullet.CenterX()",
+                        "Bullet.CenterY()",
+                        "3"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "disabled": true,
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "DebuggerTools::ConsoleLog"
+                      },
+                      "parameters": [
+                        "\"Trail çizsene be adam\"",
+                        "\"info\"",
+                        ""
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "DebuggerTools::ConsoleLog"
+                      },
+                      "parameters": [
+                        "\"Bullet Spawn:\" + Bullet.spawnPosX + \", \" + Bullet.spawnPosY",
+                        "\"info\"",
+                        ""
+                      ]
+                    }
                   ]
                 }
               ]
+            }
+          ],
+          "variables": [
+            {
+              "name": "distanceToSpawnPoint",
+              "type": "number",
+              "value": 0
             }
           ]
         }
