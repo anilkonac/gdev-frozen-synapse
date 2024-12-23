@@ -404,7 +404,7 @@
         "gridColor": 10401023,
         "gridAlpha": 0.8,
         "snap": false,
-        "zoomFactor": 0.34118560234734646,
+        "zoomFactor": 0.41630252177333454,
         "windowMask": false
       },
       "objectsGroups": [
@@ -447,8 +447,8 @@
           "name": "PrimeButton",
           "persistentUuid": "a0d8c3ec-f4dc-4a35-a95c-d7a37c87c353",
           "width": 0,
-          "x": 1506,
-          "y": 829,
+          "x": 1510,
+          "y": 877,
           "zOrder": 5,
           "numberProperties": [],
           "stringProperties": [],
@@ -496,8 +496,8 @@
           "name": "CopperRedBar",
           "persistentUuid": "76fea471-7934-4163-93e0-ace606129293",
           "width": 245,
-          "x": 853,
-          "y": 857,
+          "x": 836,
+          "y": 928,
           "zOrder": 8,
           "numberProperties": [],
           "stringProperties": [],
@@ -512,8 +512,8 @@
           "name": "TurnTitle",
           "persistentUuid": "82b7a4ea-ded6-460c-a134-afe2688ede8b",
           "width": 0,
-          "x": 905,
-          "y": 790,
+          "x": 888,
+          "y": 861,
           "zOrder": 9,
           "numberProperties": [],
           "stringProperties": [],
@@ -2311,10 +2311,10 @@
               "CorrectionY": 2.0247e-320
             },
             {
-              "name": "Pathfinding",
-              "type": "PathfindingBehavior::PathfindingBehavior",
               "cellHeight": 6,
               "cellWidth": 6,
+              "name": "Pathfinding",
+              "type": "PathfindingBehavior::PathfindingBehavior",
               "allowDiagonals": true,
               "smoothingMaxCellGap": 1,
               "acceleration": 10000,
@@ -3887,7 +3887,6 @@
       },
       "events": [
         {
-          "folded": true,
           "type": "BuiltinCommonInstructions::Standard",
           "conditions": [
             {
@@ -3992,7 +3991,6 @@
               "colorG": 176,
               "colorR": 74,
               "creationTime": 0,
-              "folded": true,
               "name": "Initialize Rifleman",
               "source": "",
               "type": "BuiltinCommonInstructions::Group",
@@ -4233,6 +4231,17 @@
                     },
                     {
                       "type": {
+                        "value": "SetNumberObjectVariable"
+                      },
+                      "parameters": [
+                        "AimCrosshair",
+                        "nodeIndex",
+                        "=",
+                        "0"
+                      ]
+                    },
+                    {
+                      "type": {
                         "value": "LinkedObjects::LinkObjects"
                       },
                       "parameters": [
@@ -4379,7 +4388,6 @@
           "colorG": 176,
           "colorR": 74,
           "creationTime": 0,
-          "folded": true,
           "name": "Rifleman selection",
           "source": "",
           "type": "BuiltinCommonInstructions::Group",
@@ -4822,7 +4830,7 @@
                                 "AimCrosshair",
                                 "nodeIndex",
                                 "=",
-                                "LoopIndex+1"
+                                "LoopIndex"
                               ]
                             },
                             {
@@ -9403,7 +9411,6 @@
                           "comment": "Raycast"
                         },
                         {
-                          "folded": true,
                           "type": "BuiltinCommonInstructions::Standard",
                           "conditions": [],
                           "actions": [
@@ -9472,7 +9479,6 @@
                               "comment": "Find enemy with min angle"
                             },
                             {
-                              "folded": true,
                               "type": "BuiltinCommonInstructions::Standard",
                               "conditions": [],
                               "actions": [
@@ -10683,6 +10689,17 @@
                             "0",
                             "0",
                             ""
+                          ]
+                        },
+                        {
+                          "type": {
+                            "value": "SetNumberObjectVariable"
+                          },
+                          "parameters": [
+                            "AimCrosshair",
+                            "nodeIndex",
+                            "=",
+                            "0"
                           ]
                         },
                         {
