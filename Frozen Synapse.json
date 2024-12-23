@@ -362,7 +362,7 @@
     {
       "name": "BulletSpeed_pix_sec",
       "type": "number",
-      "value": 800
+      "value": 1000
     },
     {
       "name": "BulletTrailLength",
@@ -10190,6 +10190,34 @@
                           ]
                         }
                       ]
+                    },
+                    {
+                      "type": "BuiltinCommonInstructions::Standard",
+                      "conditions": [
+                        {
+                          "type": {
+                            "value": "CollisionNP"
+                          },
+                          "parameters": [
+                            "Bullet",
+                            "Wall",
+                            "",
+                            "",
+                            ""
+                          ]
+                        }
+                      ],
+                      "actions": [
+                        {
+                          "type": {
+                            "value": "Delete"
+                          },
+                          "parameters": [
+                            "Bullet",
+                            ""
+                          ]
+                        }
+                      ]
                     }
                   ]
                 },
@@ -10206,6 +10234,7 @@
                   "comment": "When Turn finished\n"
                 },
                 {
+                  "folded": true,
                   "type": "BuiltinCommonInstructions::Standard",
                   "conditions": [
                     {
