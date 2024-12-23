@@ -7153,7 +7153,7 @@
                                       "parameters": [
                                         "Rifleman",
                                         "Tween",
-                                        "\"Rotate\"",
+                                        "\"Aim\"",
                                         "currentAngle - angleDifference",
                                         "\"linear\"",
                                         "RiflemanRotateInSec",
@@ -7882,20 +7882,18 @@
                                   "events": [
                                     {
                                       "type": "BuiltinCommonInstructions::Standard",
-                                      "conditions": [
+                                      "conditions": [],
+                                      "actions": [
                                         {
                                           "type": {
-                                            "inverted": true,
-                                            "value": "Tween::IsPlaying"
+                                            "value": "PathfindingBehavior::RotateObject"
                                           },
                                           "parameters": [
                                             "Rifleman",
-                                            "Tween",
-                                            "\"AimEnemy\""
+                                            "Pathfinding",
+                                            "no"
                                           ]
-                                        }
-                                      ],
-                                      "actions": [
+                                        },
                                         {
                                           "type": {
                                             "value": "Tween::TweenBehavior::AddObjectAngleTween2"
@@ -7903,7 +7901,7 @@
                                           "parameters": [
                                             "Rifleman",
                                             "Tween",
-                                            "\"AimEnemy\"",
+                                            "\"AimFire\"",
                                             "currentAngle - angleDifference",
                                             "\"linear\"",
                                             "RiflemanRotateInSec",
@@ -8049,28 +8047,6 @@
                                     "Bullet",
                                     "+",
                                     "RandomFloatInRange(-2,2)"
-                                  ]
-                                },
-                                {
-                                  "type": {
-                                    "value": "Tween::StopTween"
-                                  },
-                                  "parameters": [
-                                    "Rifleman",
-                                    "Tween",
-                                    "\"Rotate\"",
-                                    "yes"
-                                  ]
-                                },
-                                {
-                                  "type": {
-                                    "value": "Tween::StopTween"
-                                  },
-                                  "parameters": [
-                                    "Rifleman",
-                                    "Tween",
-                                    "\"AimEnemy\"",
-                                    "yes"
                                   ]
                                 }
                               ],
