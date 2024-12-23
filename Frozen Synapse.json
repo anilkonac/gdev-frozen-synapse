@@ -697,7 +697,7 @@
           "height": 0,
           "keepRatio": true,
           "layer": "UI Layer",
-          "name": "TextPlanningPhase",
+          "name": "TextTurnPhase",
           "persistentUuid": "08316c6c-f928-4a85-8310-dfd3acd809fb",
           "width": 0,
           "x": 303,
@@ -2178,7 +2178,7 @@
           "assetStoreId": "",
           "bold": false,
           "italic": false,
-          "name": "TextPlanningPhase",
+          "name": "TextTurnPhase",
           "smoothed": true,
           "type": "TextObject::Text",
           "underlined": false,
@@ -2190,7 +2190,7 @@
               "type": "Tween::TweenBehavior"
             }
           ],
-          "string": "Player 1\nPLANNING\nPHASE",
+          "string": "PLAYER 1\nPLANNING\nPHASE",
           "font": "",
           "textAlignment": "center",
           "characterSize": 256,
@@ -2213,7 +2213,7 @@
             "shadowOpacity": 127,
             "smoothed": true,
             "underlined": false,
-            "text": "Player 1\nPLANNING\nPHASE",
+            "text": "PLAYER 1\nPLANNING\nPHASE",
             "font": "",
             "textAlignment": "center",
             "verticalTextAlignment": "top",
@@ -2303,7 +2303,7 @@
             "objectName": "Bullet"
           },
           {
-            "objectName": "TextPlanningPhase"
+            "objectName": "TextTurnPhase"
           }
         ]
       },
@@ -2784,38 +2784,6 @@
                     "CancelAimButton"
                   ]
                 }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "BuiltinCommonInstructions::Standard",
-          "conditions": [
-            {
-              "type": {
-                "value": "CompareTimer"
-              },
-              "parameters": [
-                "",
-                "\"PhaseTextTimer\"",
-                ">=",
-                "1"
-              ]
-            }
-          ],
-          "actions": [
-            {
-              "type": {
-                "value": "Tween::TweenBehavior::AddObjectOpacityTween2"
-              },
-              "parameters": [
-                "TextPlanningPhase",
-                "Tween",
-                "\"Hide\"",
-                "0",
-                "\"linear\"",
-                "0.5",
-                "yes"
               ]
             }
           ]
@@ -7010,6 +6978,35 @@
                   "parameters": [
                     "AimCrosshair"
                   ]
+                },
+                {
+                  "type": {
+                    "value": "ResetTimer"
+                  },
+                  "parameters": [
+                    "",
+                    "\"PhaseTextTimer\""
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "OpacityCapability::OpacityBehavior::SetValue"
+                  },
+                  "parameters": [
+                    "TextTurnPhase",
+                    "Opacity",
+                    "=",
+                    "255"
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "UnPauseTimer"
+                  },
+                  "parameters": [
+                    "",
+                    "\"PhaseTextTimer\""
+                  ]
                 }
               ],
               "events": [
@@ -7058,16 +7055,6 @@
                   "actions": [
                     {
                       "type": {
-                        "value": "SetBooleanVariable"
-                      },
-                      "parameters": [
-                        "isTurnExecuting",
-                        "True",
-                        ""
-                      ]
-                    },
-                    {
-                      "type": {
                         "value": "PathfindingBehavior::SetDestination"
                       },
                       "parameters": [
@@ -7112,12 +7099,59 @@
                     },
                     {
                       "type": {
-                        "value": "SetNumberVariable"
+                        "value": "TextContainerCapability::TextContainerBehavior::SetValue"
+                      },
+                      "parameters": [
+                        "TextTurnPhase",
+                        "Text",
+                        "=",
+                        "\"\nOUTCOME\n\""
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "ResetTimer"
+                      },
+                      "parameters": [
+                        "",
+                        "\"ExecuteTimer\""
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "UnPauseTimer"
+                      },
+                      "parameters": [
+                        "",
+                        "\"ExecuteTimer\""
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [
+                    {
+                      "type": {
+                        "value": "NumberVariable"
                       },
                       "parameters": [
                         "turnPhase",
+                        "<",
+                        "3"
+                      ]
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "TextContainerCapability::TextContainerBehavior::SetValue"
+                      },
+                      "parameters": [
+                        "TextTurnPhase",
+                        "Text",
                         "=",
-                        "1"
+                        "\"PLAYER \" + turnPhase + \"\nPLANNING\nPHASE\""
                       ]
                     }
                   ]
@@ -8681,7 +8715,6 @@
                   "comment": "When Turn finished\n"
                 },
                 {
-                  "folded": true,
                   "type": "BuiltinCommonInstructions::Standard",
                   "conditions": [
                     {
@@ -8806,6 +8839,16 @@
                         "firePreperation",
                         "=",
                         "0"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "turnPhase",
+                        "=",
+                        "1"
                       ]
                     }
                   ],
@@ -8953,6 +8996,63 @@
                           },
                           "parameters": [
                             "AimCrosshair"
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "BuiltinCommonInstructions::Standard",
+                      "conditions": [
+                        {
+                          "type": {
+                            "value": "NumberVariable"
+                          },
+                          "parameters": [
+                            "turnPhase",
+                            "=",
+                            "1"
+                          ]
+                        }
+                      ],
+                      "actions": [
+                        {
+                          "type": {
+                            "value": "ResetTimer"
+                          },
+                          "parameters": [
+                            "",
+                            "\"PhaseTextTimer\""
+                          ]
+                        },
+                        {
+                          "type": {
+                            "value": "OpacityCapability::OpacityBehavior::SetValue"
+                          },
+                          "parameters": [
+                            "TextTurnPhase",
+                            "Opacity",
+                            "=",
+                            "255"
+                          ]
+                        },
+                        {
+                          "type": {
+                            "value": "UnPauseTimer"
+                          },
+                          "parameters": [
+                            "",
+                            "\"PhaseTextTimer\""
+                          ]
+                        },
+                        {
+                          "type": {
+                            "value": "TextContainerCapability::TextContainerBehavior::SetValue"
+                          },
+                          "parameters": [
+                            "TextTurnPhase",
+                            "Text",
+                            "=",
+                            "\"PLAYER \" + turnPhase + \"\nPLANNING\nPHASE\""
                           ]
                         }
                       ]
@@ -9533,6 +9633,186 @@
               "name": "distanceToSpawnPoint",
               "type": "number",
               "value": 0
+            }
+          ]
+        },
+        {
+          "type": "BuiltinCommonInstructions::Comment",
+          "color": {
+            "b": 109,
+            "g": 230,
+            "r": 255,
+            "textB": 0,
+            "textG": 0,
+            "textR": 0
+          },
+          "comment": "Turn Phase Text"
+        },
+        {
+          "type": "BuiltinCommonInstructions::Standard",
+          "conditions": [
+            {
+              "type": {
+                "value": "CompareTimer"
+              },
+              "parameters": [
+                "",
+                "\"PhaseTextTimer\"",
+                ">=",
+                "1"
+              ]
+            },
+            {
+              "type": {
+                "inverted": true,
+                "value": "TimerPaused"
+              },
+              "parameters": [
+                "",
+                "\"PhaseTextTimer\""
+              ]
+            }
+          ],
+          "actions": [
+            {
+              "type": {
+                "value": "Tween::TweenBehavior::AddObjectOpacityTween2"
+              },
+              "parameters": [
+                "TextTurnPhase",
+                "Tween",
+                "\"Hide\"",
+                "0",
+                "\"linear\"",
+                "1",
+                "no"
+              ]
+            },
+            {
+              "type": {
+                "value": "PauseTimer"
+              },
+              "parameters": [
+                "",
+                "\"PhaseTextTimer\""
+              ]
+            },
+            {
+              "type": {
+                "value": "DebuggerTools::ConsoleLog"
+              },
+              "parameters": [
+                "\"Tween the text\"",
+                "\"info\"",
+                ""
+              ]
+            }
+          ],
+          "events": [
+            {
+              "disabled": true,
+              "type": "BuiltinCommonInstructions::Standard",
+              "conditions": [
+                {
+                  "type": {
+                    "value": "NumberVariable"
+                  },
+                  "parameters": [
+                    "turnPhase",
+                    "<",
+                    "3"
+                  ]
+                }
+              ],
+              "actions": [
+                {
+                  "type": {
+                    "value": "TextContainerCapability::TextContainerBehavior::SetValue"
+                  },
+                  "parameters": [
+                    "TextTurnPhase",
+                    "Text",
+                    "=",
+                    "\"PLAYER \" + turnPhase + \"\nPLANNING\nPHASE\""
+                  ]
+                }
+              ]
+            },
+            {
+              "disabled": true,
+              "type": "BuiltinCommonInstructions::Standard",
+              "conditions": [
+                {
+                  "type": {
+                    "value": "NumberVariable"
+                  },
+                  "parameters": [
+                    "turnPhase",
+                    "=",
+                    "3"
+                  ]
+                }
+              ],
+              "actions": [
+                {
+                  "type": {
+                    "value": "TextContainerCapability::TextContainerBehavior::SetValue"
+                  },
+                  "parameters": [
+                    "TextTurnPhase",
+                    "Text",
+                    "=",
+                    "\"OUTCOME\""
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "BuiltinCommonInstructions::Standard",
+          "conditions": [
+            {
+              "type": {
+                "value": "CompareTimer"
+              },
+              "parameters": [
+                "",
+                "\"ExecuteTimer\"",
+                ">=",
+                "2"
+              ]
+            },
+            {
+              "type": {
+                "inverted": true,
+                "value": "TimerPaused"
+              },
+              "parameters": [
+                "",
+                "\"ExecuteTimer\""
+              ]
+            }
+          ],
+          "actions": [
+            {
+              "type": {
+                "value": "SetBooleanVariable"
+              },
+              "parameters": [
+                "isTurnExecuting",
+                "True",
+                ""
+              ]
+            },
+            {
+              "type": {
+                "value": "PauseTimer"
+              },
+              "parameters": [
+                "",
+                "\"ExecuteTimer\""
+              ]
             }
           ]
         }
