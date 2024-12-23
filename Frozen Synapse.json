@@ -3635,25 +3635,12 @@
           "bold": false,
           "italic": false,
           "name": "TextTurnPhase",
+          "persistentUuid": "91d2ea59-3aa3-41e2-adc5-fd32ff4218ad",
           "smoothed": true,
           "type": "TextObject::Text",
           "underlined": false,
           "variables": [],
-          "effects": [
-            {
-              "effectType": "Glow",
-              "name": "Effect",
-              "doubleParameters": {
-                "distance": 15,
-                "innerStrength": 1,
-                "outerStrength": 2
-              },
-              "stringParameters": {
-                "color": "255;255;255"
-              },
-              "booleanParameters": {}
-            }
-          ],
+          "effects": [],
           "behaviors": [
             {
               "name": "Tween",
@@ -4595,7 +4582,6 @@
           "colorG": 176,
           "colorR": 74,
           "creationTime": 0,
-          "folded": true,
           "name": "Planning",
           "source": "",
           "type": "BuiltinCommonInstructions::Group",
@@ -7541,6 +7527,17 @@
                         "Rifleman",
                         "CancelAimCrosshair"
                       ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberObjectVariable"
+                      },
+                      "parameters": [
+                        "CancelAimCrosshair",
+                        "nodeIndex",
+                        "=",
+                        "Rifleman.selectedNodeIndex"
+                      ]
                     }
                   ]
                 },
@@ -7778,7 +7775,6 @@
           "colorG": 176,
           "colorR": 74,
           "creationTime": 0,
-          "folded": true,
           "name": "Path and waypoint drawing",
           "source": "",
           "type": "BuiltinCommonInstructions::Group",
@@ -7917,35 +7913,6 @@
                                       },
                                       "parameters": [
                                         "",
-                                        "AimCrosshair",
-                                        "Rifleman",
-                                        ""
-                                      ]
-                                    }
-                                  ],
-                                  "actions": [
-                                    {
-                                      "type": {
-                                        "value": "OpacityCapability::OpacityBehavior::SetValue"
-                                      },
-                                      "parameters": [
-                                        "AimCrosshair",
-                                        "Opacity",
-                                        "=",
-                                        "OpacitySelected"
-                                      ]
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "BuiltinCommonInstructions::Standard",
-                                  "conditions": [
-                                    {
-                                      "type": {
-                                        "value": "LinkedObjects::PickObjectsLinkedTo"
-                                      },
-                                      "parameters": [
-                                        "",
                                         "CancelAimCrosshair",
                                         "Rifleman",
                                         ""
@@ -8056,35 +8023,6 @@
                                       },
                                       "parameters": [
                                         "",
-                                        "AimCrosshair",
-                                        "Rifleman",
-                                        ""
-                                      ]
-                                    }
-                                  ],
-                                  "actions": [
-                                    {
-                                      "type": {
-                                        "value": "OpacityCapability::OpacityBehavior::SetValue"
-                                      },
-                                      "parameters": [
-                                        "AimCrosshair",
-                                        "Opacity",
-                                        "=",
-                                        "OpacityNotSelected"
-                                      ]
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "BuiltinCommonInstructions::Standard",
-                                  "conditions": [
-                                    {
-                                      "type": {
-                                        "value": "LinkedObjects::PickObjectsLinkedTo"
-                                      },
-                                      "parameters": [
-                                        "",
                                         "CancelAimCrosshair",
                                         "Rifleman",
                                         ""
@@ -8119,6 +8057,18 @@
                           "source": "",
                           "type": "BuiltinCommonInstructions::Group",
                           "events": [
+                            {
+                              "type": "BuiltinCommonInstructions::Comment",
+                              "color": {
+                                "b": 109,
+                                "g": 230,
+                                "r": 255,
+                                "textB": 0,
+                                "textG": 0,
+                                "textR": 0
+                              },
+                              "comment": "Draw path"
+                            },
                             {
                               "infiniteLoopWarning": true,
                               "type": "BuiltinCommonInstructions::While",
@@ -8388,6 +8338,67 @@
                                           "parameters": [
                                             "AimCrosshair",
                                             ""
+                                          ]
+                                        }
+                                      ],
+                                      "events": [
+                                        {
+                                          "type": "BuiltinCommonInstructions::Standard",
+                                          "conditions": [
+                                            {
+                                              "type": {
+                                                "value": "BooleanObjectVariable"
+                                              },
+                                              "parameters": [
+                                                "Rifleman",
+                                                "selected",
+                                                "True",
+                                                ""
+                                              ]
+                                            }
+                                          ],
+                                          "actions": [
+                                            {
+                                              "type": {
+                                                "value": "OpacityCapability::OpacityBehavior::SetValue"
+                                              },
+                                              "parameters": [
+                                                "AimCrosshair",
+                                                "Opacity",
+                                                "=",
+                                                "OpacitySelected"
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "BuiltinCommonInstructions::Standard",
+                                          "conditions": [
+                                            {
+                                              "type": {
+                                                "inverted": true,
+                                                "value": "BooleanObjectVariable"
+                                              },
+                                              "parameters": [
+                                                "Rifleman",
+                                                "selected",
+                                                "True",
+                                                ""
+                                              ]
+                                            }
+                                          ],
+                                          "actions": [
+                                            {
+                                              "type": {
+                                                "value": "OpacityCapability::OpacityBehavior::SetValue"
+                                              },
+                                              "parameters": [
+                                                "AimCrosshair",
+                                                "Opacity",
+                                                "=",
+                                                "OpacityNotSelected"
+                                              ]
+                                            }
                                           ]
                                         }
                                       ]
