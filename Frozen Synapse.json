@@ -206,6 +206,22 @@
         "name": "NewSprite3",
         "smoothed": true,
         "userAdded": false
+      },
+      {
+        "file": "aseprite/rifleman_dead.png",
+        "kind": "image",
+        "metadata": "",
+        "name": "aseprite/rifleman_dead.png",
+        "smoothed": true,
+        "userAdded": false
+      },
+      {
+        "file": "assets/dead.png",
+        "kind": "image",
+        "metadata": "{\"extension\":\".png\"}",
+        "name": "dead",
+        "smoothed": true,
+        "userAdded": false
       }
     ],
     "resourceFolders": []
@@ -782,6 +798,11 @@
               "name": "targetPosY",
               "type": "number",
               "value": 0
+            },
+            {
+              "name": "isAlive",
+              "type": "boolean",
+              "value": true
             }
           ],
           "effects": [
@@ -841,6 +862,61 @@
                     {
                       "hasCustomCollisionMask": true,
                       "image": "rifleman2",
+                      "points": [
+                        {
+                          "name": "FireStart",
+                          "x": 61,
+                          "y": 35
+                        }
+                      ],
+                      "originPoint": {
+                        "name": "origine",
+                        "x": 32,
+                        "y": 32
+                      },
+                      "centerPoint": {
+                        "automatic": false,
+                        "name": "centre",
+                        "x": 32,
+                        "y": 32
+                      },
+                      "customCollisionMask": [
+                        [
+                          {
+                            "x": 8,
+                            "y": 17
+                          },
+                          {
+                            "x": 58,
+                            "y": 17
+                          },
+                          {
+                            "x": 58,
+                            "y": 48
+                          },
+                          {
+                            "x": 8,
+                            "y": 48
+                          }
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "dead",
+              "useMultipleDirections": false,
+              "directions": [
+                {
+                  "looping": false,
+                  "metadata": "{\"pskl\":{}}",
+                  "timeBetweenFrames": 0.08,
+                  "sprites": [
+                    {
+                      "hasCustomCollisionMask": true,
+                      "image": "dead",
                       "points": [
                         {
                           "name": "FireStart",
@@ -6904,7 +6980,19 @@
                     {
                       "type": "BuiltinCommonInstructions::ForEach",
                       "object": "Rifleman",
-                      "conditions": [],
+                      "conditions": [
+                        {
+                          "type": {
+                            "value": "BooleanObjectVariable"
+                          },
+                          "parameters": [
+                            "Rifleman",
+                            "isAlive",
+                            "True",
+                            ""
+                          ]
+                        }
+                      ],
                       "actions": [
                         {
                           "type": {
@@ -6932,6 +7020,7 @@
                           "comment": "Move and Aim"
                         },
                         {
+                          "folded": true,
                           "type": "BuiltinCommonInstructions::Standard",
                           "conditions": [
                             {
@@ -7492,6 +7581,17 @@
                                         "ID",
                                         "!=",
                                         "raySourceID"
+                                      ]
+                                    },
+                                    {
+                                      "type": {
+                                        "value": "BooleanObjectVariable"
+                                      },
+                                      "parameters": [
+                                        "Rifleman",
+                                        "isAlive",
+                                        "True",
+                                        ""
                                       ]
                                     },
                                     {
@@ -8105,6 +8205,18 @@
                       ]
                     },
                     {
+                      "type": "BuiltinCommonInstructions::Comment",
+                      "color": {
+                        "b": 109,
+                        "g": 230,
+                        "r": 255,
+                        "textB": 0,
+                        "textG": 0,
+                        "textR": 0
+                      },
+                      "comment": "Move Bullet\n"
+                    },
+                    {
                       "type": "BuiltinCommonInstructions::Standard",
                       "conditions": [],
                       "actions": [
@@ -8117,6 +8229,56 @@
                             "Bullet.Angle()",
                             "BulletSpeed_pix_sec",
                             "0"
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "BuiltinCommonInstructions::Standard",
+                      "conditions": [
+                        {
+                          "type": {
+                            "value": "CollisionNP"
+                          },
+                          "parameters": [
+                            "Bullet",
+                            "Rifleman",
+                            "",
+                            "",
+                            ""
+                          ]
+                        }
+                      ],
+                      "actions": [
+                        {
+                          "type": {
+                            "value": "SetBooleanObjectVariable"
+                          },
+                          "parameters": [
+                            "Rifleman",
+                            "isAlive",
+                            "False",
+                            ""
+                          ]
+                        },
+                        {
+                          "type": {
+                            "value": "AnimatableCapability::AnimatableBehavior::SetName"
+                          },
+                          "parameters": [
+                            "Rifleman",
+                            "Animation",
+                            "=",
+                            "\"dead\""
+                          ]
+                        },
+                        {
+                          "type": {
+                            "value": "Delete"
+                          },
+                          "parameters": [
+                            "Bullet",
+                            ""
                           ]
                         }
                       ]
